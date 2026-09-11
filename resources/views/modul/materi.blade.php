@@ -13,6 +13,8 @@
                 </div>
             @endif
 
+            @include('modul._tabs', ['aktif' => 'materi'])
+
             <div class="bg-white shadow-sm sm:rounded-lg p-6">
                 @include($subBagian->konten_view)
             </div>

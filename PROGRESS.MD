@@ -127,7 +127,31 @@ Catatan Sesi 14:
 
 ## Phase 4 — Sub-section Features & Special Screens
 
-Sesi 15 — Task 9: Tab Refleksi (terkunci → submit sekali → read-only, backend enforced)
+Sesi 15 — Task 9: Tab Refleksi (terkunci → submit sekali → read-only, backend enforced) ✅
+
+Catatan Sesi 15 (dari interview sebelum ngoding):
+- Refleksi generik berlaku untuk SEMUA 30 sub-bagian (bukan cuma 6 yang
+  punya box "Yuk, Refleksi!" eksplisit di konten — box itu tetap tampil
+  apa adanya di tab Materi, tidak dipakai jadi sumber prompt form).
+- Materi & Refleksi = 2 route terpisah (bukan 1 halaman + JS tab):
+  `/modul/{modul}/{subBagian}` dan `.../refleksi`, dihubungkan nav tab
+  visual (`modul/_tabs.blade.php`, partial baru dipakai 2 view).
+- Akses `/refleksi` sebelum `materi_selesai=true` → redirect ke tab
+  Materi + flash message (pola sama `EnsurePretestSubmitted`).
+- Setelah submit, halaman refleksi tetap bisa dibuka: textarea disabled
+  + jawaban tersimpan tetap tampil (bukan hilang/redirect lain).
+- Validasi cuma `required|string`, tanpa minimum karakter (gak ada dasar
+  angka dari dokumen klien).
+- Model baru: `Refleksi` (belongsTo User, SubBagian) + `User::refleksi()`.
+  Migration baru nambah unique index (user_id, sub_bagian_id) ke tabel
+  `refleksi` (tabel sudah ada dari Sesi 2, gap sama seperti progress_modul
+  sebelum Task 8).
+- Controller baru: `RefleksiController` (show, store) — no-edit-after-
+  submit di-enforce di backend (re-cek `is_locked` sebelum create, bukan
+  cuma sembunyiin form di UI), sesuai CLAUDE.md rule #8.
+- Test baru: `tests/Feature/RefleksiTest.php` (5 test, termasuk bukti
+  submit kedua kali ditolak backend & tidak mengubah jawaban pertama).
+  Full suite 43/43 pass.
 Sesi 16 — Task 10: Tracker gizi mingguan (one-time entry, kolom JSON, is_locked)
 Sesi 17 — Task 11: Kalender haid (CRUD berkelanjutan, riwayat penuh)
 Sesi 18 — Task 12: Video YouTube popup player di tab Materials

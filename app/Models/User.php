@@ -41,6 +41,11 @@ class User extends Authenticatable
         return $this->hasMany(ProgressModul::class);
     }
 
+    public function refleksi(): HasMany
+    {
+        return $this->hasMany(Refleksi::class);
+    }
+
     public function materiSelesaiSemua(): bool
     {
         return SubBagian::count() === $this->progressModul()->where('materi_selesai', true)->count();
