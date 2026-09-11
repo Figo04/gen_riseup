@@ -83,7 +83,23 @@ Catatan Sesi 12 (dari interview):
   terstruktur. Tidak ada komponen baru dibuat.
 - Video masih null (belum ada link YouTube dari klien, sama seperti
   Modul 1 & 2).
-Sesi 13 — Task 6d: Seeder Modul 4 — Kenali Tubuhmu
+Sesi 13 — Task 6d: Seeder Modul 4 — Kenali Tubuhmu ✅
+
+Catatan Sesi 13:
+- Modul 4 dipecah 9 sub-bagian, 1:1 per Bab (pola sama Sesi 10-12).
+- `<x-mitos-fakta>` + `<x-mitos-fakta-item>` (dibuat Sesi 10) akhirnya
+  dipakai lagi di sini (Bab 3 — Body Image), bukan cuma di Modul 1.
+- Box peringatan/data (⚠️ Wajib Ingat!, 📊 Data Penting, 🚩 Penting
+  Diingat) pakai `<x-highlight>` — variant peach untuk yang bersifat
+  peringatan/caution (⚠️, 🚩), variant mint (default) untuk yang
+  informasional (📊), konsisten dengan keputusan interview Sesi 12
+  soal "Kutipan Penting".
+- Gambar cover pertama dokumen (777f7607…) di-drop dari konten, jadi
+  `modul.cover_image` — pola sama semua modul sebelumnya.
+- Tidak ada komponen baru dibuat. Video tetap null.
+- Verifikasi: 9 view berhasil `render()` tanpa error, seeder dijalankan
+  ulang lalu duplikat Modul 1-3 yang ikut ke-insert (seeder tidak
+  idempotent) dibersihkan manual — hasil akhir 4 modul / 30 sub_bagian.
 Sesi 14 — Task 8: Progress tracking per sub-bagian (basis gating refleksi & post-test)
 
 ## Phase 4 — Sub-section Features & Special Screens

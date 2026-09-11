@@ -42,6 +42,18 @@ class ModulSeeder extends Seeder
             ['judul' => 'Circle Pendukung & Kebersamaan', 'slug' => 'circle-pendukung-dan-kebersamaan'],
             ['judul' => 'Rencana Aksi: START FROM', 'slug' => 'rencana-aksi-start-from'],
         ]);
+
+        $this->seedModul('Kenali Tubuhmu', 'kenali-tubuhmu', 4, 'images/modul-4/cover.jpg', [
+            ['judul' => 'Setiap Perubahan Ada Maknanya', 'slug' => 'setiap-perubahan-ada-maknanya'],
+            ['judul' => 'Normalisasi Istilah Medis', 'slug' => 'normalisasi-istilah-medis'],
+            ['judul' => 'Body Image: Mitos vs Realita Medis', 'slug' => 'body-image-mitos-vs-realita-medis'],
+            ['judul' => 'Kenali Siklus Haidmu', 'slug' => 'kenali-siklus-haidmu'],
+            ['judul' => 'Red Flag: Kapan Harus Waspada?', 'slug' => 'red-flag-kapan-harus-waspada'],
+            ['judul' => 'Rasa Suka & Ketertarikan Romantis', 'slug' => 'rasa-suka-dan-ketertarikan-romantis'],
+            ['judul' => 'Berani Menolak & Menjaga Privasi Digital', 'slug' => 'berani-menolak-dan-menjaga-privasi-digital'],
+            ['judul' => 'Kesehatan Reproduksi Itu Lebih dari Sekadar Biologis', 'slug' => 'kesehatan-reproduksi-lebih-dari-sekadar-biologis'],
+            ['judul' => 'Tips & Strategi Praktis', 'slug' => 'tips-dan-strategi-praktis'],
+        ]);
     }
 
     /**
