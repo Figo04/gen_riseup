@@ -19,6 +19,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectGuestsTo(
             fn (Request $request) => $request->is('admin', 'admin/*') ? route('admin.login') : route('login')
         );
+
+        $middleware->alias([
+            'pretest.completed' => \App\Http\Middleware\EnsurePretestSubmitted::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

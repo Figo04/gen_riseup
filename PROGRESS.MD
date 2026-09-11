@@ -16,8 +16,8 @@ Sesi 4 — Task 2b: Admin auth — guard admin, model Admin, login /admin, route
 
 Sesi 5 — Task 3a: Seed 22 soal pengetahuan (B/S) dari dokumen klien ✅
 Sesi 6 — Task 3b: Seed 20 soal sikap (SS/S/TS/STS) + penanda reverse_scored dari dokumen klien ✅
-Sesi 7 — Task 4: Form pre-test + material-locking + final submission (validasi backend, no edit after submit)
-Sesi 8 — Task 5: Skor otomatis — pengetahuan → % + kategori Baik/Cukup/Kurang; sikap → total (perhatikan reverse_scored)
+Sesi 7 — Task 4: Form pre-test + material-locking + final submission (validasi backend, no edit after submit) ✅
+Sesi 8 — Task 5: Skor otomatis — pengetahuan → % + kategori Baik/Cukup/Kurang; sikap → total (perhatikan reverse_scored) ✅ (dihitung inline di PretestController@store pada Task 4, tidak ada sesi/logic terpisah)
 
 ## Phase 3 — Module Content
 
