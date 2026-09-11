@@ -5,6 +5,7 @@ use App\Http\Controllers\PretestController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RefleksiController;
 use App\Http\Controllers\SubBagianController;
+use App\Http\Controllers\TrackerController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -30,6 +31,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/modul/{modul}/{subBagian}/selesai', [SubBagianController::class, 'selesai'])->name('modul.sub-bagian.selesai');
         Route::get('/modul/{modul}/{subBagian}/refleksi', [RefleksiController::class, 'show'])->name('modul.sub-bagian.refleksi');
         Route::post('/modul/{modul}/{subBagian}/refleksi', [RefleksiController::class, 'store'])->name('modul.sub-bagian.refleksi.store');
+
+        Route::get('/tracker-gizi', [TrackerController::class, 'showGizi'])->name('tracker-gizi.show');
+        Route::post('/tracker-gizi', [TrackerController::class, 'storeGizi'])->name('tracker-gizi.store');
     });
 });
 

@@ -152,7 +152,44 @@ Catatan Sesi 15 (dari interview sebelum ngoding):
 - Test baru: `tests/Feature/RefleksiTest.php` (5 test, termasuk bukti
   submit kedua kali ditolak backend & tidak mengubah jawaban pertama).
   Full suite 43/43 pass.
-Sesi 16 — Task 10: Tracker gizi mingguan (one-time entry, kolom JSON, is_locked)
+Sesi 16 — Task 10: Tracker gizi mingguan (one-time entry, kolom JSON, is_locked) ✅
+
+Catatan Sesi 16 (dari interview sebelum & sesudah ngoding):
+- Struktur `data` json: 7 hari (Senin-Minggu) x 4 kebiasaan boolean
+  (sayur_buah, protein, air_putih, camilan_sehat) — sama persis dengan
+  tabel contoh statis yang sudah ada di sub-bagian "Rencana Aksi
+  Kebiasaan Gizi Harianmu" (Modul 2, Sesi 11).
+- Tracker diakses lewat link dari dalam sub-bagian tsb, bukan menu
+  terpisah — beda dari rencana Kalender Haid (Task 11) yang memang jadi
+  menu tersendiri.
+- Migration tracker_gizi SUDAH ada dari Sesi 2 (kolom data/is_locked/
+  submitted_at persis sesuai PRD §5); ditambah 1 migration baru khusus
+  unique index (user_id), pola sama seperti progress_modul & refleksi
+  (Sesi 14/15) supaya one-time entry tidak bisa dobel row.
+- Model baru: `TrackerGizi` (belongsTo User) + `User::trackerGizi()`
+  (hasOne — beda dari refleksi/progress_modul yang hasMany, karena
+  tracker ini satu row per user, bukan per sub-bagian).
+- Controller baru: `TrackerController@showGizi/@storeGizi`. Nama
+  controller ini generik (bukan `TrackerGiziController`) karena PRD §6
+  folder structure sudah menetapkan satu `TrackerController` menangani
+  gizi mingguan + kalender haid — method kalender haid ditambah nanti
+  di Sesi 17, controller yang sama.
+- Route `/tracker-gizi` (GET+POST) di grup middleware `pretest.completed`
+  yang sama dengan modul/refleksi — TIDAK digating tambahan sampai
+  materi_selesai di sub-bagian Rencana Aksi (dikonfirmasi via interview:
+  siswa bebas isi tracker kapan saja setelah pretest, tidak harus urut
+  ikuti modul, konsisten dengan pola gating fitur lain).
+- No-edit-after-submit di-enforce di backend (`storeGizi` cek is_locked
+  sebelum create), sesuai CLAUDE.md rule #8 — bukan cuma disable tombol
+  di view.
+- Tidak ada `$request->validate()` eksplisit — semua field checkbox
+  boolean dibaca via `$request->boolean()` (tak-tercentang otomatis
+  false), dikonfirmasi cukup karena tidak ada input free-text/format
+  yang bisa salah.
+- Test baru: `tests/Feature/TrackerGiziTest.php` (3 test: gating
+  redirect ke pretest, submit sukses + data ternormalisasi per hari,
+  submit kedua kali ditolak & data tidak berubah). Full suite 46/46
+  pass.
 Sesi 17 — Task 11: Kalender haid (CRUD berkelanjutan, riwayat penuh)
 Sesi 18 — Task 12: Video YouTube popup player di tab Materials
 

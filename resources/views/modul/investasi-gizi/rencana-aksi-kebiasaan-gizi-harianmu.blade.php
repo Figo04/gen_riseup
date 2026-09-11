@@ -36,6 +36,12 @@
         </table>
     </div>
 
+    <div class="text-center">
+        <a href="{{ route('tracker-gizi.show') }}" class="inline-block px-4 py-2 rounded-lg bg-brand-mint font-semibold text-brand-ink hover:opacity-90">
+            📋 Isi Tracker Gizi Mingguanmu
+        </a>
+    </div>
+
     <x-highlight title="Ingat!" icon="✅">
         <p>Tidak perlu sempurna setiap hari — konsistensi kecil lebih baik daripada perubahan drastis yang sulit bertahan.</p>
         <p>Gizi baik hari ini adalah investasi untuk versi dirimu yang lebih sehat, fokus, dan siap mengejar mimpi di masa depan.</p>
