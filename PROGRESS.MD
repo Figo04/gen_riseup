@@ -216,7 +216,27 @@ Catatan Sesi 17:
 - Test baru: `tests/Feature/KalenderHaidTest.php` (4 test: tambah &
   tampil di riwayat, update entri sendiri, hapus entri sendiri, 403
   kalau coba edit/update/hapus entri user lain). Full suite 50/50 pass.
-Sesi 18 — Task 12: Video YouTube popup player di tab Materials
+Sesi 18 — Task 12: Video YouTube popup player di tab Materials ✅
+
+Catatan Sesi 18:
+- Reuse `<x-modal>` Breeze (bukan komponen modal baru) — iframe YouTube
+  `:src` di-bind ke state `show` milik modal, jadi video berhenti
+  otomatis pas popup ditutup, bukan cuma disembunyikan.
+- Tanpa autoplay (dikonfirmasi via interview) — video nunggu diklik
+  play manual di dalam player, bukan langsung jalan pas popup dibuka.
+- Tombol "Tonton Video" fixed di atas kotak konten (`modul/materi.blade.php`),
+  tampil hanya kalau `sub_bagian.video_youtube_id` terisi — posisi ini
+  dikonfirmasi tetap, bukan komponen dalam alur konten tiap sub-bagian.
+- `video_youtube_id` tetap di level sub-bagian (bukan modul) — sesuai
+  schema yang sudah ada dari Sesi 9/10, generik untuk bab manapun yang
+  klien anggap relevan per modul (bukan mesti bab 1).
+- 1 placeholder video_youtube_id ("jNQXAC9IVRw") diisi ke sub-bagian
+  pertama Modul 1 untuk testing, ditandai komentar "ganti pas klien
+  kasih video asli" — tetap di-commit (dikonfirmasi), 29 sub-bagian
+  lain masih null (belum ada link dari klien).
+- Test baru: `tests/Feature/VideoPopupTest.php` (2 test: tombol video
+  muncul saat video_youtube_id ada, tidak muncul saat kosong). Full
+  suite 52/52 pass.
 
 ## Phase 5 — Post-test
 
