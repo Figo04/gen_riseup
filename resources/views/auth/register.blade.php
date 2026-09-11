@@ -16,6 +16,38 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
+        <!-- Usia -->
+        <div class="mt-4">
+            <x-input-label for="usia" :value="__('Usia')" />
+            <x-text-input id="usia" class="block mt-1 w-full" type="number" name="usia" :value="old('usia')" min="13" max="18" required />
+            <x-input-error :messages="$errors->get('usia')" class="mt-2" />
+        </div>
+
+        <!-- Jenis Kelamin -->
+        <div class="mt-4">
+            <x-input-label for="jenis_kelamin" :value="__('Jenis Kelamin')" />
+            <select id="jenis_kelamin" name="jenis_kelamin" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                <option value="" disabled {{ old('jenis_kelamin') ? '' : 'selected' }}>{{ __('Pilih jenis kelamin') }}</option>
+                <option value="L" {{ old('jenis_kelamin') === 'L' ? 'selected' : '' }}>{{ __('Laki-laki') }}</option>
+                <option value="P" {{ old('jenis_kelamin') === 'P' ? 'selected' : '' }}>{{ __('Perempuan') }}</option>
+            </select>
+            <x-input-error :messages="$errors->get('jenis_kelamin')" class="mt-2" />
+        </div>
+
+        <!-- Sekolah -->
+        <div class="mt-4">
+            <x-input-label for="sekolah" :value="__('Sekolah')" />
+            <x-text-input id="sekolah" class="block mt-1 w-full" type="text" name="sekolah" :value="old('sekolah')" />
+            <x-input-error :messages="$errors->get('sekolah')" class="mt-2" />
+        </div>
+
+        <!-- Kelas -->
+        <div class="mt-4">
+            <x-input-label for="kelas" :value="__('Kelas')" />
+            <x-text-input id="kelas" class="block mt-1 w-full" type="text" name="kelas" :value="old('kelas')" />
+            <x-input-error :messages="$errors->get('kelas')" class="mt-2" />
+        </div>
+
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
