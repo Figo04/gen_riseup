@@ -238,6 +238,30 @@ Catatan Sesi 18:
   muncul saat video_youtube_id ada, tidak muncul saat kosong). Full
   suite 52/52 pass.
 
+Sesi A1 — Audit Sesi 7-8 (pre-test, material-locking, skoring) ✅
+
+Hasil audit:
+- AMAN: skor pengetahuan (%, batas Baik ≥76 / Cukup ≥56 cocok kriteria
+  Arikunto), kunci jawaban 22/22 cocok Lampiran B, reverse_scored sikap
+  (peta 4-1 / 1-4 benar, 2U per domain cocok kisi-kisi), material-locking
+  (semua route materi di dalam `pretest.completed`, termasuk POST selesai),
+  transaksi DB (hasil + 42 detail satu `DB::transaction`).
+- DIPERBAIKI: `hasil_kuesioner` tidak punya unique index → dua POST
+  paralel (double-click/dua tab) bisa bikin 2 baris pre-test. Cek
+  `sudahMengisi()` ada di luar transaksi, jadi cuma fast-path.
+  Fix: migration unique (user_id, tipe_sesi) — pola sama progress_modul/
+  refleksi/tracker_gizi — + `catch (UniqueConstraintViolationException)`
+  di `PretestController@store` supaya race berakhir redirect, bukan 500.
+- DIPERBAIKI: Sesi 7-8 satu-satunya sesi tanpa test. Ditambah
+  `tests/Feature/PretestTest.php` (7 test). Full suite 59/59 pass.
+- DITUNDA (dicatat, belum dikerjakan): radio pre-test tanpa `old()` →
+  jawaban 42 soal hilang kalau validasi server gagal; `onDelete('cascade')`
+  pada `hasil_kuesioner_detail.soal_id` → admin hapus 1 soal di Phase 6
+  ikut menghapus jawaban historis siswa (keputusan Phase 6/klien);
+  pembagi skor pengetahuan dari `count()` live → DivisionByZeroError
+  kalau semua soal pengetahuan dihapus admin; `sudahMengisi()` masih
+  hardcode 'pre' (rapikan saat reuse untuk post-test di Sesi 20).
+
 ## Phase 5 — Post-test
 
 Sesi 19 — Task 13: Auto-switch menu ke Post-test setelah semua sub-bagian selesai

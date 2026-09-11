@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\HasilKuesioner;
 use App\Models\HasilKuesionerDetail;
 use App\Models\KuesionerSoal;
+use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,10 +18,12 @@ class PretestController extends Controller
 
     private const KATEGORI_SIKAP_UNFAVORABLE = ['SS' => 1, 'S' => 2, 'TS' => 3, 'STS' => 4];
 
+    private const PESAN_SUDAH_MENGISI = 'Pre-test sudah pernah diisi dan tidak dapat diisi ulang.';
+
     public function create(): View|RedirectResponse
     {
         if ($this->sudahMengisi()) {
-            return redirect()->route('dashboard')->with('status', 'Pre-test sudah pernah diisi dan tidak dapat diisi ulang.');
+            return redirect()->route('dashboard')->with('status', self::PESAN_SUDAH_MENGISI);
         }
 
         $soal = KuesionerSoal::orderBy('tipe')->orderBy('urutan')->get();
@@ -34,7 +37,7 @@ class PretestController extends Controller
     public function store(Request $request): RedirectResponse
     {
         if ($this->sudahMengisi()) {
-            return redirect()->route('dashboard')->with('status', 'Pre-test sudah pernah diisi dan tidak dapat diisi ulang.');
+            return redirect()->route('dashboard')->with('status', self::PESAN_SUDAH_MENGISI);
         }
 
         $soal = KuesionerSoal::orderBy('urutan')->get()->keyBy('id');
@@ -76,21 +79,27 @@ class PretestController extends Controller
             default => 'Kurang',
         };
 
-        DB::transaction(function () use ($detail, $skorPengetahuan, $kategoriPengetahuan, $skorSikap, $now) {
-            $hasil = HasilKuesioner::create([
-                'user_id' => Auth::id(),
-                'tipe_sesi' => 'pre',
-                'skor_pengetahuan' => $skorPengetahuan,
-                'kategori_pengetahuan' => $kategoriPengetahuan,
-                'skor_sikap' => $skorSikap,
-                'submitted_at' => $now,
-            ]);
+        try {
+            DB::transaction(function () use ($detail, $skorPengetahuan, $kategoriPengetahuan, $skorSikap, $now) {
+                $hasil = HasilKuesioner::create([
+                    'user_id' => Auth::id(),
+                    'tipe_sesi' => 'pre',
+                    'skor_pengetahuan' => $skorPengetahuan,
+                    'kategori_pengetahuan' => $kategoriPengetahuan,
+                    'skor_sikap' => $skorSikap,
+                    'submitted_at' => $now,
+                ]);
 
-            foreach ($detail as $d) {
-                $d['hasil_kuesioner_id'] = $hasil->id;
-                HasilKuesionerDetail::create($d);
-            }
-        });
+                foreach ($detail as $d) {
+                    $d['hasil_kuesioner_id'] = $hasil->id;
+                    HasilKuesionerDetail::create($d);
+                }
+            });
+        } catch (UniqueConstraintViolationException) {
+            // Dua submit paralel (double-click / dua tab): unique (user_id, tipe_sesi)
+            // menolak yang kedua. Cek di awal method cuma fast-path, bukan jaminan.
+            return redirect()->route('dashboard')->with('status', self::PESAN_SUDAH_MENGISI);
+        }
 
         return redirect()->route('dashboard')->with('status', 'Pre-test berhasil dikirim.');
     }
