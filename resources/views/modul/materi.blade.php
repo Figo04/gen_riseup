@@ -15,6 +15,23 @@
 
             @include('modul._tabs', ['aktif' => 'materi'])
 
+            @if ($subBagian->video_youtube_id)
+                <button type="button" x-data class="inline-flex items-center gap-2 text-sm font-semibold text-brand-ink" x-on:click="$dispatch('open-modal', 'video-materi')">
+                    ▶ Tonton Video
+                </button>
+
+                <x-modal name="video-materi" maxWidth="2xl">
+                    <div class="aspect-video">
+                        <iframe
+                            class="w-full h-full"
+                            :src="show ? 'https://www.youtube-nocookie.com/embed/{{ $subBagian->video_youtube_id }}' : ''"
+                            allow="encrypted-media"
+                            allowfullscreen
+                        ></iframe>
+                    </div>
+                </x-modal>
+            @endif
+
             <div class="bg-white shadow-sm sm:rounded-lg p-6">
                 @include($subBagian->konten_view)
             </div>

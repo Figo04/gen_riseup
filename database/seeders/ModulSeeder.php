@@ -14,7 +14,7 @@ class ModulSeeder extends Seeder
     public function run(): void
     {
         $this->seedModul('Kejar Mimpi', 'kejar-mimpi', 1, 'images/modul-1/cover.jpg', [
-            ['judul' => 'Dua Pintu di Depanmu', 'slug' => 'dua-pintu-di-depanmu'],
+            ['judul' => 'Dua Pintu di Depanmu', 'slug' => 'dua-pintu-di-depanmu', 'video' => 'jNQXAC9IVRw'], // placeholder testing Task 12, ganti pas klien kasih video asli
             ['judul' => 'Mitos vs Fakta Pernikahan Dini', 'slug' => 'mitos-vs-fakta-pernikahan-dini'],
             ['judul' => 'Circle Sehat vs Circle Mandek', 'slug' => 'circle-sehat-vs-circle-mandek'],
             ['judul' => 'Bangun Fondasi Tubuh & Masa Depanmu', 'slug' => 'bangun-fondasi-tubuh-dan-masa-depanmu'],
@@ -72,10 +72,10 @@ class ModulSeeder extends Seeder
             SubBagian::create([
                 'modul_id' => $modul->id,
                 'judul' => $item['judul'],
-                // video_youtube_id belum ada (video belum diupload ke YouTube oleh klien)
                 'konten_view' => "modul.{$slug}.{$item['slug']}",
                 'urutan' => $i + 1,
-                'video_youtube_id' => null,
+                // video_youtube_id belum ada dari klien untuk sisanya
+                'video_youtube_id' => $item['video'] ?? null,
             ]);
         }
     }
