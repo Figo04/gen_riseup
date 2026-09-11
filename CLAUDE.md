@@ -149,7 +149,7 @@ in this repo:
    (view-only), and never sees reflection or nutrition-tracker data —
    enforce this at the query/controller level, not just by omitting it
    from the view.
-
+10. Every commit must be followed by a push to the remote(git push) — commits must not stay local-only.
 ---
 
 ## 5. Completion Criteria (Definition of Done)
