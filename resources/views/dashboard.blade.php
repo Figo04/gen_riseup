@@ -11,6 +11,7 @@
                 <div class="p-6 text-gray-900">
                     {{ __("You're logged in!") }}
                     <a href="{{ route('modul.index') }}" class="text-brand-ink underline">Lihat Materi</a>
+                    <a href="{{ route('kalender-haid.index') }}" class="text-brand-ink underline ml-4">Kalender Haid</a>
                 </div>
             </div>
         </div>

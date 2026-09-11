@@ -190,7 +190,32 @@ Catatan Sesi 16 (dari interview sebelum & sesudah ngoding):
   redirect ke pretest, submit sukses + data ternormalisasi per hari,
   submit kedua kali ditolak & data tidak berubah). Full suite 46/46
   pass.
-Sesi 17 — Task 11: Kalender haid (CRUD berkelanjutan, riwayat penuh)
+Sesi 17 — Task 11: Kalender haid (CRUD berkelanjutan, riwayat penuh) ✅
+
+Catatan Sesi 17:
+- Migration TIDAK baru — tabel `kalender_haid` sudah ada dari Sesi 2
+  dengan kolom persis sesuai PRD §5.
+- Model baru: `KalenderHaid` (belongsTo User) + `User::kalenderHaid()`
+  hasMany (beda dari refleksi/tracker gizi: ini banyak entri per user,
+  bukan one-time).
+- Method ditambah ke `TrackerController` yang sama dengan Task 10
+  (indexHaid/storeHaid/editHaid/updateHaid/destroyHaid), sesuai PRD §6
+  yang menetapkan satu controller untuk gizi + haid.
+- Beda pola dari Refleksi/TrackerGizi: kalender haid full CRUD tanpa
+  `is_locked` — entri ongoing, boleh diedit/dihapus kapan saja oleh
+  pemiliknya (sesuai PRD §3 poin 4 "ongoing... full history retained").
+  Ownership dicek manual (`abort_if user_id !== Auth::id()`, 403) di
+  tiap method edit/update/destroy karena tidak ada scope query bawaan.
+- Route `/kalender-haid` (index/store/edit/update/destroy) di grup
+  `pretest.completed` yang sama dengan modul/refleksi/tracker gizi,
+  TIDAK terikat urutan modul (PRD: "at any time, not tied to module
+  order").
+- View baru: `tracker/kalender-haid/index.blade.php` (form tambah +
+  tabel riwayat) dan `edit.blade.php`. Link "Kalender Haid" ditambah ke
+  dashboard, sebelah "Lihat Materi" (pola sama Sesi 14).
+- Test baru: `tests/Feature/KalenderHaidTest.php` (4 test: tambah &
+  tampil di riwayat, update entri sendiri, hapus entri sendiri, 403
+  kalau coba edit/update/hapus entri user lain). Full suite 50/50 pass.
 Sesi 18 — Task 12: Video YouTube popup player di tab Materials
 
 ## Phase 5 — Post-test

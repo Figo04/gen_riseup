@@ -34,6 +34,12 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/tracker-gizi', [TrackerController::class, 'showGizi'])->name('tracker-gizi.show');
         Route::post('/tracker-gizi', [TrackerController::class, 'storeGizi'])->name('tracker-gizi.store');
+
+        Route::get('/kalender-haid', [TrackerController::class, 'indexHaid'])->name('kalender-haid.index');
+        Route::post('/kalender-haid', [TrackerController::class, 'storeHaid'])->name('kalender-haid.store');
+        Route::get('/kalender-haid/{kalenderHaid}/edit', [TrackerController::class, 'editHaid'])->name('kalender-haid.edit');
+        Route::put('/kalender-haid/{kalenderHaid}', [TrackerController::class, 'updateHaid'])->name('kalender-haid.update');
+        Route::delete('/kalender-haid/{kalenderHaid}', [TrackerController::class, 'destroyHaid'])->name('kalender-haid.destroy');
     });
 });
 

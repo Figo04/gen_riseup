@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KalenderHaid;
 use App\Models\TrackerGizi;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -48,5 +49,55 @@ class TrackerController extends Controller
 
         return redirect()->route('tracker-gizi.show')
             ->with('status', 'Tracker gizi berhasil dikirim.');
+    }
+
+    public function indexHaid(): View
+    {
+        $entri = Auth::user()->kalenderHaid()->orderByDesc('tanggal_mulai')->get();
+
+        return view('tracker.kalender-haid.index', compact('entri'));
+    }
+
+    public function storeHaid(Request $request): RedirectResponse
+    {
+        $validated = $this->validateHaid($request);
+
+        Auth::user()->kalenderHaid()->create($validated);
+
+        return redirect()->route('kalender-haid.index')->with('status', 'Entri kalender haid ditambahkan.');
+    }
+
+    public function editHaid(KalenderHaid $kalenderHaid): View
+    {
+        abort_if($kalenderHaid->user_id !== Auth::id(), 403);
+
+        return view('tracker.kalender-haid.edit', ['entri' => $kalenderHaid]);
+    }
+
+    public function updateHaid(Request $request, KalenderHaid $kalenderHaid): RedirectResponse
+    {
+        abort_if($kalenderHaid->user_id !== Auth::id(), 403);
+
+        $kalenderHaid->update($this->validateHaid($request));
+
+        return redirect()->route('kalender-haid.index')->with('status', 'Entri kalender haid diperbarui.');
+    }
+
+    public function destroyHaid(KalenderHaid $kalenderHaid): RedirectResponse
+    {
+        abort_if($kalenderHaid->user_id !== Auth::id(), 403);
+
+        $kalenderHaid->delete();
+
+        return redirect()->route('kalender-haid.index')->with('status', 'Entri kalender haid dihapus.');
+    }
+
+    private function validateHaid(Request $request): array
+    {
+        return $request->validate([
+            'tanggal_mulai' => 'required|date',
+            'tanggal_selesai' => 'nullable|date|after_or_equal:tanggal_mulai',
+            'catatan' => 'nullable|string',
+        ]);
     }
 }

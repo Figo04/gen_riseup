@@ -52,6 +52,11 @@ class User extends Authenticatable
         return $this->hasOne(TrackerGizi::class);
     }
 
+    public function kalenderHaid(): HasMany
+    {
+        return $this->hasMany(KalenderHaid::class);
+    }
+
     public function materiSelesaiSemua(): bool
     {
         return SubBagian::count() === $this->progressModul()->where('materi_selesai', true)->count();
