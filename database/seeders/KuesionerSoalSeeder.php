@@ -46,5 +46,39 @@ class KuesionerSoalSeeder extends Seeder
                 'urutan' => $i + 1,
             ]);
         }
+
+        // Bagian III Kuesioner Sikap (SS/S/TS/STS). reverse_scored=true untuk
+        // pernyataan Unfavorable (dicocokkan terhadap kisi-kisi Lampiran A: 3F+2U per domain).
+        $sikap = [
+            ['Saya merasa nyaman membicarakan perubahan tubuh saya dengan tenaga kesehatan atau orang tua.', false],
+            ['Saya percaya bahwa kecepatan pertumbuhan fisik setiap remaja berbeda-beda dan itu wajar.', false],
+            ['Saya merasa malu dan enggan bertanya tentang kesehatan reproduksi meskipun ada hal yang mengkhawatirkan.', true],
+            ['Saya merasa penting untuk rutin mengonsumsi tablet tambah darah sesuai anjuran.', false],
+            ['Menurut saya, membicarakan siklus haid adalah topik tabu yang sebaiknya dihindari.', true],
+            ['Saya merasa penting memperhatikan variasi sayur, buah, dan protein dalam makanan sehari-hari saya.', false],
+            ['Menurut saya, asalkan kenyang, jenis makanan yang dikonsumsi tidak terlalu penting.', true],
+            ['Saya berniat mengurangi konsumsi camilan tinggi gula demi kesehatan jangka panjang.', false],
+            ['Saya percaya kebiasaan makan sehat sejak remaja adalah investasi untuk masa depan saya.', false],
+            ['Saya merasa tidak perlu mengubah pola makan saya meskipun mengetahui dampak buruknya.', true],
+            ['Saya terbiasa mengecek kebenaran sebuah informasi sebelum mempercayai atau membagikannya.', false],
+            ['Saya merasa berhak menolak permintaan yang membuat saya tidak nyaman, meskipun dari orang dekat.', false],
+            ['Saya cenderung langsung percaya informasi yang viral tanpa mengecek sumbernya terlebih dahulu.', true],
+            ['Saya merasa sulit menolak ajakan teman meskipun bertentangan dengan prinsip saya.', true],
+            ['Komentar negatif dari orang lain tidak selalu mencerminkan kenyataan tentang diri saya.', false],
+            ['Saya merasa penting menyelesaikan pendidikan terlebih dahulu sebelum memutuskan untuk menikah.', false],
+            ['Saya merasa tertekan untuk segera menikah karena banyak teman seusia saya sudah menikah.', true],
+            ['Saya percaya bahwa mengejar cita-cita adalah hal penting untuk dilakukan sebelum menikah.', false],
+            ['Menurut saya, menikah muda bisa menjadi solusi untuk masalah ekonomi keluarga.', true],
+            ['Saya merasa yakin bisa mengambil keputusan besar dalam hidup saya sendiri, tanpa terburu-buru karena tekanan orang lain.', false],
+        ];
+
+        foreach ($sikap as $i => [$pertanyaan, $reverse]) {
+            KuesionerSoal::create([
+                'tipe' => 'sikap',
+                'pertanyaan' => $pertanyaan,
+                'reverse_scored' => $reverse,
+                'urutan' => $i + 1,
+            ]);
+        }
     }
 }
