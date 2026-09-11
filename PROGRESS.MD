@@ -6,7 +6,7 @@ Catatan urutan: Sesi 9 (task 7 — komponen visual) sengaja dikerjakansebelum se
 
 ## Phase 1 — Foundation
 
-Sesi 1 — Task 1a: Set up project Laravel + Breeze + Tailwind, konfigurasi .env & koneksi DB ✅
+Sesi 1 — Task 1a: Set up project Laravel + Breeze + Tailwind, konfigurasi .env & koneksi DB 
 Sesi 2 — Task 1b: Migration 11 tabel sesuai schema (PRD §5 Database Structure)
 Sesi E1 — Ekstraksi design system: baca design/, buat DESIGN.md + update tailwind config (dikerjakan sebelum sesi 3, karena sesi 3+ mulai menyentuh UI siswa)
 Sesi 3 — Task 2a: Student auth (Breeze) + field registrasi tambahan (usia, jenis_kelamin, sekolah, kelas)
