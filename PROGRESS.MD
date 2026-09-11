@@ -47,7 +47,20 @@ Catatan Sesi 10:
   untuk sementara (lihat CLAUDE.md Task 12).
 - Gambar dirujuk ke `public/images/modul-1/*.jpg` dengan nama deskriptif;
   file gambar aktual belum ditaruh (belum ada asset dari klien/desainer).
-Sesi 11 — Task 6b: Seeder Modul 2 — Investasi Gizi
+Sesi 11 — Task 6b: Seeder Modul 2 — Investasi Gizi ✅
+
+Catatan Sesi 11:
+- `ModulSeeder::run()` diringkas jadi helper privat `seedModul()` (dipakai
+  Modul 1 & 2, tidak ubah hasil Modul 1) — supaya Modul 3-4 tinggal
+  tambah 1 pemanggilan lagi.
+- Modul 2 dipecah 8 sub-bagian, 1:1 per Bab (pola sama Sesi 10). Teks
+  pembuka modul digabung ke sub-bagian Bab 1.
+- Modul 2 TIDAK punya tabel mitos-vs-fakta → `<x-mitos-fakta>` tidak
+  dipakai di sini. 3 tabel data (Zat Gizi, Camilan Sehat, tracker
+  mingguan contoh) dirender HTML table statis, bukan komponen baru,
+  bukan input tersimpan ke DB (tracker asli = Task 10/Sesi 16).
+- Gambar dirujuk ke `public/images/modul-2/*.jpg` (nama deskriptif, file
+  asli belum ada). Video masih null (belum ada link YouTube).
 Sesi 12 — Task 6c: Seeder Modul 3 — Berpikir Kritis (CRAAP Test, DESC)
 Sesi 13 — Task 6d: Seeder Modul 4 — Kenali Tubuhmu
 Sesi 14 — Task 8: Progress tracking per sub-bagian (basis gating refleksi & post-test)
