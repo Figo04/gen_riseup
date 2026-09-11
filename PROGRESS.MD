@@ -4,7 +4,7 @@ Tracking eksekusi Build Order (CLAUDE.md §3) per sesi Claude Code.Satu sesi = s
 
 Catatan urutan: Sesi 9 (task 7 — komponen visual) sengaja dikerjakansebelum sesi 10–13 (task 6 — seeder per modul), supaya konten tiapmodul langsung pakai komponen dan bisa dites end-to-end (vertical slice).Ini satu-satunya pergeseran urutan dari CLAUDE.md §3.
 
-## Phase 1 — Foundation
+## Phase 1 — Foundation 
 
 Sesi 1 — Task 1a: Set up project Laravel + Breeze + Tailwind, konfigurasi .env & koneksi DB ✅
 Sesi 2 — Task 1b: Migration 11 tabel sesuai schema (PRD §5 Database Structure) ✅
@@ -14,7 +14,7 @@ Sesi 4 — Task 2b: Admin auth — guard admin, model Admin, login /admin, route
 
 ## Phase 2 — Questionnaire (core gating logic)
 
-Sesi 5 — Task 3a: Seed 22 soal pengetahuan (B/S) dari dokumen klien
+Sesi 5 — Task 3a: Seed 22 soal pengetahuan (B/S) dari dokumen klien ✅
 Sesi 6 — Task 3b: Seed 20 soal sikap (SS/S/TS/STS) + penanda reverse_scored dari dokumen klien
 Sesi 7 — Task 4: Form pre-test + material-locking + final submission (validasi backend, no edit after submit)
 Sesi 8 — Task 5: Skor otomatis — pengetahuan → % + kategori Baik/Cukup/Kurang; sikap → total (perhatikan reverse_scored)
