@@ -35,4 +35,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(HasilKuesioner::class);
     }
+
+    public function progressModul(): HasMany
+    {
+        return $this->hasMany(ProgressModul::class);
+    }
+
+    public function materiSelesaiSemua(): bool
+    {
+        return SubBagian::count() === $this->progressModul()->where('materi_selesai', true)->count();
+    }
 }

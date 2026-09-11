@@ -100,7 +100,30 @@ Catatan Sesi 13:
 - Verifikasi: 9 view berhasil `render()` tanpa error, seeder dijalankan
   ulang lalu duplikat Modul 1-3 yang ikut ke-insert (seeder tidak
   idempotent) dibersihkan manual — hasil akhir 4 modul / 30 sub_bagian.
-Sesi 14 — Task 8: Progress tracking per sub-bagian (basis gating refleksi & post-test)
+Sesi 14 — Task 8: Progress tracking per sub-bagian (basis gating refleksi & post-test) ✅
+
+Catatan Sesi 14:
+- Model baru: `ProgressModul` (belongsTo User, SubBagian). Ditambah unique
+  index (user_id, sub_bagian_id) via migration baru — tabel `progress_modul`
+  sudah ada dari Sesi 2 tapi belum punya constraint ini.
+- `User::progressModul()` (hasMany) + `User::materiSelesaiSemua()` — basis
+  yang akan dipakai Task 9 (gating tab Refleksi) & Task 13 (auto-switch
+  post-test).
+- Controller baru: `ModulController` (index, show) + `SubBagianController`
+  (show, selesai) — belum ada route untuk menampilkan modul/sub-bagian
+  sebelum sesi ini, jadi dibuat sekalian supaya progress tracking bisa
+  dites end-to-end (pola sama seperti Sesi 9 vertical slice).
+- Route `/modul`, `/modul/{modul}`, `/modul/{modul}/{subBagian}` (GET) +
+  `/modul/{modul}/{subBagian}/selesai` (POST), semua di belakang
+  middleware `pretest.completed` (middleware ini sudah dibuat Sesi 7,
+  baru dipakai sekarang).
+- View baru: `modul/index.blade.php`, `modul/show.blade.php`,
+  `modul/materi.blade.php` (wrapper minimal, belum styling final —
+  polish ada di Task 20). Link "Lihat Materi" ditambah ke dashboard.
+- Video popup & tab Refleksi SENGAJA belum disentuh (Task 12 & 9).
+- Test baru: `tests/Feature/ProgressModulTest.php` (4 test: gating
+  pretest.completed, tandai selesai, materiSelesaiSemua threshold,
+  404 kalau sub-bagian bukan milik modul di URL). Full suite 38/38 pass.
 
 ## Phase 4 — Sub-section Features & Special Screens
 

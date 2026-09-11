@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\ModulController;
 use App\Http\Controllers\PretestController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SubBagianController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,6 +21,13 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/pretest', [PretestController::class, 'create'])->name('pretest.create');
     Route::post('/pretest', [PretestController::class, 'store'])->name('pretest.store');
+
+    Route::middleware('pretest.completed')->group(function () {
+        Route::get('/modul', [ModulController::class, 'index'])->name('modul.index');
+        Route::get('/modul/{modul}', [ModulController::class, 'show'])->name('modul.show');
+        Route::get('/modul/{modul}/{subBagian}', [SubBagianController::class, 'show'])->name('modul.sub-bagian.show');
+        Route::post('/modul/{modul}/{subBagian}/selesai', [SubBagianController::class, 'selesai'])->name('modul.sub-bagian.selesai');
+    });
 });
 
 require __DIR__.'/auth.php';
