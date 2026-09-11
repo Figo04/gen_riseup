@@ -14,6 +14,20 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                brand: {
+                    cream: '#F7F2E6',
+                    mint: {
+                        DEFAULT: '#7FC79A',
+                        light: '#D8EFE0',
+                    },
+                    peach: {
+                        DEFAULT: '#E8A87C',
+                        light: '#F7DFC9',
+                    },
+                    ink: '#1F2A24',
+                },
+            },
         },
     },
 

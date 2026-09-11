@@ -21,7 +21,18 @@ Sesi 8 — Task 5: Skor otomatis — pengetahuan → % + kategori Baik/Cukup/Kur
 
 ## Phase 3 — Module Content
 
-Sesi 9 — Task 7: Komponen visual reusable (tip box, highlight, checklist, dll.) untuk tab Materials
+Sesi 9 — Task 7: Komponen visual reusable (tip box, highlight, checklist, dll.) untuk tab Materials ✅
+
+Catatan keputusan Sesi 9 (dari interview, lihat detail di DESIGN.md dan
+catatan deviasi PRD_GenResilUp.md §5):
+- `sub_bagian.konten` (longtext) diganti `konten_view` (path view Blade)
+  — konten jadi file `.blade.php` asli per sub-bagian, bukan HTML mentah
+  di DB. Migration rename sudah jalan; belum ada model/seeder yang pakai.
+- Komponen ke-5 untuk tabel Mitos vs Fakta (Modul 1 Bab 2) SENGAJA belum
+  dibuat — baru dibuat pas Sesi 10 kalau memang kepake.
+- `<x-highlight>` tetap 2 varian warna (mint/peach), tidak ditambah.
+- Ikon di komponen konten tetap emoji (bukan icon set); icon set (kalau
+  ada) hanya untuk chrome app (nav/card), bukan isi materi.
 Sesi 10 — Task 6a: Seeder Modul 1 — Kejar Mimpi (sub-bagian + konten pakai komponen, testable)
 Sesi 11 — Task 6b: Seeder Modul 2 — Investasi Gizi
 Sesi 12 — Task 6c: Seeder Modul 3 — Berpikir Kritis (CRAAP Test, DESC)

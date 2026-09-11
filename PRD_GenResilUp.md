@@ -193,11 +193,20 @@ Export CSV/Excel anytime directly from the dashboard
 | ---------------- | ------------------ | --------------------------------------- |
 | id               | bigint, PK         |                                         |
 | modul_id         | bigint, FK → modul |                                         |
-| judul            | varchar            | title                                   |
-| konten           | longtext           | redesigned HTML/Blade component content |
+| judul            | varchar            | title                                                                                     |
+| konten_view      | varchar            | dot-path to the Blade view holding this sub-section's content, e.g. `modul.kejar-mimpi.mimpi-itu-apa` — not raw HTML; the file lives under `resources/views/modul/` and is built from the reusable components in `resources/views/components/` (tip-box, highlight, checklist) |
 | urutan           | tinyint            | order                                   |
 | video_youtube_id | varchar            | nullable                                |
 | timestamps       |                    |                                         |
+
+> **Deviation note (decided Sesi 9):** originally spec'd as `konten longtext`
+> storing raw HTML/Blade markup. Changed to `konten_view` (a view path
+> reference) because content is hardcoded by the developer with no CMS/admin
+> edit path — storing it as a DB string and re-interpreting it at runtime
+> would mean reinventing what Blade's own view resolution already does.
+> Actual content lives in ordinary `.blade.php` files, which get full,
+> native support for the reusable components (`<x-tip-box>`, `<x-highlight>`,
+> `<x-checklist>`).
 
 ### `progress_modul` (module progress)
 
@@ -338,6 +347,8 @@ resources/
     modul/
       index.blade.php
       show.blade.php
+      <modul-slug>/
+        <sub-bagian-slug>.blade.php  # one file per sub-section (see §5 sub_bagian.konten_view deviation note); built from resources/views/components/ (tip-box, highlight, checklist)
     kuesioner/
       pretest.blade.php
       posttest.blade.php
