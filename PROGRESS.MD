@@ -61,7 +61,28 @@ Catatan Sesi 11:
   bukan input tersimpan ke DB (tracker asli = Task 10/Sesi 16).
 - Gambar dirujuk ke `public/images/modul-2/*.jpg` (nama deskriptif, file
   asli belum ada). Video masih null (belum ada link YouTube).
-Sesi 12 — Task 6c: Seeder Modul 3 — Berpikir Kritis (CRAAP Test, DESC)
+Sesi 12 — Task 6c: Seeder Modul 3 — Berpikir Kritis (CRAAP Test, DESC) ✅
+
+Catatan Sesi 12 (dari interview):
+- Modul 3 dipecah 7 sub-bagian, 1:1 per Bab (pola sama Sesi 10/11). Bab 6
+  (Circle Pendukung & Kebersamaan) jauh lebih pendek dari bab lain tapi
+  sengaja TETAP jadi sub-bagian sendiri, bukan digabung — konsisten
+  dengan aturan 1:1 per Bab dokumen klien walau isinya singkat.
+- Box "Kutipan Penting" (Bab 3) pakai `<x-highlight icon="📌" variant="peach">`
+  — belum ada komponen "quote" khusus, dan peach dipilih (bukan mint)
+  karena dikonfirmasi tetap.
+- Template Surat (Bab 4) pakai `<blockquote>` custom (border+bg mint,
+  italic), bukan dibungkus `<x-tip-box>` — dikonfirmasi tetap gaya
+  khusus karena konteksnya beda (isian personal, bukan tip/callout).
+- Gambar pembuka dokumen (sebelum "Sebelum Mulai") di-drop dari konten
+  dan jadi `modul.cover_image`, tidak dirender ulang sebagai figure —
+  sama seperti pola Modul 1.
+- Nama file gambar deskriptif di `images/modul-3/*.jpg` diperlakukan
+  FINAL (bukan tentative) walau file asli belum ada dari klien/desainer.
+- `mitos-fakta` TIDAK dipakai — Modul 3 tidak punya pasangan mitos/fakta
+  terstruktur. Tidak ada komponen baru dibuat.
+- Video masih null (belum ada link YouTube dari klien, sama seperti
+  Modul 1 & 2).
 Sesi 13 — Task 6d: Seeder Modul 4 — Kenali Tubuhmu
 Sesi 14 — Task 8: Progress tracking per sub-bagian (basis gating refleksi & post-test)
 

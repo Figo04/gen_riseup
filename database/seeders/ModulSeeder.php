@@ -32,6 +32,16 @@ class ModulSeeder extends Seeder
             ['judul' => 'Camilan Sehat: Brain Boost vs Glow & Grow', 'slug' => 'camilan-sehat-brain-boost-vs-glow-and-grow'],
             ['judul' => 'Rencana Aksi: Kebiasaan Gizi Harianmu', 'slug' => 'rencana-aksi-kebiasaan-gizi-harianmu'],
         ]);
+
+        $this->seedModul('Berpikir Kritis', 'berpikir-kritis', 3, 'images/modul-3/cover.jpg', [
+            ['judul' => 'Mengenali Suara-Suara Negatif', 'slug' => 'mengenali-suara-suara-negatif'],
+            ['judul' => 'Kekuatan Berkata "Tidak"', 'slug' => 'kekuatan-berkata-tidak'],
+            ['judul' => 'Cerdas di Dunia Digital: Menyaring Informasi', 'slug' => 'cerdas-di-dunia-digital-menyaring-informasi'],
+            ['judul' => 'Menyusun "Future-Self Blueprint"', 'slug' => 'menyusun-future-self-blueprint'],
+            ['judul' => 'Self-Love: Wujud Nyata Menyayangi Diri Sendiri', 'slug' => 'self-love-wujud-nyata-menyayangi-diri-sendiri'],
+            ['judul' => 'Circle Pendukung & Kebersamaan', 'slug' => 'circle-pendukung-dan-kebersamaan'],
+            ['judul' => 'Rencana Aksi: START FROM', 'slug' => 'rencana-aksi-start-from'],
+        ]);
     }
 
     /**
