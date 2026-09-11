@@ -33,7 +33,20 @@ catatan deviasi PRD_GenResilUp.md §5):
 - `<x-highlight>` tetap 2 varian warna (mint/peach), tidak ditambah.
 - Ikon di komponen konten tetap emoji (bukan icon set); icon set (kalau
   ada) hanya untuk chrome app (nav/card), bukan isi materi.
-Sesi 10 — Task 6a: Seeder Modul 1 — Kejar Mimpi (sub-bagian + konten pakai komponen, testable)
+Sesi 10 — Task 6a: Seeder Modul 1 — Kejar Mimpi (sub-bagian + konten pakai komponen, testable) ✅
+
+Catatan Sesi 10:
+- Model baru: `Modul`, `SubBagian` (belum ada sebelumnya, dibutuhkan seeder).
+- Komponen ke-5 (tertunda dari Sesi 9) dibuat sekarang: `<x-mitos-fakta>` +
+  `<x-mitos-fakta-item>` — dipakai di 4 modul (bukan cuma Modul 1), jadi
+  bukan speculative.
+- Modul 1 dipecah 6 sub-bagian, 1:1 per Bab pada dokumen klien. Teks
+  pembuka modul (sebelum Bab 1) digabung ke sub-bagian Bab 1 karena tabel
+  `modul` tidak punya kolom deskripsi terpisah.
+- Video belum ada link YouTube dari klien → `video_youtube_id` semua null
+  untuk sementara (lihat CLAUDE.md Task 12).
+- Gambar dirujuk ke `public/images/modul-1/*.jpg` dengan nama deskriptif;
+  file gambar aktual belum ditaruh (belum ada asset dari klien/desainer).
 Sesi 11 — Task 6b: Seeder Modul 2 — Investasi Gizi
 Sesi 12 — Task 6c: Seeder Modul 3 — Berpikir Kritis (CRAAP Test, DESC)
 Sesi 13 — Task 6d: Seeder Modul 4 — Kenali Tubuhmu
