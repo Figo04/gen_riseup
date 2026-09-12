@@ -1,10 +1,5 @@
-<x-guest-layout>
-    <p>{{ __('Admin Dashboard') }} — {{ auth('admin')->user()->nama }}</p>
+<x-admin-layout>
+    <x-slot name="header">Dashboard</x-slot>
 
-    <form method="POST" action="{{ route('admin.logout') }}">
-        @csrf
-        <x-primary-button class="mt-4">
-            {{ __('Log out') }}
-        </x-primary-button>
-    </form>
-</x-guest-layout>
+    <p class="text-gray-600">Selamat datang, {{ auth('admin')->user()->nama }}.</p>
+</x-admin-layout>
