@@ -1,7 +1,19 @@
 <x-admin-layout>
     <x-slot name="header">Dashboard</x-slot>
 
-    <p class="text-gray-600 mb-6">Selamat datang, {{ auth('admin')->user()->nama }}.</p>
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+        <p class="text-gray-600">Selamat datang, {{ auth('admin')->user()->nama }}.</p>
+        <div class="flex gap-2">
+            <a href="{{ route('admin.export') }}"
+               class="px-4 py-2 text-sm font-medium rounded-md bg-white border border-gray-300 text-gray-700 hover:bg-gray-50">
+                Export CSV
+            </a>
+            <a href="{{ route('admin.export', ['format' => 'excel']) }}"
+               class="px-4 py-2 text-sm font-medium rounded-md bg-emerald-600 text-white hover:bg-emerald-700">
+                Export Excel
+            </a>
+        </div>
+    </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <div class="bg-white rounded-lg border border-gray-200 p-5">

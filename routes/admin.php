@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ExportController;
 use App\Http\Controllers\Admin\KalenderHaidController;
 use App\Http\Controllers\Admin\MateriController;
 use App\Http\Controllers\Admin\SoalController;
@@ -24,6 +25,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('materi/{modul}/{subBagian}', [MateriController::class, 'subBagian'])->name('materi.sub-bagian');
 
         Route::get('kalender-haid', [KalenderHaidController::class, 'index'])->name('kalender-haid.index');
+
+        Route::get('export', ExportController::class)->name('export');
 
         Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
     });

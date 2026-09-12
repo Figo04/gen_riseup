@@ -461,7 +461,38 @@ Catatan Sesi 25:
 - Gap dicatat (belum dikerjakan, bukan scope sesi ini): menu "Responden" &
   "Hasil Test" di sidebar admin (PRD §4.2) belum punya sesi build sama
   sekali di tracker ini — masih placeholder disabled.
-Sesi 26 — Task 19: Export CSV/Excel dari dashboard (pre vs post, exclude refleksi/tracker) + artisan command opsional
+Sesi 26 — Task 19: Export CSV/Excel dari dashboard (pre vs post, exclude refleksi/tracker) ✅
+
+Catatan Sesi 26:
+- 1 route GET `admin/export` → `Admin\ExportController` (invokable). Output
+  1 baris = 1 siswa, 14 kolom: identitas (nama, email, usia, jenis_kelamin,
+  sekolah, kelas) + 4 kolom skor pre + 4 kolom skor post sejajar di baris yang
+  sama, jadi pre vs post langsung kebandingkan tanpa pivot manual di Excel.
+- TANPA dependency baru (`maatwebsite/excel` tidak diinstall): `fputcsv` ke
+  `php://output` lewat `response()->streamDownload()`. Tombol "Export Excel"
+  pakai route yang sama + `?format=excel` → delimiter `;` + BOM UTF-8 supaya
+  langsung kebuka rapi di Excel locale Indonesia; ekstensi tetap `.csv`.
+  Kalau klien nanti wajib `.xlsx` asli, baru install maatwebsite.
+- Siswa yang belum pre/post tetap ikut terekspor dengan sel skor kosong
+  (`$pre?->...`), biar jumlah baris cocok dengan stat card Total Respondents.
+- Refleksi & TrackerGizi TIDAK PERNAH di-query (PRD §4.3 + CLAUDE.md rule #9)
+  — sumber data cuma `users` + `hasil_kuesioner` (`with('hasilKuesioner')`,
+  no N+1). Dites eksplisit: jawaban refleksi & key tracker gizi tidak pernah
+  muncul di CSV.
+- Detail per-jawaban-soal (`hasil_kuesioner_detail`) TIDAK diekspor — PRD §4.2
+  cuma minta "pre vs post scored results".
+- Tombol Export CSV & Export Excel ditaruh di header `admin/dashboard.blade.php`
+  (sebaris dengan sapaan "Selamat datang"), sesuai PRD §4.2.
+- Test baru: `tests/Feature/Admin/AdminExportTest.php` (6 test: guest & siswa
+  ditolak, pre+post satu baris, siswa tanpa submission tetap terekspor kosong,
+  refleksi/tracker tidak pernah bocor, format excel pakai BOM + `;`).
+  Full suite 89/89 pass.
+- DI-SKIP (sengaja, PRD §6 bilang "optional"): artisan command
+  `ExportHasilKuesioner.php` — dashboard sudah cukup, tambah kalau klien minta
+  export terjadwal/scripted. Juga di-skip: filter/date-range di export (selalu
+  semua siswa).
+- Gap masih terbuka (bukan scope sesi ini, sama seperti catatan Sesi 25): menu
+  "Responden" & "Hasil Test" di sidebar admin masih placeholder disabled.
 
 ## Phase 7 — Polish & QA
 
