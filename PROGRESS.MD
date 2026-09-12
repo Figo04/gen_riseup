@@ -345,7 +345,28 @@ Catatan Sesi 22 (dari interview sebelum ngoding):
 - Test baru: `tests/Feature/Admin/AdminDashboardTest.php` (2 test: angka
   stat card benar, recent activity 10 terbaru terurut desc). Full suite
   67/67 pass.
-Sesi 23 — Task 16b: Dashboard — 4 charts (donut status test, donut materi, bar gender, bar usia)
+Sesi 23 — Task 16b: Dashboard — 4 charts (donut status test, donut materi, bar gender, bar usia) ✅
+
+Catatan Sesi 23:
+- Chart.js via CDN (`chart.umd.min.js`) di `layouts/admin.blade.php`, bukan
+  `npm install` — cuma 1 halaman admin, tidak perlu ikut bundle Vite sisi
+  siswa.
+- Donut Status Test = 3 bucket (Belum Pre-Test / Pre-Test Saja / Pre+Post
+  Selesai) dihitung dari angka yang SUDAH ada di `DashboardController`
+  Sesi 22 (totalRespondents/preCompleted/prePostComplete) — tidak nambah
+  query baru.
+- Donut Progress Materi = query baru: `whereHas('progressModul', ...,
+  '>=', $totalSubBagian)`, pola sama `User::materiSelesaiSemua()` (Sesi
+  14) versi agregat di level query builder.
+- Bar Gender & Usia = `groupBy` langsung dari kolom `users.jenis_kelamin`
+  / `users.usia`.
+- Data dikirim ke view sebagai array/collection PHP → `@json()` di
+  `<script>` inline, bukan endpoint AJAX terpisah — konsisten pola
+  server-rendered Blade proyek ini ("real-time" = fresh tiap request,
+  sama seperti keputusan Sesi 22).
+- Test baru ditambah ke `AdminDashboardTest.php` (bukan file terpisah):
+  3 user dengan kombinasi status test/materi/gender/usia berbeda,
+  assert keempat aggregate benar. Full suite 68/68 pass.
 Sesi 24 — Task 17: Kelola Soal — full CRUD kuesioner_soal
 Sesi 25 — Task 18: Kelola Materi (view-only) + Data Kalender Haid (view-only); refleksi & tracker tidak pernah di-query
 Sesi 26 — Task 19: Export CSV/Excel dari dashboard (pre vs post, exclude refleksi/tracker) + artisan command opsional
