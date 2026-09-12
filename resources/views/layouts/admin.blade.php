@@ -39,7 +39,9 @@
                     <div>
                         <p class="px-2 mb-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">Konten</p>
                         <div class="space-y-1">
-                            <x-admin-nav-link disabled>Kelola Soal</x-admin-nav-link>
+                            <x-admin-nav-link :href="route('admin.soal.index')" :active="request()->routeIs('admin.soal.*')">
+                                Kelola Soal
+                            </x-admin-nav-link>
                             <x-admin-nav-link disabled>Kelola Materi</x-admin-nav-link>
                             <x-admin-nav-link disabled>Data Kalender Haid</x-admin-nav-link>
                         </div>

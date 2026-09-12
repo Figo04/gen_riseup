@@ -49,7 +49,7 @@ class KuesionerController extends Controller
             return redirect()->route('dashboard')->with('status', self::PESAN_SUDAH_MENGISI[$tipeSesi]);
         }
 
-        $soal = KuesionerSoal::orderBy('tipe')->orderBy('urutan')->get();
+        $soal = KuesionerSoal::where('is_aktif', true)->orderBy('tipe')->orderBy('urutan')->get();
 
         return view("kuesioner.{$tipeSesi}test", [
             'pengetahuan' => $soal->where('tipe', 'pengetahuan'),
@@ -63,7 +63,7 @@ class KuesionerController extends Controller
             return redirect()->route('dashboard')->with('status', self::PESAN_SUDAH_MENGISI[$tipeSesi]);
         }
 
-        $soal = KuesionerSoal::orderBy('urutan')->get()->keyBy('id');
+        $soal = KuesionerSoal::where('is_aktif', true)->orderBy('urutan')->get()->keyBy('id');
 
         $request->validate(array_merge(
             $soal->where('tipe', 'pengetahuan')->mapWithKeys(fn ($s) => ["jawaban.$s->id" => 'required|in:B,S'])->all(),

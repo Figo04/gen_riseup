@@ -367,7 +367,68 @@ Catatan Sesi 23:
 - Test baru ditambah ke `AdminDashboardTest.php` (bukan file terpisah):
   3 user dengan kombinasi status test/materi/gender/usia berbeda,
   assert keempat aggregate benar. Full suite 68/68 pass.
-Sesi 24 — Task 17: Kelola Soal — full CRUD kuesioner_soal
+Sesi 24 — Task 17: Kelola Soal — full CRUD kuesioner_soal ✅
+
+Keputusan interview sebelum ngoding Sesi 24:
+- Hapus soal = soft delete via kolom baru `is_aktif` (boolean, default
+  true), BUKAN `deleted_at`/SoftDeletes trait. Tombol Hapus di admin set
+  `is_aktif=false`. FK `hasil_kuesioner_detail.soal_id` tidak pernah
+  putus → jawaban historis siswa aman permanen. Form pre/post-test &
+  seeder query cuma `where('is_aktif', true)`. Ini nutup item DITUNDA
+  dari audit Sesi A1 (onDelete cascade berisiko hapus data riset).
+- Edit `jawaban_benar` TIDAK recompute skor historis — `hasil_kuesioner`
+  yang sudah tersimpan tetap seperti hasil hitung saat submit dulu; kunci
+  jawaban baru cuma berlaku ke submission berikutnya.
+- Kolom `urutan` otomatis (max+1 per `tipe` saat insert soal baru) —
+  tidak ada input manual urutan di form CRUD, tidak ada reorder/drag.
+- Jumlah soal per tipe BEBAS, tidak dikunci di 22 (pengetahuan) / 20
+  (sikap) — pembagi skor sudah `count()` live sejak Sesi A1, sesuai PRD
+  "client maintains questions independently going forward".
+- Form tambah/edit dinamis by `tipe`: pilih tipe dulu, lalu field
+  `jawaban_benar` (kalau pengetahuan) atau `reverse_scored` (kalau
+  sikap) muncul sesuai — field yang tidak relevan disembunyikan/dipaksa
+  default, bukan sama-sama tampil terus.
+- Soal nonaktif (`is_aktif=false`) hilang dari list index admin
+  (dikonfirmasi via interview — tidak ada tab "Nonaktif"/tombol
+  Aktifkan; kalau salah hapus, perlu akses DB untuk balikin).
+
+Catatan implementasi Sesi 24:
+- Migration baru `add_is_aktif_to_kuesioner_soal_table` (boolean,
+  default true, after `urutan`). Model `KuesionerSoal` update
+  fillable+cast.
+- `KuesionerController@create`/`@store` (Task 13/14, Sesi 7/19-20)
+  ditambah `where('is_aktif', true)` supaya soal yang dihapus admin
+  tidak lagi muncul di pre/post-test — pembagi skor pengetahuan ikut
+  otomatis karena `count()` live sejak Sesi A1.
+- Controller baru `Admin\SoalController` (index/create/store/edit/
+  update/destroy, sesuai path PRD §6) + route `Route::resource('soal', ...)`
+  di `routes/admin.php`. `destroy` = `update(['is_aktif' => false])`,
+  bukan `delete()` — FK `hasil_kuesioner_detail.soal_id` (onDelete
+  cascade) tidak pernah tersentuh, jawaban historis siswa aman
+  permanen. Ini menutup item DITUNDA dari audit Sesi A1.
+- Validasi dinamis 1 method privat `validated()`: rule `tipe` cuma
+  ada di form create (fixed/tidak bisa diubah di edit); `jawaban_benar`
+  required kalau pengetahuan (else `prohibited`), `reverse_scored`
+  boolean kalau sikap (else `prohibited`).
+- Edit `jawaban_benar`/`reverse_scored` TIDAK recompute skor
+  `hasil_kuesioner` yang sudah tersimpan — kunci baru cuma berlaku ke
+  submission berikutnya, sesuai keputusan interview.
+- `urutan` otomatis `max('urutan') per tipe + 1` saat create, tidak
+  ada input manual/reorder di form.
+- Item DITUNDA (dicatat, belum dikerjakan): guard `DivisionByZeroError`
+  kalau admin menghapus SEMUA soal pengetahuan (pembagi skor jadi 0) —
+  belum ada kejadian nyata, ditunda sampai relevan.
+- Sidebar admin: link "Kelola Soal" (`layouts/admin.blade.php`) dari
+  placeholder disabled jadi link aktif ke `admin.soal.index`.
+- View baru: `admin/soal/{index,create,edit}.blade.php`. Index
+  dipisah 2 tabel (Pengetahuan/Sikap). Form create/edit toggle field
+  by tipe pakai Alpine `x-show` (create) / kondisi Blade tetap (edit,
+  karena tipe tidak bisa diubah).
+- Test baru: `tests/Feature/Admin/AdminSoalTest.php` (6 test: create
+  pengetahuan dengan urutan auto-increment, create sikap dengan
+  reverse_scored, update, edit jawaban_benar tidak mengubah skor
+  historis, delete = soft-delete + detail histori tetap utuh, soal
+  nonaktif hilang dari index admin & pretest). Full suite 74/74 pass.
 Sesi 25 — Task 18: Kelola Materi (view-only) + Data Kalender Haid (view-only); refleksi & tracker tidak pernah di-query
 Sesi 26 — Task 19: Export CSV/Excel dari dashboard (pre vs post, exclude refleksi/tracker) + artisan command opsional
 
