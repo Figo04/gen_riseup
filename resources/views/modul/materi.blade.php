@@ -16,7 +16,7 @@
             @include('modul._tabs', ['aktif' => 'materi'])
 
             @if ($subBagian->video_youtube_id)
-                <button type="button" x-data class="inline-flex items-center gap-2 text-sm font-semibold text-brand-ink" x-on:click="$dispatch('open-modal', 'video-materi')">
+                <button type="button" x-data class="inline-flex items-center gap-2 py-2 text-sm font-semibold text-brand-ink" x-on:click="$dispatch('open-modal', 'video-materi')">
                     ▶ Tonton Video
                 </button>
 
