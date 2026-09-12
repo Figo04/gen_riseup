@@ -496,6 +496,46 @@ Catatan Sesi 26:
 
 ## Phase 7 — Polish & QA
 
-Sesi 27 — Task 20: Polish responsive mobile-first (sisi siswa)
+Sesi 27 — Task 20: Polish responsive mobile-first (sisi siswa) ✅
+
+Catatan Sesi 27:
+- Audit awal: sisi siswa sudah ~80% mobile-safe (semua tabel konten sudah
+  `overflow-x-auto`, tidak ada `grid-cols-N` tanpa breakpoint, input sudah
+  `block w-full`, modal video sudah responsive). Task ini jadi punch-list
+  kecil, bukan rewrite.
+- Nav siswa (`layouts/navigation.blade.php`) cuma punya Dashboard/Pre-Post-
+  Test/Profile — 2 dari 5 screen PRD §4.1 (Materi, Kalender Haid) cuma bisa
+  diakses lewat link telanjang di dashboard. Tambah ke desktop nav DAN
+  panel hamburger mobile (dua blok terpisah, harus konsisten).
+- 8 halaman siswa (`modul/index`, `modul/show`, `modul/materi`,
+  `modul/refleksi`, `kuesioner/_form`, `tracker/gizi`,
+  `tracker/kalender-haid/{index,edit}`) pakai wrapper Breeze
+  `max-w-4xl mx-auto sm:px-6 lg:px-8` tanpa base `px-4` — di <640px elemen
+  DI LUAR card (tab, tombol video, form submit) nempel ke tepi layar
+  karena cuma card putih yang punya padding sendiri. Ditambah `px-4` base,
+  satu pola sed pass ke 8 file.
+- Touch target: tab Materi/Refleksi (`pb-2`, ~20px) → `py-3`; tombol
+  "Tonton Video" tanpa padding vertikal → `py-2`; baris sub-bagian
+  (`modul/show.blade.php`, flex justify-between tanpa gap) → `gap-4` +
+  `shrink-0 whitespace-nowrap` di badge status supaya judul panjang tidak
+  berdesakan dengan badge di 360px.
+- Register/profile/auth pages (Breeze default, single-column, field
+  tambahan usia/jenis_kelamin/sekolah/kelas) dicek — sudah mobile-safe
+  tanpa perubahan.
+- Insiden di tengah sesi (dicatat untuk transparansi): `git add -A` sempat
+  ikut nge-commit & push `source-content/Kuesioner_....md` (berisi kunci
+  jawaban resmi soal pengetahuan) ke repo PUBLIC. Ketahuan, langsung
+  di-rewrite history + force-push untuk hapus dari `main`. **Belum tentu
+  bersih dari cache/API GitHub** — rekomendasi: jadikan repo private atau
+  hubungi GitHub Support untuk purge, terutama karena melibatkan subjek
+  penelitian remaja.
+- Verifikasi: `overflow-x-auto` pada tabel konten & tracker/kalender
+  sudah ada dari sesi-sesi sebelumnya, tidak disentuh ulang.
+- TIDAK dikerjakan (di luar scope "polish", dicatat sebagai gap):
+  Home/Dashboard siswa masih placeholder Breeze ("You're logged in!"),
+  belum jadi landing page ringkasan sesuai PRD §4.1 — belum pernah punya
+  sesi build sendiri. Sisi admin tidak disentuh (PRD §7: boleh desktop-
+  oriented). Verifikasi visual manual di devtools 360px/768px belum
+  dilakukan (bagian Task 21).
 Sesi 28 — Task 21: Testing end-to-end manual — siswa & admin, semua alur
 Sesi 29+ — Task 22: Revisi preview klien (jumlah sesi terbuka, tergantung catatan klien)
