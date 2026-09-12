@@ -65,18 +65,21 @@ class SoalController extends Controller
     {
         $tipe = $tipeLama ?? $request->input('tipe');
 
-        $rules = [
-            'pertanyaan' => 'required|string',
-            'jawaban_benar' => $tipe === 'pengetahuan' ? 'required|in:B,S' : 'prohibited',
-            'reverse_scored' => $tipe === 'sikap' ? 'boolean' : 'prohibited',
-        ];
+        $rules = ['pertanyaan' => 'required|string'];
 
         if (! $tipeLama) {
             $rules['tipe'] = 'required|in:pengetahuan,sikap';
         }
 
+        if ($tipe === 'pengetahuan') {
+            $rules['jawaban_benar'] = 'required|in:B,S';
+        }
+
         $data = $request->validate($rules);
 
+        // Field milik tipe lain yang ikut terkirim (form pakai x-show, yang cuma
+        // menyembunyikan lewat CSS — input-nya tetap ada di DOM dan tetap di-POST)
+        // sengaja diabaikan lalu dipaksa ke nilai default, bukan ditolak validasi.
         if ($tipe === 'pengetahuan') {
             $data['reverse_scored'] = false;
         } else {

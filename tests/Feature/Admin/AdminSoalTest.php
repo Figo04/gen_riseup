@@ -53,6 +53,44 @@ class AdminSoalTest extends TestCase
         ]);
     }
 
+    public function test_create_form_alpine_state_is_compiled_by_blade(): void
+    {
+        $admin = Admin::factory()->create();
+
+        $response = $this->actingAs($admin, 'admin')->get(route('admin.soal.create'));
+
+        $response->assertOk();
+        // old() di dalam atribut x-data harus sudah dikompilasi Blade. Kalau bocor
+        // mentah, Alpine mengevaluasinya sebagai JS -> error -> field jawaban_benar
+        // & reverse_scored tidak pernah muncul sama sekali.
+        $response->assertSee('x-data="{ tipe: \'pengetahuan\' }"', false);
+        $response->assertDontSee('old(', false);
+    }
+
+    /**
+     * Form create pakai x-show (CSS), jadi <select name="jawaban_benar"> tetap
+     * ikut ter-POST walau tipe yang dipilih "sikap". Field itu harus diabaikan
+     * server, bukan bikin submit ditolak.
+     */
+    public function test_stray_field_from_hidden_input_is_ignored_not_rejected(): void
+    {
+        $admin = Admin::factory()->create();
+
+        $response = $this->actingAs($admin, 'admin')->post(route('admin.soal.store'), [
+            'tipe' => 'sikap',
+            'pertanyaan' => 'Soal sikap dari browser',
+            'jawaban_benar' => 'B',
+        ]);
+
+        $response->assertSessionHasNoErrors();
+        $response->assertRedirect(route('admin.soal.index'));
+        $this->assertDatabaseHas('kuesioner_soal', [
+            'pertanyaan' => 'Soal sikap dari browser',
+            'tipe' => 'sikap',
+            'jawaban_benar' => null,
+        ]);
+    }
+
     public function test_admin_can_update_soal(): void
     {
         $admin = Admin::factory()->create();

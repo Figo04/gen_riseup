@@ -1,7 +1,7 @@
 <x-admin-layout>
     <x-slot name="header">Tambah Soal</x-slot>
 
-    <form method="POST" action="{{ route('admin.soal.store') }}" x-data="{ tipe: old('tipe', 'pengetahuan') }" class="bg-white rounded-lg border border-gray-200 p-6 max-w-xl">
+    <form method="POST" action="{{ route('admin.soal.store') }}" x-data="{ tipe: '{{ old('tipe', 'pengetahuan') }}' }" class="bg-white rounded-lg border border-gray-200 p-6 max-w-xl">
         @csrf
 
         <div class="mb-4">
