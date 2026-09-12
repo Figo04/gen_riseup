@@ -429,6 +429,14 @@ Catatan implementasi Sesi 24:
   reverse_scored, update, edit jawaban_benar tidak mengubah skor
   historis, delete = soft-delete + detail histori tetap utuh, soal
   nonaktif hilang dari index admin & pretest). Full suite 74/74 pass.
+
+Post-check Sesi 24 (ditemukan & langsung diperbaiki, belum sempat kepakai
+manual sebelum ke-commit): 2 bug bikin form Tambah Soal tidak bisa
+dipakai — `x-data="{ tipe: old(...) }"` di `create.blade.php` bocor
+mentah (di luar `{{ }}`), Alpine error, field jawaban_benar/reverse_scored
+gak pernah muncul; rule `prohibited` menolak field tersembunyi (x-show
+cuma CSS) yang tetap ikut ter-POST, jadi tambah soal sikap selalu gagal.
+Fix + 2 regression test baru, full suite 76/76 pass, commit terpisah.
 Sesi 25 — Task 18: Kelola Materi (view-only) + Data Kalender Haid (view-only); refleksi & tracker tidak pernah di-query
 Sesi 26 — Task 19: Export CSV/Excel dari dashboard (pre vs post, exclude refleksi/tracker) + artisan command opsional
 
