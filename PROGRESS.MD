@@ -531,11 +531,12 @@ Catatan Sesi 27:
   penelitian remaja.
 - Verifikasi: `overflow-x-auto` pada tabel konten & tracker/kalender
   sudah ada dari sesi-sesi sebelumnya, tidak disentuh ulang.
-- TIDAK dikerjakan (di luar scope "polish", dicatat sebagai gap):
-  Home/Dashboard siswa masih placeholder Breeze ("You're logged in!"),
-  belum jadi landing page ringkasan sesuai PRD §4.1 — belum pernah punya
-  sesi build sendiri. Sisi admin tidak disentuh (PRD §7: boleh desktop-
-  oriented). Verifikasi visual manual di devtools 360px/768px belum
-  dilakukan (bagian Task 21).
+- PRD §4.1 diperbarui: item "Home — summary/landing page" dihapus (klien
+  konfirmasi ini requirement lama yang kelupaan dicabut dari dokumen,
+  bukan gap implementasi) — 5 Main Screens jadi 4. `/dashboard` tetap thin
+  router (link ke Materi/Kalender Haid via nav), bukan landing page
+  tersendiri. TIDAK dikerjakan (di luar scope "polish"): sisi admin tidak
+  disentuh (PRD §7: boleh desktop-oriented). Verifikasi visual manual di
+  devtools 360px/768px belum dilakukan (bagian Task 21).
 Sesi 28 — Task 21: Testing end-to-end manual — siswa & admin, semua alur
 Sesi 29+ — Task 22: Revisi preview klien (jumlah sesi terbuka, tergantung catatan klien)

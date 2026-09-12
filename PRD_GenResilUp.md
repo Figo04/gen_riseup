@@ -54,26 +54,30 @@ SehatEdukasi (developer's previous project).
 
 ## 3. Scope
 
-### 4.1 Student Side — 5 Main Screens
+### 4.1 Student Side — 4 Main Screens
 
-1. **Home** — summary/landing page after login
-2. **Materials** — list of 4 modules → each sub-section has 2 tabs:
+1. **Materials** — list of 4 modules → each sub-section has 2 tabs:
     - **Materials** tab: redesigned content (not plain text), including
       an embedded YouTube video (popup player)
     - **Reflection** tab: locked until the Materials tab is marked
       complete; once submitted becomes **read-only** (one-time entry)
     - The Nutrition module also has a weekly eating-habit tracker
       (one-time entry, saved like the reflection)
-3. **Pre-test / Post-test** — a single dynamic menu:
+2. **Pre-test / Post-test** — a single dynamic menu:
     - Before all modules are completed → shows the Pre-test form
     - After all modules are marked read → automatically switches to the
       Post-test
     - Final submission, cannot be edited afterward
-4. **Menstrual Calendar** — a standalone screen (separate from
+3. **Menstrual Calendar** — a standalone screen (separate from
    Materials), **ongoing**: students can keep adding new entries every
    month (start date, end/duration, symptom notes); full history is
    retained, not limited to a single entry
-5. **Profile** — student's personal data
+4. **Profile** — student's personal data
+
+> **Deviation note (decided Sesi 27):** the original spec also listed a
+> standalone "Home" summary/landing screen. Dropped intentionally — the
+> `/dashboard` route stays a thin router (links into Materials/Kalender
+> Haid via nav), no separate landing page is built.
 
 ### 4.2 Admin (Client) Side
 
