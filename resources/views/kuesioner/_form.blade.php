@@ -1,5 +1,5 @@
 <div class="py-12">
-    <div class="max-w-4xl mx-auto sm:px-6 lg:px-8 space-y-6">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         <div class="bg-yellow-50 border border-yellow-200 text-yellow-800 text-sm rounded-lg p-4">
             {{ $peringatan }}
         </div>

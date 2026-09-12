@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8 space-y-4">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
             @foreach ($modul as $m)
                 @php($jumlahSelesai = $m->subBagian->whereIn('id', $selesaiIds)->count())
                 <a href="{{ route('modul.show', $m) }}" class="block bg-white shadow-sm sm:rounded-lg p-6 hover:bg-gray-50">
