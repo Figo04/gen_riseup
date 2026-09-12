@@ -5,7 +5,11 @@
       "PowerShell(composer -V)",
       "PowerShell(node -v)",
       "PowerShell(npm -v)",
-      "PowerShell(composer require laravel/breeze --dev)"
+      "PowerShell(composer require laravel/breeze --dev)",
+      "Bash(php artisan *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)"
     ]
   }
 }

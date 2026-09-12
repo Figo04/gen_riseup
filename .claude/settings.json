@@ -1,0 +1,49 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(php artisan *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(php -l app/Http/Middleware/EnsurePretestSubmitted.php)",
+      "Bash(php -l app/Models/HasilKuesioner.php)",
+      "Bash(php -l app/Models/HasilKuesionerDetail.php)",
+      "Bash(php -l app/Http/Controllers/PretestController.php)",
+      "Bash(php -l bootstrap/app.php)",
+      "Bash(node -e \"require\\('./tailwind.config.js'\\)\")",
+      "Bash(npx vite *)",
+      "Bash(kill %1)",
+      "Bash(pkill -f \"artisan serve\")",
+      "Bash(git status *)",
+      "Bash(xargs -I{} sh -c 'echo ==={}===; cat {}')",
+      "Bash(php -l app/Models/ProgressModul.php)",
+      "Bash(php -l app/Models/User.php)",
+      "Bash(php -l app/Http/Controllers/ModulController.php)",
+      "Bash(php -l app/Http/Controllers/SubBagianController.php)",
+      "Bash(php -l routes/web.php)",
+      "Bash(php -l app/Models/Refleksi.php)",
+      "Bash(php -l app/Http/Controllers/RefleksiController.php)",
+      "PowerShell(php artisan test --filter=PretestTest)",
+      "PowerShell(php artisan test)",
+      "PowerShell(php artisan migrate --no-interaction)",
+      "Bash(npm run *)",
+      "Bash(git commit -m 'Centang Sesi 21-22 di PROGRESS.md — lulus manual test *)",
+      "Bash(git commit -m 'Sesi 23 \\(Task 16b\\): Dashboard admin — 4 charts \\(donut status test, donut materi, bar gender, bar usia\\) *)",
+      "Bash(grep -rlE '\\\\$[a-zA-Z_]+' resources/views/modul/kejar-mimpi resources/views/modul/investasi-gizi resources/views/modul/berpikir-kritis resources/views/modul/kenali-tubuhmu)",
+      "Bash(grep -oE '\\\\{\\\\{\\\\s*\\\\$[a-zA-Z_]+' -r resources/views/modul/kejar-mimpi)",
+      "Bash(git commit -m 'Sesi 25 \\(Task 18\\): Kelola Materi \\(view-only\\) + Data Kalender Haid \\(view-only\\) *)",
+      "PowerShell(php artisan test --filter=AdminExportTest)",
+      "PowerShell(git add app/Http/Controllers/Admin/ExportController.php tests/Feature/Admin/AdminExportTest.php routes/admin.php resources/views/admin/dashboard.blade.php PROGRESS.MD)",
+      "Bash(php artisan serve --port=8123 > /tmp/serve.log 2>&1 & *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://127.0.0.1:8123/admin/login)",
+      "Bash(xxd)",
+      "Bash(gh repo *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" https://github.com/Figo04/gen_riseup)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" https://api.github.com/repos/Figo04/gen_riseup)",
+      "Bash(git reset *)"
+    ],
+    "additionalDirectories": [
+      "\\tmp"
+    ]
+  }
+}
