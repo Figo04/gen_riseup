@@ -310,8 +310,41 @@ post-test sudah ada supaya tidak jadi link mati/stub sementara):
 
 ## Phase 6 — Admin Dashboard
 
-Sesi 21 — Task 15: Layout admin (sidebar Data & Konten, gaya SehatEdukasi) + middleware guard admin
-Sesi 22 — Task 16a: Dashboard — 4 stat cards + tabel Recent Activity
+Sesi 21 — Task 15: Layout admin (sidebar Data & Konten, gaya SehatEdukasi) + middleware guard admin ✅
+
+Catatan Sesi 21:
+- Guard admin TIDAK butuh middleware baru — `auth:admin`/`guest:admin` +
+  `redirectGuestsTo` di `bootstrap/app.php` sudah cukup dari Sesi 4,
+  sudah dites `AdminAuthenticationTest` yang sudah ada.
+- `resources/views/layouts/admin.blade.php` + `app/View/Components/AdminLayout.php`
+  (class component, pola sama `GuestLayout`/`AppLayout` bawaan Breeze di
+  proyek ini) supaya `<x-admin-layout>` bisa dipakai.
+- Sidebar 2 grup (Data: Dashboard/Responden/Hasil Test, Konten: Kelola
+  Soal/Kelola Materi/Data Kalender Haid). Menu selain Dashboard sengaja
+  placeholder non-link (`<x-admin-nav-link disabled>`, dikonfirmasi user)
+  karena rute/controller-nya belum ada sampai Sesi 22-26.
+- Test baru: `tests/Feature/Admin/AdminLayoutTest.php` (2 test). Full
+  suite 65/65 pass.
+Sesi 22 — Task 16a: Dashboard — 4 stat cards + tabel Recent Activity ✅
+
+Catatan Sesi 22 (dari interview sebelum ngoding):
+- Recent Activity = submit kuesioner saja (`hasil_kuesioner`), tidak
+  digabung registrasi user atau progress modul; 10 baris terbaru
+  (`orderBy submitted_at desc limit 10`), tanpa paginasi/link "lihat
+  semua" (menyusul Sesi 24 kalau relevan).
+- Total Respondents = `User::count()` (semua siswa terdaftar, bukan
+  cuma yang sudah isi kuesioner).
+- Pre-Test/Post-Test Completed = `count()` per `tipe_sesi` (aman tanpa
+  `distinct()` karena unique(user_id, tipe_sesi) sudah ada dari Sesi A1).
+- Pre+Post Complete = user dengan `hasil_kuesioner` untuk KEDUA
+  `tipe_sesi` (whereHas ganda).
+- "Real-time" (PRD §4.2) dibaca sebagai query fresh tiap request, bukan
+  polling/websocket — konsisten pola proyek ini.
+- `App\Http\Controllers\Admin\DashboardController` baru, route
+  `admin.dashboard` pindah dari closure ke controller ini.
+- Test baru: `tests/Feature/Admin/AdminDashboardTest.php` (2 test: angka
+  stat card benar, recent activity 10 terbaru terurut desc). Full suite
+  67/67 pass.
 Sesi 23 — Task 16b: Dashboard — 4 charts (donut status test, donut materi, bar gender, bar usia)
 Sesi 24 — Task 17: Kelola Soal — full CRUD kuesioner_soal
 Sesi 25 — Task 18: Kelola Materi (view-only) + Data Kalender Haid (view-only); refleksi & tracker tidak pernah di-query
