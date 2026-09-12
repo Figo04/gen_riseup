@@ -25,7 +25,7 @@ class TrackerGiziTest extends TestCase
 
         $response = $this->actingAs($user)->get(route('tracker-gizi.show'));
 
-        $response->assertRedirect(route('pretest.create'));
+        $response->assertRedirect(route('kuesioner.pretest.create'));
     }
 
     public function test_submit_tracker_sukses_dan_data_ternormalisasi(): void

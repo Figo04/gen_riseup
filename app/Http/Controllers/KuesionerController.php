@@ -12,32 +12,55 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
-class PretestController extends Controller
+class KuesionerController extends Controller
 {
     private const KATEGORI_SIKAP_FAVORABLE = ['SS' => 4, 'S' => 3, 'TS' => 2, 'STS' => 1];
 
     private const KATEGORI_SIKAP_UNFAVORABLE = ['SS' => 1, 'S' => 2, 'TS' => 3, 'STS' => 4];
 
-    private const PESAN_SUDAH_MENGISI = 'Pre-test sudah pernah diisi dan tidak dapat diisi ulang.';
+    private const PESAN_SUDAH_MENGISI = [
+        'pre' => 'Pre-test sudah pernah diisi dan tidak dapat diisi ulang.',
+        'post' => 'Post-test sudah pernah diisi dan tidak dapat diisi ulang.',
+    ];
 
-    public function create(): View|RedirectResponse
+    public function createPre(): View|RedirectResponse
     {
-        if ($this->sudahMengisi()) {
-            return redirect()->route('dashboard')->with('status', self::PESAN_SUDAH_MENGISI);
+        return $this->create('pre');
+    }
+
+    public function storePre(Request $request): RedirectResponse
+    {
+        return $this->store($request, 'pre');
+    }
+
+    public function createPost(): View|RedirectResponse
+    {
+        return $this->create('post');
+    }
+
+    public function storePost(Request $request): RedirectResponse
+    {
+        return $this->store($request, 'post');
+    }
+
+    private function create(string $tipeSesi): View|RedirectResponse
+    {
+        if ($this->sudahMengisi($tipeSesi)) {
+            return redirect()->route('dashboard')->with('status', self::PESAN_SUDAH_MENGISI[$tipeSesi]);
         }
 
         $soal = KuesionerSoal::orderBy('tipe')->orderBy('urutan')->get();
 
-        return view('pretest.create', [
+        return view("kuesioner.{$tipeSesi}test", [
             'pengetahuan' => $soal->where('tipe', 'pengetahuan'),
             'sikap' => $soal->where('tipe', 'sikap'),
         ]);
     }
 
-    public function store(Request $request): RedirectResponse
+    private function store(Request $request, string $tipeSesi): RedirectResponse
     {
-        if ($this->sudahMengisi()) {
-            return redirect()->route('dashboard')->with('status', self::PESAN_SUDAH_MENGISI);
+        if ($this->sudahMengisi($tipeSesi)) {
+            return redirect()->route('dashboard')->with('status', self::PESAN_SUDAH_MENGISI[$tipeSesi]);
         }
 
         $soal = KuesionerSoal::orderBy('urutan')->get()->keyBy('id');
@@ -80,10 +103,10 @@ class PretestController extends Controller
         };
 
         try {
-            DB::transaction(function () use ($detail, $skorPengetahuan, $kategoriPengetahuan, $skorSikap, $now) {
+            DB::transaction(function () use ($tipeSesi, $detail, $skorPengetahuan, $kategoriPengetahuan, $skorSikap, $now) {
                 $hasil = HasilKuesioner::create([
                     'user_id' => Auth::id(),
-                    'tipe_sesi' => 'pre',
+                    'tipe_sesi' => $tipeSesi,
                     'skor_pengetahuan' => $skorPengetahuan,
                     'kategori_pengetahuan' => $kategoriPengetahuan,
                     'skor_sikap' => $skorSikap,
@@ -98,14 +121,18 @@ class PretestController extends Controller
         } catch (UniqueConstraintViolationException) {
             // Dua submit paralel (double-click / dua tab): unique (user_id, tipe_sesi)
             // menolak yang kedua. Cek di awal method cuma fast-path, bukan jaminan.
-            return redirect()->route('dashboard')->with('status', self::PESAN_SUDAH_MENGISI);
+            return redirect()->route('dashboard')->with('status', self::PESAN_SUDAH_MENGISI[$tipeSesi]);
         }
 
-        return redirect()->route('dashboard')->with('status', 'Pre-test berhasil dikirim.');
+        $pesanSukses = $tipeSesi === 'pre'
+            ? 'Pre-test berhasil dikirim.'
+            : 'Post-test berhasil dikirim. Terima kasih sudah mengikuti seluruh rangkaian program.';
+
+        return redirect()->route('dashboard')->with('status', $pesanSukses);
     }
 
-    private function sudahMengisi(): bool
+    private function sudahMengisi(string $tipeSesi): bool
     {
-        return Auth::user()->hasilKuesioner()->where('tipe_sesi', 'pre')->exists();
+        return Auth::user()->hasilKuesioner()->where('tipe_sesi', $tipeSesi)->exists();
     }
 }

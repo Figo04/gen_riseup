@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\KuesionerController;
 use App\Http\Controllers\ModulController;
-use App\Http\Controllers\PretestController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RefleksiController;
 use App\Http\Controllers\SubBagianController;
@@ -21,8 +21,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/pretest', [PretestController::class, 'create'])->name('pretest.create');
-    Route::post('/pretest', [PretestController::class, 'store'])->name('pretest.store');
+    Route::get('/pretest', [KuesionerController::class, 'createPre'])->name('kuesioner.pretest.create');
+    Route::post('/pretest', [KuesionerController::class, 'storePre'])->name('kuesioner.pretest.store');
 
     Route::middleware('pretest.completed')->group(function () {
         Route::get('/modul', [ModulController::class, 'index'])->name('modul.index');
@@ -40,6 +40,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/kalender-haid/{kalenderHaid}/edit', [TrackerController::class, 'editHaid'])->name('kalender-haid.edit');
         Route::put('/kalender-haid/{kalenderHaid}', [TrackerController::class, 'updateHaid'])->name('kalender-haid.update');
         Route::delete('/kalender-haid/{kalenderHaid}', [TrackerController::class, 'destroyHaid'])->name('kalender-haid.destroy');
+
+        Route::middleware('modul.selesai')->group(function () {
+            Route::get('/posttest', [KuesionerController::class, 'createPost'])->name('kuesioner.posttest.create');
+            Route::post('/posttest', [KuesionerController::class, 'storePost'])->name('kuesioner.posttest.store');
+        });
     });
 });
 

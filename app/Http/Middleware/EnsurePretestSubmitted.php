@@ -14,7 +14,7 @@ class EnsurePretestSubmitted
         $sudahPretest = Auth::user()->hasilKuesioner()->where('tipe_sesi', 'pre')->exists();
 
         if (! $sudahPretest) {
-            return redirect()->route('pretest.create')
+            return redirect()->route('kuesioner.pretest.create')
                 ->with('status', 'Selesaikan pre-test terlebih dahulu untuk mengakses materi.');
         }
 

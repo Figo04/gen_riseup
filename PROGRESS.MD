@@ -264,8 +264,49 @@ Hasil audit:
 
 ## Phase 5 — Post-test
 
-Sesi 19 — Task 13: Auto-switch menu ke Post-test setelah semua sub-bagian selesai
-Sesi 20 — Task 14: Form post-test (reuse struktur Phase 2, tipe_sesi = post, final)
+Sesi 19-20 — Task 14 lalu Task 13: Form post-test (reuse struktur Phase 2) +
+auto-switch menu ke Post-test ✅
+
+Catatan Sesi 19-20 (urutan ditukar dari CLAUDE.md §3, dikonfirmasi via
+interview — Task 14 duluan karena menu switch di Task 13 butuh route
+post-test sudah ada supaya tidak jadi link mati/stub sementara):
+- Deviasi struktur folder DIPERBAIKI sekalian: `PretestController` +
+  `resources/views/pretest/create.blade.php` (dari Sesi 7, tidak pernah
+  dicatat sebagai deviasi resmi) di-rename jadi `KuesionerController` +
+  `resources/views/kuesioner/{pretest,posttest}.blade.php` — sesuai PRD
+  §6 yang dari awal menetapkan satu controller kuesioner untuk pre+post.
+  File lama dihapus (dikonfirmasi dulu sebelum dihapus, sesuai CLAUDE.md
+  rule #1). Route name ganti `pretest.create`/`pretest.store` →
+  `kuesioner.pretest.create`/`kuesioner.pretest.store`.
+- View pre-test & post-test berbagi 1 partial (`kuesioner/_form.blade.php`)
+  — markup form identik (22+20 soal, radio B/S & SS/S/TS/STS), cuma beda
+  judul/label tombol/teks peringatan final.
+- `KuesionerController` generik: 4 method publik tipis (createPre/storePre/
+  createPost/storePost) delegasi ke 2 method private (`create`/`store`)
+  yang di-parameter-kan `$tipeSesi`. Logic skoring (pengetahuan % + kategori
+  Baik/Cukup/Kurang, sikap total dengan reverse_scored) sama persis dengan
+  Sesi 7-8, tidak diubah — cuma dipakai ulang untuk 'post'.
+- Sekalian membereskan item DITUNDA dari Sesi A1: `sudahMengisi()` sudah
+  tidak hardcode 'pre' lagi (terima parameter `$tipeSesi`), karena memang
+  dipakai bareng oleh pre & post sekarang.
+- Middleware baru: `EnsureModulSelesai` (alias `modul.selesai`), pola sama
+  `EnsurePretestSubmitted` — redirect ke dashboard + flash message kalau
+  `User::materiSelesaiSemua()` belum true. Route `/posttest` (GET+POST)
+  digating `pretest.completed` + `modul.selesai` sekaligus.
+- Menu nav (`navigation.blade.php`, desktop & responsive): 1 item dinamis
+  `@if (materiSelesaiSemua()) Post-Test @else Pre-Test @endif` — bukan 2
+  item terpisah, sesuai PRD §4.1 poin 3 (satu menu dinamis, bukan
+  sequential unlock).
+- Kondisi PRD literal dipertahankan: kalau pretest sudah diisi tapi materi
+  belum kelar semua, menu tetap tampil "Pre-Test" (klik → redirect balik
+  ke dashboard dengan pesan "sudah pernah diisi"), bukan "Post-Test
+  (terkunci)" — tidak diminta lain jadi ikut PRD apa adanya.
+- Test baru: `tests/Feature/PosttestTest.php` (4 test: post-test terkunci
+  sebelum materi kelar semua, bisa diakses+diskor setelah kelar, submit
+  kedua ditolak backend, pre & post tidak saling menghalangi karena
+  tipe_sesi beda). Route name lama diupdate di `PretestTest.php`,
+  `TrackerGiziTest.php`, `ProgressModulTest.php` (masih dipakai buat
+  assert redirect ke pretest). Full suite 63/63 pass.
 
 ## Phase 6 — Admin Dashboard
 

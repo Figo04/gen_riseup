@@ -19,7 +19,7 @@ class ProgressModulTest extends TestCase
 
         $response = $this->actingAs($user)->get('/modul');
 
-        $response->assertRedirect(route('pretest.create'));
+        $response->assertRedirect(route('kuesioner.pretest.create'));
     }
 
     public function test_menandai_materi_selesai_membuat_progress_dan_tampil_di_daftar_sub_bagian(): void

@@ -22,6 +22,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->alias([
             'pretest.completed' => \App\Http\Middleware\EnsurePretestSubmitted::class,
+            'modul.selesai' => \App\Http\Middleware\EnsureModulSelesai::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

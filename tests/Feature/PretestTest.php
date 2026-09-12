@@ -31,14 +31,14 @@ class PretestTest extends TestCase
     {
         $jawaban = KuesionerSoal::orderBy('id')->pluck('id')->combine($isian)->all();
 
-        return $this->actingAs($user)->post(route('pretest.store'), ['jawaban' => $jawaban]);
+        return $this->actingAs($user)->post(route('kuesioner.pretest.store'), ['jawaban' => $jawaban]);
     }
 
     public function test_materi_terkunci_sebelum_pretest_disubmit(): void
     {
         $response = $this->actingAs(User::factory()->create())->get(route('modul.index'));
 
-        $response->assertRedirect(route('pretest.create'));
+        $response->assertRedirect(route('kuesioner.pretest.create'));
         $this->assertDatabaseCount('hasil_kuesioner', 0);
     }
 
@@ -112,7 +112,7 @@ class PretestTest extends TestCase
         $user = User::factory()->create();
         $soalPertama = KuesionerSoal::orderBy('id')->first();
 
-        $response = $this->actingAs($user)->post(route('pretest.store'), ['jawaban' => [$soalPertama->id => 'B']]);
+        $response = $this->actingAs($user)->post(route('kuesioner.pretest.store'), ['jawaban' => [$soalPertama->id => 'B']]);
 
         $response->assertSessionHasErrors();
         $this->assertDatabaseCount('hasil_kuesioner', 0);

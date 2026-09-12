@@ -15,9 +15,15 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('pretest.create')" :active="request()->routeIs('pretest.*')">
-                        {{ __('Pre-Test') }}
-                    </x-nav-link>
+                    @if (Auth::user()->materiSelesaiSemua())
+                        <x-nav-link :href="route('kuesioner.posttest.create')" :active="request()->routeIs('kuesioner.posttest.*')">
+                            {{ __('Post-Test') }}
+                        </x-nav-link>
+                    @else
+                        <x-nav-link :href="route('kuesioner.pretest.create')" :active="request()->routeIs('kuesioner.pretest.*')">
+                            {{ __('Pre-Test') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -73,9 +79,15 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('pretest.create')" :active="request()->routeIs('pretest.*')">
-                {{ __('Pre-Test') }}
-            </x-responsive-nav-link>
+            @if (Auth::user()->materiSelesaiSemua())
+                <x-responsive-nav-link :href="route('kuesioner.posttest.create')" :active="request()->routeIs('kuesioner.posttest.*')">
+                    {{ __('Post-Test') }}
+                </x-responsive-nav-link>
+            @else
+                <x-responsive-nav-link :href="route('kuesioner.pretest.create')" :active="request()->routeIs('kuesioner.pretest.*')">
+                    {{ __('Pre-Test') }}
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
