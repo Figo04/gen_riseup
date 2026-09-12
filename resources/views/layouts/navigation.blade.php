@@ -15,6 +15,12 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('modul.index')" :active="request()->routeIs('modul.*')">
+                        {{ __('Materi') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('kalender-haid.index')" :active="request()->routeIs('kalender-haid.*')">
+                        {{ __('Kalender Haid') }}
+                    </x-nav-link>
                     @if (Auth::user()->materiSelesaiSemua())
                         <x-nav-link :href="route('kuesioner.posttest.create')" :active="request()->routeIs('kuesioner.posttest.*')">
                             {{ __('Post-Test') }}
@@ -78,6 +84,12 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('modul.index')" :active="request()->routeIs('modul.*')">
+                {{ __('Materi') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('kalender-haid.index')" :active="request()->routeIs('kalender-haid.*')">
+                {{ __('Kalender Haid') }}
             </x-responsive-nav-link>
             @if (Auth::user()->materiSelesaiSemua())
                 <x-responsive-nav-link :href="route('kuesioner.posttest.create')" :active="request()->routeIs('kuesioner.posttest.*')">
