@@ -42,8 +42,12 @@
                             <x-admin-nav-link :href="route('admin.soal.index')" :active="request()->routeIs('admin.soal.*')">
                                 Kelola Soal
                             </x-admin-nav-link>
-                            <x-admin-nav-link disabled>Kelola Materi</x-admin-nav-link>
-                            <x-admin-nav-link disabled>Data Kalender Haid</x-admin-nav-link>
+                            <x-admin-nav-link :href="route('admin.materi.index')" :active="request()->routeIs('admin.materi.*')">
+                                Kelola Materi
+                            </x-admin-nav-link>
+                            <x-admin-nav-link :href="route('admin.kalender-haid.index')" :active="request()->routeIs('admin.kalender-haid.*')">
+                                Data Kalender Haid
+                            </x-admin-nav-link>
                         </div>
                     </div>
                 </nav>

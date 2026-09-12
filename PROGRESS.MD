@@ -437,7 +437,30 @@ mentah (di luar `{{ }}`), Alpine error, field jawaban_benar/reverse_scored
 gak pernah muncul; rule `prohibited` menolak field tersembunyi (x-show
 cuma CSS) yang tetap ikut ter-POST, jadi tambah soal sikap selalu gagal.
 Fix + 2 regression test baru, full suite 76/76 pass, commit terpisah.
-Sesi 25 — Task 18: Kelola Materi (view-only) + Data Kalender Haid (view-only); refleksi & tracker tidak pernah di-query
+Sesi 25 — Task 18: Kelola Materi (view-only) + Data Kalender Haid (view-only); refleksi & tracker tidak pernah di-query ✅
+
+Catatan Sesi 25:
+- Kelola Materi: 3 route GET-only (bukan `Route::resource`, supaya tidak ada
+  route tulis sama sekali) — index (daftar 4 modul + jumlah sub-bagian) →
+  show (daftar sub-bagian per modul) → sub-bagian (render `konten_view` yang
+  sama persis dipakai sisi siswa, lewat `@include`). Tidak ada tombol
+  "Tandai Selesai"/video popup di view admin — murni preview konten.
+  Controller baru `Admin\MateriController` (index/show/subBagian).
+- Data Kalender Haid: 1 route GET-only, tabel flat SEMUA entri semua siswa
+  (`with('user')->orderByDesc('tanggal_mulai')`) — tidak per-siswa/drill-down
+  (dikonfirmasi cukup, PRD cuma minta "view-only" + riwayat penuh, tidak
+  minta filter/agregat per siswa). Tidak ada tombol edit/hapus. Controller
+  baru `Admin\KalenderHaidController` (index saja).
+- Refleksi & TrackerGizi TIDAK PERNAH di-query di kedua controller (CLAUDE.md
+  rule #9 + PRD §4.3/§7) — dites eksplisit di `AdminKalenderHaidTest`
+  (jawaban refleksi rahasia tidak pernah muncul di halaman kalender haid).
+- Sidebar admin: 2 link "Kelola Materi"/"Data Kalender Haid" dari placeholder
+  disabled jadi aktif (pola sama Sesi 24).
+- Test baru: `tests/Feature/Admin/AdminMateriTest.php` (4 test) +
+  `AdminKalenderHaidTest.php` (3 test). Full suite 83/83 pass.
+- Gap dicatat (belum dikerjakan, bukan scope sesi ini): menu "Responden" &
+  "Hasil Test" di sidebar admin (PRD §4.2) belum punya sesi build sama
+  sekali di tracker ini — masih placeholder disabled.
 Sesi 26 — Task 19: Export CSV/Excel dari dashboard (pre vs post, exclude refleksi/tracker) + artisan command opsional
 
 ## Phase 7 — Polish & QA
