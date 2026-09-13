@@ -82,31 +82,49 @@ class AlurLengkapTest extends TestCase
         foreach (Modul::with('subBagian')->orderBy('urutan')->get() as $modul) {
             $this->get(route('modul.show', $modul))->assertOk();
 
+            $terakhir = $modul->subBagian->last();
+
             foreach ($modul->subBagian as $sub) {
                 $this->get(route('modul.sub-bagian.show', [$modul, $sub]))->assertOk();
 
-                // Refleksi masih terkunci sebelum materi ditandai selesai
+                // Refleksi hanya ada di sub-bagian terakhir (sisanya 404), dan di
+                // sub-bagian itu pun masih terkunci sebelum materi ditandai selesai.
                 $this->get(route('modul.sub-bagian.refleksi', [$modul, $sub]))
-                    ->assertRedirect(route('modul.sub-bagian.show', [$modul, $sub]));
+                    ->when(
+                        $sub->is($terakhir),
+                        fn ($r) => $r->assertRedirect(route('modul.sub-bagian.show', [$modul, $sub])),
+                        fn ($r) => $r->assertNotFound(),
+                    );
 
                 $this->post(route('modul.sub-bagian.selesai', [$modul, $sub]))
                     ->assertRedirect(route('modul.show', $modul));
-
-                $this->get(route('modul.sub-bagian.refleksi', [$modul, $sub]))->assertOk();
-                $this->post(route('modul.sub-bagian.refleksi.store', [$modul, $sub]), [
-                    'jawaban' => 'Refleksi untuk '.$sub->judul,
-                ])->assertRedirect(route('modul.sub-bagian.refleksi', [$modul, $sub]));
             }
+
+            $this->get(route('modul.sub-bagian.refleksi', [$modul, $terakhir]))->assertOk();
+            $this->post(route('modul.sub-bagian.refleksi.store', [$modul, $terakhir]), [
+                'pertanyaan' => array_map(
+                    fn (string $p) => 'Jawaban untuk: '.$p,
+                    config("refleksi.{$modul->slug}.pertanyaan"),
+                ),
+            ])->assertRedirect(route('modul.sub-bagian.refleksi', [$modul, $terakhir]));
         }
 
         $this->assertSame(SubBagian::count(), $siswa->progressModul()->where('materi_selesai', true)->count());
-        $this->assertSame(SubBagian::count(), $siswa->refleksi()->count());
+        $this->assertSame(Modul::count(), $siswa->refleksi()->count(), 'Satu lembar refleksi per modul.');
 
-        // Refleksi sekali kirim: percobaan kedua tidak menambah baris
-        $subPertama = SubBagian::orderBy('id')->firstOrFail();
-        $this->post(route('modul.sub-bagian.refleksi.store', [$subPertama->modul_id, $subPertama->id]), ['jawaban' => 'Coba ubah']);
-        $this->assertSame(SubBagian::count(), $siswa->refleksi()->count());
-        $this->assertSame('Refleksi untuk '.$subPertama->judul, $siswa->refleksi()->where('sub_bagian_id', $subPertama->id)->value('jawaban'));
+        // Refleksi sekali kirim: percobaan kedua tidak menambah baris & tidak menimpa
+        $modulPertama = Modul::with('subBagian')->orderBy('urutan')->firstOrFail();
+        $subRefleksi = $modulPertama->subBagian->last();
+        $pertanyaanPertama = config("refleksi.{$modulPertama->slug}.pertanyaan")[0];
+
+        $this->post(route('modul.sub-bagian.refleksi.store', [$modulPertama, $subRefleksi]), [
+            'pertanyaan' => ['Coba ubah', 'Coba ubah', 'Coba ubah'],
+        ]);
+        $this->assertSame(Modul::count(), $siswa->refleksi()->count());
+        $this->assertSame(
+            'Jawaban untuk: '.$pertanyaanPertama,
+            $siswa->refleksi()->where('sub_bagian_id', $subRefleksi->id)->first()->jawaban['pertanyaan'][0],
+        );
 
         // 6. Tracker gizi — sekali isi
         $this->post(route('tracker-gizi.store'), ['data' => ['Senin' => ['sayur_buah' => '1', 'protein' => '1']]])

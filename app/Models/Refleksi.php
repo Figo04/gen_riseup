@@ -13,6 +13,9 @@ class Refleksi extends Model
     protected function casts(): array
     {
         return [
+            // Satu lembar refleksi berisi beberapa pertanyaan + worksheet,
+            // disimpan sebagai JSON di kolom text yang sudah ada.
+            'jawaban' => 'array',
             'is_locked' => 'boolean',
             'submitted_at' => 'datetime',
         ];

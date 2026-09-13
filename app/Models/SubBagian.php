@@ -14,4 +14,12 @@ class SubBagian extends Model
     {
         return $this->belongsTo(Modul::class);
     }
+
+    /**
+     * Lembar refleksi cuma ada satu per modul, menempel di sub-bagian terakhir.
+     */
+    public function adalahTerakhir(): bool
+    {
+        return $this->urutan === static::where('modul_id', $this->modul_id)->max('urutan');
+    }
 }

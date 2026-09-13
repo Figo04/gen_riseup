@@ -1,13 +1,18 @@
 @php($refleksiTerbuka = $sudahSelesai ?? true)
+{{-- Lembar refleksi cuma satu per modul (lihat config/refleksi.php), jadi tab-nya
+     hanya muncul di sub-bagian terakhir; sub-bagian lain tampil full-width. --}}
+@php($adaRefleksi = $subBagian->adalahTerakhir())
 
-<nav class="grid grid-cols-2 gap-3">
+<nav class="grid gap-3 {{ $adaRefleksi ? 'grid-cols-2' : 'grid-cols-1' }}">
     <a href="{{ route('modul.sub-bagian.show', [$modul, $subBagian]) }}"
        @if ($aktif === 'materi') aria-current="page" @endif
        class="rounded-full py-3 text-center font-semibold {{ $aktif === 'materi' ? 'bg-brand-forest text-white' : 'bg-brand-line/50 text-brand-ink/60' }}">
         Materi
     </a>
 
-    @if ($refleksiTerbuka)
+    @if (! $adaRefleksi)
+        {{-- Sub-bagian ini tidak punya lembar refleksi sendiri. --}}
+    @elseif ($refleksiTerbuka)
         <a href="{{ route('modul.sub-bagian.refleksi', [$modul, $subBagian]) }}"
            @if ($aktif === 'refleksi') aria-current="page" @endif
            class="rounded-full py-3 text-center font-semibold {{ $aktif === 'refleksi' ? 'bg-brand-forest text-white' : 'bg-brand-line/50 text-brand-ink/60' }}">
