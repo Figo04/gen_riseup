@@ -15,9 +15,9 @@
     </ol>
 
     <p class="font-semibold text-brand-ink">Worksheet: Rencana Aksi Pribadi</p>
-    <div class="overflow-x-auto rounded-2xl border border-brand-mint/30">
+    <div class="overflow-x-auto rounded-2xl border border-brand-line">
         <table class="w-full text-sm text-left">
-            <thead class="bg-brand-mint-light text-brand-ink font-semibold">
+            <thead class="bg-brand-mint-soft text-brand-ink font-semibold">
                 <tr>
                     <th class="p-3">Area</th>
                     <th class="p-3">Tantangan Saat Ini</th>
@@ -25,13 +25,13 @@
                 </tr>
             </thead>
             <tbody class="text-brand-ink/80">
-                <tr class="border-t border-brand-mint/20">
+                <tr class="border-t border-brand-line">
                     <td class="p-3">Contoh: Menolak ajakan</td>
                     <td class="p-3">Susah bilang "tidak" ke teman</td>
                     <td class="p-3">Latihan teknik DESC minggu ini</td>
                 </tr>
                 @for ($i = 0; $i < 4; $i++)
-                    <tr class="border-t border-brand-mint/20">
+                    <tr class="border-t border-brand-line">
                         <td class="p-3">&nbsp;</td>
                         <td class="p-3">&nbsp;</td>
                         <td class="p-3">&nbsp;</td>

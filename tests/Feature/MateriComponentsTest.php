@@ -11,7 +11,7 @@ class MateriComponentsTest extends TestCase
     {
         $html = Blade::render('<x-highlight title="Tujuan">isi</x-highlight>');
 
-        $this->assertStringContainsString('bg-brand-mint-light', $html);
+        $this->assertStringContainsString('bg-brand-mint-soft', $html);
         $this->assertStringContainsString('Tujuan', $html);
     }
 
@@ -19,8 +19,8 @@ class MateriComponentsTest extends TestCase
     {
         $html = Blade::render('<x-highlight variant="peach">isi</x-highlight>');
 
-        $this->assertStringContainsString('bg-brand-peach-light', $html);
-        $this->assertStringNotContainsString('bg-brand-mint-light', $html);
+        $this->assertStringContainsString('bg-brand-amber-soft', $html);
+        $this->assertStringNotContainsString('bg-brand-mint-soft', $html);
     }
 
     public function test_checklist_item_warning_variant_uses_warning_icon(): void

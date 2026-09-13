@@ -1,35 +1,42 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ $subBagian->judul }}
-        </h2>
-    </x-slot>
+    @include('modul._band', [
+        'kembaliUrl' => route('modul.sub-bagian.show', [$modul, $subBagian]),
+        'kembaliLabel' => $subBagian->judul,
+        'judul' => 'Lembar Refleksi',
+        'sub' => null,
+        'meta' => null,
+    ])
 
-    <div class="py-12">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-            @if (session('status'))
-                <div class="bg-green-50 border border-green-200 text-green-800 text-sm rounded-lg p-4">
-                    {{ session('status') }}
-                </div>
+    <div class="mx-auto max-w-md space-y-5 px-5 pt-5">
+        @if (session('status'))
+            <p class="rounded-2xl bg-brand-mint-soft p-4 text-sm text-brand-forest-deep">{{ session('status') }}</p>
+        @endif
+
+        {{-- Halaman ini hanya bisa diakses setelah materi selesai, jadi tab refleksi selalu terbuka. --}}
+        @include('modul._tabs', ['aktif' => 'refleksi', 'sudahSelesai' => true])
+
+        <div class="rounded-3xl bg-brand-paper p-5 shadow-sm">
+            <p class="text-brand-ink/60">Ceritakan apa yang kamu pelajari atau rasakan dari bagian ini.</p>
+
+            @if ($refleksi?->is_locked)
+                <p class="mt-4 text-sm font-semibold text-brand-forest">✓ Refleksi sudah dikirim dan tidak dapat diubah.</p>
+                <textarea class="mt-3 w-full rounded-2xl border-brand-line bg-brand-cream text-brand-ink/70" rows="6" disabled>{{ $refleksi->jawaban }}</textarea>
+            @else
+                <form method="POST" action="{{ route('modul.sub-bagian.refleksi.store', [$modul, $subBagian]) }}" class="mt-4 space-y-4">
+                    @csrf
+                    <textarea name="jawaban" rows="6" required
+                              placeholder="Tulis sejujurnya aja, nggak ada jawaban yang salah…"
+                              class="w-full rounded-2xl border-brand-line bg-brand-cream placeholder:text-brand-ink/35 focus:border-brand-forest focus:ring-brand-forest">{{ old('jawaban') }}</textarea>
+                    <x-input-error :messages="$errors->get('jawaban')" />
+                    <button type="submit" class="w-full rounded-full bg-brand-forest py-4 font-bold text-white">
+                        Kirim Refleksi
+                    </button>
+                </form>
             @endif
-
-            @include('modul._tabs', ['aktif' => 'refleksi'])
-
-            <div class="bg-white shadow-sm sm:rounded-lg p-6 space-y-4">
-                <p class="text-sm text-gray-500">Ceritakan apa yang kamu pelajari atau rasakan dari bagian ini.</p>
-
-                @if ($refleksi?->is_locked)
-                    <p class="text-sm text-green-600">✓ Refleksi sudah dikirim dan tidak dapat diubah.</p>
-                    <textarea class="w-full rounded-lg border-gray-300" rows="6" disabled>{{ $refleksi->jawaban }}</textarea>
-                @else
-                    <form method="POST" action="{{ route('modul.sub-bagian.refleksi.store', [$modul, $subBagian]) }}" class="space-y-4">
-                        @csrf
-                        <textarea name="jawaban" class="w-full rounded-lg border-gray-300" rows="6" required>{{ old('jawaban') }}</textarea>
-                        <x-input-error :messages="$errors->get('jawaban')" />
-                        <x-primary-button type="submit">Kirim Refleksi</x-primary-button>
-                    </form>
-                @endif
-            </div>
         </div>
+
+        <p class="rounded-2xl bg-brand-lilac p-4 text-sm text-brand-ink/70">
+            Refleksi cuma bisa dikirim sekali, jadi santai aja dan tulis apa adanya.
+        </p>
     </div>
 </x-app-layout>

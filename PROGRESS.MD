@@ -609,3 +609,45 @@ Sesi 29 — Restyle 1/6: Fondasi (token + bottom nav + layout) & halaman Home �
 Sesi 30+ — Restyle 2/6 dst.: Materi (index/show/materi/refleksi), Tes,
 Kalender Haid, Profil, lalu Login/Register (tanpa mockup, dirancang dari
 token yang sama)
+
+Sesi 30 — Restyle 2/6: Layar Materi (index, detail modul, sub-bagian, refleksi) ✅
+
+- `modul/index.blade.php` sesuai `materi-1.png`: judul + subjudul, kartu per
+  modul (emoji dalam lingkaran warna aksen, label "MODUL n", nama, tagline,
+  progress bar + "n/total", chevron). Modul yang belum disentuh tampil redup
+  — penanda "belum mulai", TETAP bisa diklik (PRD §3.1). Kata "Terkunci" di
+  mockup sengaja tidak dipakai karena akan menyesatkan.
+- `modul/_band.blade.php` (baru): pita header berwarna aksen modul, dipakai
+  bersama oleh `show`, `materi`, dan `refleksi`. Warna per modul lewat
+  `Modul::getWarnaAttribute()` — accessor hanya mengembalikan KUNCI
+  ('mint'/'amber'/'lilac'/'pink'), class Tailwind-nya ditulis di Blade,
+  karena Tailwind tidak men-scan file PHP (kalau ditulis di model, class-nya
+  ke-purge dan warnanya hilang di production build).
+- `modul/show.blade.php` sesuai `materi-2.png`: pita header + daftar
+  sub-bagian bernomor, lingkaran jadi centang hijau kalau selesai.
+  "menit baca" di mockup TIDAK dipakai — datanya tidak ada di DB dan tidak
+  layak diarang-arang; diganti status Selesai/Belum selesai yang memang ada.
+- `modul/_tabs.blade.php` jadi 2 pill (mockup `materi-3/4.png`); tab Refleksi
+  tampil abu + ikon gembok selama materi belum ditandai selesai. Ini cuma
+  cermin dari gating yang sudah dijaga `RefleksiController`, bukan gate baru.
+- `modul/materi.blade.php`: tombol video jadi kartu gelap + lingkaran play
+  amber ("Putar langsung di halaman ini"), tombol submit jadi "Tandai sudah
+  dibaca" full-width. Popup video tidak diubah (masih `x-modal` + iframe
+  nocookie).
+- `modul/refleksi.blade.php`: kartu putih + textarea cream, catatan lilac
+  "cuma bisa dikirim sekali". Logika lock tidak disentuh.
+- Komponen konten ikut dimigrasi ke palet baru (sed pass, 11 file):
+  `bg-brand-mint-light`→`bg-brand-mint-soft`, `border-brand-mint/{20,30}`→
+  `border-brand-line`, `bg-brand-peach-light`→`bg-brand-amber-soft`,
+  `border-brand-peach/40`→`border-brand-amber/40`. `tip-box` jadi callout
+  lilac (kotak "Ingat ya"), `checklist` jadi kotak garis putus-putus dengan
+  judul opsional, `checklist-item` centang ✅ jadi lingkaran mint + SVG.
+  Token lama `brand-mint` (#7FC79A) & `brand-peach` DIHAPUS dari
+  tailwind.config.js — sudah tidak ada yang memakai (grep bersih).
+- Tes: `RefleksiTest` +1 (tab refleksi terkunci lalu terbuka).
+  `VideoPopupTest` & `MateriComponentsTest` disesuaikan ke copy/token baru
+  (assertion soal perilaku tidak berubah, hanya string yang dicari).
+  Full suite 92/92 hijau. Class baru diverifikasi benar-benar ada di
+  `public/build/assets/*.css` setelah build (anti-purge check).
+- TIDAK dikerjakan: layar Tes, Kalender Haid, Profil, Login/Register masih
+  tampilan lama. Verifikasi visual di browser belum dilakukan.

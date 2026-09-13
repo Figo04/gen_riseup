@@ -29,9 +29,13 @@ open after the pre-test (PRD §3.1).
 | `brand-ink`         | `#232E2B` | body text and headings on light backgrounds          |
 | `brand-line`        | `#E3E8DC` | hairline borders, dividers, progress track           |
 
-`brand-mint` (`#7FC79A`) and `brand-peach` are the pre-restyle tokens. They are
-still referenced by the Materi content components (tip-box, highlight,
-mitos-fakta) and get retired when those screens are restyled.
+The pre-restyle tokens (`brand-mint` `#7FC79A`, `brand-peach`) are gone — the
+Materi content components were migrated to the table above.
+
+Per-module accent, used for the header band and the module icon
+(`Modul::getWarnaAttribute()` returns the key, the Blade file holds the class
+so Tailwind can scan it): Kejar Mimpi → mint, Investasi Gizi → amber,
+Berpikir Kritis → lilac, Kenali Tubuhmu → pink.
 
 ## Layout
 
@@ -45,6 +49,9 @@ mitos-fakta) and get retired when those screens are restyled.
 
 ## Shape & elevation
 
+- Screens under a module (detail, sub-bagian, refleksi) open with a colored
+  band in that module's accent (`modul/_band.blade.php`): back link, title,
+  optional tagline and progress meta, `rounded-b-3xl`.
 - Big surfaces (hero card, section card): `rounded-3xl`.
 - List rows and small cards: `rounded-2xl`.
 - Flat design — `shadow-sm` at most, never a heavy drop shadow.

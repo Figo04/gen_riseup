@@ -4,9 +4,9 @@
         awal — bisa kamu tulis ulang di buku catatan pribadi supaya lebih leluasa.
     </p>
 
-    <div class="overflow-x-auto rounded-2xl border border-brand-mint/30">
+    <div class="overflow-x-auto rounded-2xl border border-brand-line">
         <table class="w-full text-sm text-left">
-            <thead class="bg-brand-mint-light text-brand-ink font-semibold">
+            <thead class="bg-brand-mint-soft text-brand-ink font-semibold">
                 <tr>
                     <th class="p-3">Cita-Cita / Tujuan</th>
                     <th class="p-3">Langkah Kecil (Bulan Ini)</th>
@@ -15,14 +15,14 @@
                 </tr>
             </thead>
             <tbody class="text-brand-ink/80">
-                <tr class="border-t border-brand-mint/20">
+                <tr class="border-t border-brand-line">
                     <td class="p-3">Contoh: Kuliah kedokteran</td>
                     <td class="p-3">Perbaiki nilai Biologi &amp; Kimia</td>
                     <td class="p-3">Belajar rutin, buku latihan soal</td>
                     <td class="p-3">Guru les, kakak kelas</td>
                 </tr>
                 @for ($i = 0; $i < 4; $i++)
-                    <tr class="border-t border-brand-mint/20">
+                    <tr class="border-t border-brand-line">
                         <td class="p-3">&nbsp;</td>
                         <td class="p-3">&nbsp;</td>
                         <td class="p-3">&nbsp;</td>

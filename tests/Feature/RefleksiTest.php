@@ -33,6 +33,19 @@ class RefleksiTest extends TestCase
         $response->assertRedirect(route('modul.sub-bagian.show', [$modul, $sub]));
     }
 
+    public function test_tab_refleksi_terkunci_di_halaman_materi_sampai_materi_ditandai_selesai(): void
+    {
+        [$user, $modul, $sub] = $this->siswaSiapMateri();
+
+        $this->actingAs($user)->get(route('modul.sub-bagian.show', [$modul, $sub]))
+            ->assertDontSee(route('modul.sub-bagian.refleksi', [$modul, $sub]));
+
+        ProgressModul::create(['user_id' => $user->id, 'sub_bagian_id' => $sub->id, 'materi_selesai' => true, 'materi_selesai_at' => now()]);
+
+        $this->actingAs($user)->get(route('modul.sub-bagian.show', [$modul, $sub]))
+            ->assertSee(route('modul.sub-bagian.refleksi', [$modul, $sub]));
+    }
+
     public function test_submit_refleksi_sukses_setelah_materi_selesai(): void
     {
         [$user, $modul, $sub] = $this->siswaSiapMateri();

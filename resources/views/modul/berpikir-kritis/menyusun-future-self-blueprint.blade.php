@@ -16,7 +16,7 @@
     </figure>
 
     <p class="font-semibold text-brand-ink">Template Surat untuk Diri Sendiri</p>
-    <blockquote class="rounded-2xl border border-brand-mint/30 bg-brand-mint-light p-5 text-sm text-brand-ink/80 italic space-y-2">
+    <blockquote class="rounded-2xl border border-brand-line bg-brand-mint-soft p-5 text-sm text-brand-ink/80 italic space-y-2">
         <p>Halo [namamu di masa depan],</p>
         <p>Hari ini aku memutuskan untuk ______________________ (tuliskan tujuan/komitmenmu).</p>
         <p>Aku tahu ini nggak akan selalu mudah, terutama saat ______________________ (tuliskan tantangan yang mungkin muncul).</p>

@@ -22,9 +22,9 @@
         adalah pola DESC — cocok dipakai saat kamu perlu menolak atau menyampaikan batasan:
     </p>
 
-    <div class="overflow-x-auto rounded-2xl border border-brand-mint/30">
+    <div class="overflow-x-auto rounded-2xl border border-brand-line">
         <table class="w-full text-sm text-left">
-            <thead class="bg-brand-mint-light text-brand-ink font-semibold">
+            <thead class="bg-brand-mint-soft text-brand-ink font-semibold">
                 <tr>
                     <th class="p-3">Langkah</th>
                     <th class="p-3">Penjelasan</th>
@@ -32,22 +32,22 @@
                 </tr>
             </thead>
             <tbody class="text-brand-ink/80">
-                <tr class="border-t border-brand-mint/20">
+                <tr class="border-t border-brand-line">
                     <td class="p-3">Describe (Jelaskan)</td>
                     <td class="p-3">Sampaikan situasi secara objektif, tanpa menuduh</td>
                     <td class="p-3">"Aku lihat kita sering nongkrong pas jam belajar..."</td>
                 </tr>
-                <tr class="border-t border-brand-mint/20">
+                <tr class="border-t border-brand-line">
                     <td class="p-3">Express (Ungkapkan)</td>
                     <td class="p-3">Sampaikan perasaan/pandanganmu</td>
                     <td class="p-3">"...aku jadi khawatir nilai ujianku turun."</td>
                 </tr>
-                <tr class="border-t border-brand-mint/20">
+                <tr class="border-t border-brand-line">
                     <td class="p-3">Specify (Tentukan)</td>
                     <td class="p-3">Sampaikan apa yang kamu inginkan</td>
                     <td class="p-3">"Aku mau fokus belajar dulu minggu ini."</td>
                 </tr>
-                <tr class="border-t border-brand-mint/20">
+                <tr class="border-t border-brand-line">
                     <td class="p-3">Consequence (Konsekuensi)</td>
                     <td class="p-3">Sampaikan dampak positif jika permintaanmu dipenuhi</td>
                     <td class="p-3">"Biar abis ujian kita bisa hangout lebih tenang."</td>

@@ -23,17 +23,8 @@ export default {
                     },
                     cream: '#F9F6EB',
                     paper: '#FEFDFA',
-                    // mint.DEFAULT / peach are the pre-restyle tokens, still used by the
-                    // Materi content components (tip-box, highlight, mitos-fakta).
-                    // Retired when the Materi screens are restyled.
                     mint: {
-                        DEFAULT: '#7FC79A',
                         soft: '#CFEDE0',
-                        light: '#D8EFE0',
-                    },
-                    peach: {
-                        DEFAULT: '#E8A87C',
-                        light: '#F7DFC9',
                     },
                     pink: {
                         DEFAULT: '#FFE1E3',

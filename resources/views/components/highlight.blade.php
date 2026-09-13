@@ -2,8 +2,8 @@
 
 @php
     $variantClass = $variant === 'peach'
-        ? 'border-brand-peach/40 bg-brand-peach-light'
-        : 'border-brand-mint/30 bg-brand-mint-light';
+        ? 'border-brand-amber/40 bg-brand-amber-soft'
+        : 'border-brand-line bg-brand-mint-soft';
 @endphp
 
 <div {{ $attributes->merge(['class' => "rounded-2xl border p-5 $variantClass"]) }}>

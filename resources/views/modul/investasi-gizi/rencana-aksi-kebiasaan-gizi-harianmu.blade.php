@@ -4,9 +4,9 @@
         pengingat sederhana:
     </p>
 
-    <div class="overflow-x-auto rounded-2xl border border-brand-mint/30">
+    <div class="overflow-x-auto rounded-2xl border border-brand-line">
         <table class="w-full text-sm text-left">
-            <thead class="bg-brand-mint-light text-brand-ink font-semibold">
+            <thead class="bg-brand-mint-soft text-brand-ink font-semibold">
                 <tr>
                     <th class="p-3">Hari</th>
                     <th class="p-3">Sayur &amp; Buah?</th>
@@ -16,7 +16,7 @@
                 </tr>
             </thead>
             <tbody class="text-brand-ink/80">
-                <tr class="border-t border-brand-mint/20">
+                <tr class="border-t border-brand-line">
                     <td class="p-3">Contoh: Senin</td>
                     <td class="p-3">✅ Ya</td>
                     <td class="p-3">✅ Ya (telur)</td>
@@ -24,7 +24,7 @@
                     <td class="p-3">✅ Kacang tanah</td>
                 </tr>
                 @for ($i = 0; $i < 6; $i++)
-                    <tr class="border-t border-brand-mint/20">
+                    <tr class="border-t border-brand-line">
                         <td class="p-3">&nbsp;</td>
                         <td class="p-3">&nbsp;</td>
                         <td class="p-3">&nbsp;</td>

@@ -28,7 +28,7 @@ class VideoPopupTest extends TestCase
         $sub = SubBagian::create(['modul_id' => $modul->id, 'judul' => 'Bab 1', 'konten_view' => 'modul.kejar-mimpi.ingat-lagi-mimpimu', 'urutan' => 1, 'video_youtube_id' => 'jNQXAC9IVRw']);
 
         $this->actingAs($user)->get(route('modul.sub-bagian.show', [$modul, $sub]))
-            ->assertSee('Tonton Video')
+            ->assertSee('Putar langsung di halaman ini')
             ->assertSee('jNQXAC9IVRw');
     }
 
@@ -39,6 +39,6 @@ class VideoPopupTest extends TestCase
         $sub = SubBagian::create(['modul_id' => $modul->id, 'judul' => 'Bab 1', 'konten_view' => 'modul.kejar-mimpi.ingat-lagi-mimpimu', 'urutan' => 1]);
 
         $this->actingAs($user)->get(route('modul.sub-bagian.show', [$modul, $sub]))
-            ->assertDontSee('Tonton Video');
+            ->assertDontSee('Putar langsung di halaman ini');
     }
 }

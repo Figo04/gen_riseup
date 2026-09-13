@@ -30,32 +30,32 @@
         kredibilitas sebuah sumber informasi. Kamu bisa memakainya untuk cek info di internet:
     </p>
 
-    <div class="overflow-x-auto rounded-2xl border border-brand-mint/30">
+    <div class="overflow-x-auto rounded-2xl border border-brand-line">
         <table class="w-full text-sm text-left">
-            <thead class="bg-brand-mint-light text-brand-ink font-semibold">
+            <thead class="bg-brand-mint-soft text-brand-ink font-semibold">
                 <tr>
                     <th class="p-3">Aspek</th>
                     <th class="p-3">Pertanyaan untuk Dicek</th>
                 </tr>
             </thead>
             <tbody class="text-brand-ink/80">
-                <tr class="border-t border-brand-mint/20">
+                <tr class="border-t border-brand-line">
                     <td class="p-3">Currency (Kebaruan)</td>
                     <td class="p-3">Kapan info ini dipublikasikan? Apakah masih relevan/terbaru?</td>
                 </tr>
-                <tr class="border-t border-brand-mint/20">
+                <tr class="border-t border-brand-line">
                     <td class="p-3">Relevance (Relevansi)</td>
                     <td class="p-3">Apakah info ini benar-benar menjawab yang kamu cari?</td>
                 </tr>
-                <tr class="border-t border-brand-mint/20">
+                <tr class="border-t border-brand-line">
                     <td class="p-3">Authority (Otoritas)</td>
                     <td class="p-3">Siapa penulis/sumbernya? Apakah kredibel di bidangnya?</td>
                 </tr>
-                <tr class="border-t border-brand-mint/20">
+                <tr class="border-t border-brand-line">
                     <td class="p-3">Accuracy (Akurasi)</td>
                     <td class="p-3">Apakah ada bukti/data pendukung? Bisa dicek ke sumber lain?</td>
                 </tr>
-                <tr class="border-t border-brand-mint/20">
+                <tr class="border-t border-brand-line">
                     <td class="p-3">Purpose (Tujuan)</td>
                     <td class="p-3">Apa tujuan info ini dibuat — netral, atau untuk memengaruhi/menjual sesuatu?</td>
                 </tr>
