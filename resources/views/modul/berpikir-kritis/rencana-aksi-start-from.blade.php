@@ -14,32 +14,10 @@
         <li>Tidak takut untuk meminta bantuan — baik ke teman, keluarga, atau profesional saat dibutuhkan.</li>
     </ol>
 
-    <p class="font-semibold text-brand-ink">Worksheet: Rencana Aksi Pribadi</p>
-    <div class="overflow-x-auto rounded-2xl border border-brand-line">
-        <table class="w-full text-sm text-left">
-            <thead class="bg-brand-mint-soft text-brand-ink font-semibold">
-                <tr>
-                    <th class="p-3">Area</th>
-                    <th class="p-3">Tantangan Saat Ini</th>
-                    <th class="p-3">Langkah yang Akan Kucoba</th>
-                </tr>
-            </thead>
-            <tbody class="text-brand-ink/80">
-                <tr class="border-t border-brand-line">
-                    <td class="p-3">Contoh: Menolak ajakan</td>
-                    <td class="p-3">Susah bilang "tidak" ke teman</td>
-                    <td class="p-3">Latihan teknik DESC minggu ini</td>
-                </tr>
-                @for ($i = 0; $i < 4; $i++)
-                    <tr class="border-t border-brand-line">
-                        <td class="p-3">&nbsp;</td>
-                        <td class="p-3">&nbsp;</td>
-                        <td class="p-3">&nbsp;</td>
-                    </tr>
-                @endfor
-            </tbody>
-        </table>
-    </div>
+    <p>
+        Worksheet "Rencana Aksi Pribadi" dan surat untuk dirimu di masa depan bisa kamu isi
+        langsung di tab <strong>Refleksi</strong> halaman ini.
+    </p>
 
     <h3 class="font-semibold text-brand-ink text-lg">Penutup: Semangat Girls, Kamu Pasti Bisa!</h3>
 

@@ -1,37 +1,8 @@
 <div class="space-y-6">
     <p>
-        Sekarang saatnya menyusun rencana sederhana. Isi tabel di bawah ini sebagai langkah
-        awal — bisa kamu tulis ulang di buku catatan pribadi supaya lebih leluasa.
+        Sekarang saatnya menyusun rencana sederhana. Worksheet "Peta Rencana Aksi" bisa kamu
+        isi langsung di tab <strong>Refleksi</strong> halaman ini.
     </p>
-
-    <div class="overflow-x-auto rounded-2xl border border-brand-line">
-        <table class="w-full text-sm text-left">
-            <thead class="bg-brand-mint-soft text-brand-ink font-semibold">
-                <tr>
-                    <th class="p-3">Cita-Cita / Tujuan</th>
-                    <th class="p-3">Langkah Kecil (Bulan Ini)</th>
-                    <th class="p-3">Yang Kubutuhkan</th>
-                    <th class="p-3">Siapa yang Bisa Bantu</th>
-                </tr>
-            </thead>
-            <tbody class="text-brand-ink/80">
-                <tr class="border-t border-brand-line">
-                    <td class="p-3">Contoh: Kuliah kedokteran</td>
-                    <td class="p-3">Perbaiki nilai Biologi &amp; Kimia</td>
-                    <td class="p-3">Belajar rutin, buku latihan soal</td>
-                    <td class="p-3">Guru les, kakak kelas</td>
-                </tr>
-                @for ($i = 0; $i < 4; $i++)
-                    <tr class="border-t border-brand-line">
-                        <td class="p-3">&nbsp;</td>
-                        <td class="p-3">&nbsp;</td>
-                        <td class="p-3">&nbsp;</td>
-                        <td class="p-3">&nbsp;</td>
-                    </tr>
-                @endfor
-            </tbody>
-        </table>
-    </div>
 
     <h3 class="font-semibold text-brand-ink text-lg">Kapan Waktu yang Tepat untuk Menikah?</h3>
 

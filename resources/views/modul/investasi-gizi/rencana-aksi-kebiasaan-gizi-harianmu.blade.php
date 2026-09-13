@@ -1,40 +1,8 @@
 <div class="space-y-6">
     <p>
-        Yuk, coba pantau kebiasaan makanmu selama seminggu. Isi tabel ini setiap hari sebagai
-        pengingat sederhana:
+        Yuk, coba pantau kebiasaan makanmu selama seminggu — sayur &amp; buah, sumber protein,
+        air putih, dan camilan sehat. Isi langsung di Tracker Gizi:
     </p>
-
-    <div class="overflow-x-auto rounded-2xl border border-brand-line">
-        <table class="w-full text-sm text-left">
-            <thead class="bg-brand-mint-soft text-brand-ink font-semibold">
-                <tr>
-                    <th class="p-3">Hari</th>
-                    <th class="p-3">Sayur &amp; Buah?</th>
-                    <th class="p-3">Sumber Protein?</th>
-                    <th class="p-3">Air Putih Cukup?</th>
-                    <th class="p-3">Camilan Sehat?</th>
-                </tr>
-            </thead>
-            <tbody class="text-brand-ink/80">
-                <tr class="border-t border-brand-line">
-                    <td class="p-3">Contoh: Senin</td>
-                    <td class="p-3">✅ Ya</td>
-                    <td class="p-3">✅ Ya (telur)</td>
-                    <td class="p-3">✅ 8 gelas</td>
-                    <td class="p-3">✅ Kacang tanah</td>
-                </tr>
-                @for ($i = 0; $i < 6; $i++)
-                    <tr class="border-t border-brand-line">
-                        <td class="p-3">&nbsp;</td>
-                        <td class="p-3">&nbsp;</td>
-                        <td class="p-3">&nbsp;</td>
-                        <td class="p-3">&nbsp;</td>
-                        <td class="p-3">&nbsp;</td>
-                    </tr>
-                @endfor
-            </tbody>
-        </table>
-    </div>
 
     <div class="text-center">
         <a href="{{ route('tracker-gizi.show') }}" class="inline-block px-4 py-2 rounded-lg bg-brand-mint font-semibold text-brand-ink hover:opacity-90">
