@@ -718,3 +718,35 @@ Sesi 32 — Restyle 4/6: Kalender Haid ✅
 - TIDAK dikerjakan: layar Profil dan Login/Register masih tampilan lama.
   Tracker Gizi mingguan juga belum (tidak ada di mockup). Verifikasi visual
   di browser belum dilakukan.
+
+Sesi 33 — Restyle 5/6: Profil ✅
+
+- `profile/edit.blade.php` sesuai `profil-1.png`: kartu identitas hijau
+  (avatar inisial amber + nama + "n dari 4 modul selesai"), kartu "Data
+  pribadi" berisi baris Nama/Usia/Sekolah/Kelas dengan ikon, tombol "Ubah"
+  yang menukar tampilan baca ↔ form (Alpine), dan catatan lilac penyemangat.
+- PERUBAHAN PERILAKU: `ProfileUpdateRequest` sekarang juga menerima
+  `usia`, `sekolah`, `kelas` — sebelumnya cuma name+email (bawaan Breeze),
+  padahal mockup memang menampilkan keempatnya sebagai data yang bisa
+  diubah. Aturan validasinya disalin PERSIS dari
+  `RegisteredUserController` (`usia` integer 13-18 wajib) supaya data
+  penelitian tidak bisa jadi tidak valid lewat pintu belakang halaman
+  profil. `jenis_kelamin` sengaja TIDAK dibuat bisa diubah — data
+  penelitian, dan tidak ada di mockup.
+- Form ubah otomatis terbuka kalau ada error validasi di bag `default`
+  (bukan `updatePassword`/`userDeletion`, supaya error password tidak
+  salah membuka panel data pribadi).
+- Ganti password, hapus akun, dan tombol Keluar TIDAK ada di mockup tapi
+  tetap dibutuhkan — ditaruh di `<details>` "Pengaturan akun" supaya tidak
+  mengganggu tampilan utama. Isinya masih partial Breeze apa adanya
+  (tidak direstyle; di luar scope dan jarang dibuka).
+- Tombol Keluar yang di Restyle 1 ditempel sementara di bawah halaman
+  sekarang jadi bagian tetap tampilan Profil.
+- `ProfileController@edit` sekarang menghitung jumlah modul tuntas untuk
+  kartu identitas (query di controller, bukan di Blade).
+- Tes: `ProfileTest` +1 — usia/sekolah/kelas benar-benar tersimpan, dan
+  usia di luar 13-18 ditolak tanpa mengubah data lama. 2 tes Breeze lama
+  disesuaikan (sekarang harus mengirim `usia`). Full suite 95/95.
+- TIDAK dikerjakan: Login/Register (tidak ada mockup — dirancang dari token
+  yang sama di sesi berikutnya). Tracker Gizi mingguan masih tampilan lama.
+  Verifikasi visual di browser belum dilakukan.

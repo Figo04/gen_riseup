@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Modul;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,8 +17,14 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        $selesaiIds = $request->user()->progressModul()->where('materi_selesai', true)->pluck('sub_bagian_id');
+        $modul = Modul::with('subBagian')->get();
+
         return view('profile.edit', [
             'user' => $request->user(),
+            'totalModul' => $modul->count(),
+            'modulSelesai' => $modul->filter(fn (Modul $m) => $m->subBagian->count() > 0
+                && $m->subBagian->whereIn('id', $selesaiIds)->count() === $m->subBagian->count())->count(),
         ]);
     }
 

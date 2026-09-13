@@ -26,6 +26,11 @@ class ProfileUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
+            // Aturan sama persis dengan RegisteredUserController supaya data
+            // penelitian tidak bisa jadi tidak valid lewat halaman profil.
+            'usia' => ['required', 'integer', 'between:13,18'],
+            'sekolah' => ['nullable', 'string', 'max:255'],
+            'kelas' => ['nullable', 'string', 'max:255'],
         ];
     }
 }

@@ -30,6 +30,7 @@ class ProfileTest extends TestCase
             ->patch('/profile', [
                 'name' => 'Test User',
                 'email' => 'test@example.com',
+                'usia' => 15,
             ]);
 
         $response
@@ -43,6 +44,33 @@ class ProfileTest extends TestCase
         $this->assertNull($user->email_verified_at);
     }
 
+    public function test_data_penelitian_bisa_diubah_tapi_tetap_divalidasi(): void
+    {
+        $user = User::factory()->create(['usia' => 15]);
+
+        $this->actingAs($user)->patch('/profile', [
+            'name' => $user->name,
+            'email' => $user->email,
+            'usia' => 17,
+            'sekolah' => 'SMPN 4 Bandung',
+            'kelas' => '9B',
+        ])->assertSessionHasNoErrors();
+
+        $user->refresh();
+        $this->assertSame(17, $user->usia);
+        $this->assertSame('SMPN 4 Bandung', $user->sekolah);
+        $this->assertSame('9B', $user->kelas);
+
+        // Di luar 13-18 harus ditolak, sama seperti saat registrasi.
+        $this->actingAs($user)->patch('/profile', [
+            'name' => $user->name,
+            'email' => $user->email,
+            'usia' => 25,
+        ])->assertSessionHasErrors('usia');
+
+        $this->assertSame(17, $user->refresh()->usia);
+    }
+
     public function test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged(): void
     {
         $user = User::factory()->create();
@@ -52,6 +80,7 @@ class ProfileTest extends TestCase
             ->patch('/profile', [
                 'name' => 'Test User',
                 'email' => $user->email,
+                'usia' => 15,
             ]);
 
         $response
