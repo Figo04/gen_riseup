@@ -42,6 +42,24 @@ class PretestTest extends TestCase
         $this->assertDatabaseCount('hasil_kuesioner', 0);
     }
 
+    public function test_form_pretest_merender_semua_opsi_sebagai_radio_wajib_isi(): void
+    {
+        $this->seedSoal();
+        $soalPengetahuan = KuesionerSoal::where('tipe', 'pengetahuan')->first();
+        $soalSikap = KuesionerSoal::where('tipe', 'sikap')->first();
+
+        $response = $this->actingAs(User::factory()->create())->get(route('kuesioner.pretest.create'));
+
+        // Pil bergaya tombol tetap radio asli: value & required tidak boleh hilang.
+        foreach (['B', 'S'] as $value) {
+            $response->assertSee('name="jawaban['.$soalPengetahuan->id.']" value="'.$value.'" required', false);
+        }
+
+        foreach (['STS', 'TS', 'S', 'SS'] as $value) {
+            $response->assertSee('name="jawaban['.$soalSikap->id.']" value="'.$value.'" required', false);
+        }
+    }
+
     public function test_skor_pengetahuan_dan_kategori_sesuai_kunci_jawaban(): void
     {
         $this->seedSoal();

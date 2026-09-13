@@ -651,3 +651,34 @@ Sesi 30 — Restyle 2/6: Layar Materi (index, detail modul, sub-bagian, refleksi
   `public/build/assets/*.css` setelah build (anti-purge check).
 - TIDAK dikerjakan: layar Tes, Kalender Haid, Profil, Login/Register masih
   tampilan lama. Verifikasi visual di browser belum dilakukan.
+
+Sesi 31 — Restyle 3/6: Layar Tes (pre-test & post-test) ✅
+
+- `kuesioner/_form.blade.php` sesuai `test-1.png` & `test-2.png`: judul +
+  subjudul per sesi, kartu "Bagian 1 · Pengetahuan" dan "Bagian 2 · Sikap",
+  tiap soal dalam sub-kartu cream, dan opsi jawaban jadi PIL BERGAYA TOMBOL
+  (grid 2 kolom) — bukan radio bulat kecil lagi.
+- Pil tetap radio asli: `<input type="radio" class="peer sr-only" required>`
+  di dalam `<label>`, tampilan lewat `peer-checked:`. `sr-only` (bukan
+  `hidden`) supaya tetap bisa di-Tab dan dibaca screen reader; ditambah
+  `peer-focus-visible:ring` supaya fokus keyboard kelihatan, dan `<fieldset>`
+  + `<legend class="sr-only">` per soal. Validasi backend & `required` tidak
+  berubah sama sekali.
+- Urutan opsi sikap dibalik jadi STS → TS → S → SS mengikuti mockup
+  (sebelumnya SS → S → TS → STS). Ini murni urutan tampilan; value yang
+  dikirim sama, jadi skoring + `reverse_scored` di KuesionerController tidak
+  tersentuh.
+- Peringatan "jawaban final" TETAP ditampilkan (kotak lilac) walau tidak ada
+  di mockup — ini kewajiban PRD, bukan hiasan.
+- Perbaikan bug dari Restyle 1: `dashboard.blade.php` tidak menampilkan
+  `session('status')`, padahal 3 jalur redirect gating (pre-test sudah
+  diisi, post-test sudah diisi, modul belum selesai) mendarat di sana. Tanpa
+  ini siswa klik tab "Tes" → dilempar ke Home tanpa penjelasan apa pun.
+  Banner lilac ditambahkan.
+- Tes: `PretestTest` +1 — memastikan pil bergaya tombol tetap merender radio
+  dengan `value` + `required` yang benar untuk 2 opsi pengetahuan dan 4 opsi
+  sikap (ini yang paling gampang rusak diam-diam waktu radio disembunyikan).
+  Full suite 93/93 hijau. `peer-checked:*` diverifikasi ada di CSS hasil
+  build.
+- TIDAK dikerjakan: layar Kalender Haid, Profil, Login/Register masih
+  tampilan lama. Verifikasi visual di browser belum dilakukan.

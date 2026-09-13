@@ -22,6 +22,11 @@
 
 <x-app-layout>
     <div class="mx-auto max-w-md px-5 pt-8">
+        {{-- Pesan dari redirect gating (pre/post-test sudah diisi, modul belum selesai, dst.) --}}
+        @if (session('status'))
+            <p class="mb-5 rounded-2xl bg-brand-lilac p-4 text-sm text-brand-ink/75">{{ session('status') }}</p>
+        @endif
+
         <p class="text-sm text-brand-ink/60">{{ $sapaan }}</p>
         <h1 class="mt-1 text-3xl font-bold">Hai {{ Auth::user()->name }} <span aria-hidden="true">👋</span></h1>
         <svg class="mt-1 h-3 w-32 text-brand-amber" viewBox="0 0 128 12" fill="none" aria-hidden="true">

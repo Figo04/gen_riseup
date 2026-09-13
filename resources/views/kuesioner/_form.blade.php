@@ -1,59 +1,78 @@
-<div class="py-12">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-        <div class="bg-yellow-50 border border-yellow-200 text-yellow-800 text-sm rounded-lg p-4">
-            {{ $peringatan }}
-        </div>
+@php
+    // Urutan sikap mengikuti mockup test-2.png: rendah → tinggi.
+    // Nilai yang dikirim tidak berubah, jadi skoring di controller tidak terpengaruh.
+    $opsiSikap = [
+        'STS' => 'Sangat tidak setuju',
+        'TS' => 'Tidak setuju',
+        'S' => 'Setuju',
+        'SS' => 'Sangat setuju',
+    ];
+    $pill = 'flex items-center justify-center gap-2 rounded-full border border-brand-line bg-brand-paper px-3 py-3 text-center text-sm font-medium'
+        .' peer-checked:border-brand-forest peer-checked:bg-brand-forest peer-checked:text-white'
+        .' peer-focus-visible:ring-2 peer-focus-visible:ring-brand-forest peer-focus-visible:ring-offset-2';
+@endphp
 
-        <form method="POST" action="{{ $formAction }}" class="space-y-6">
-            @csrf
+<div class="mx-auto max-w-md px-5 pt-8">
+    <h1 class="text-3xl font-bold">{{ $judul }}</h1>
+    <p class="mt-2 text-brand-ink/60">{{ $subjudul }}</p>
 
-            <div class="bg-white shadow-sm sm:rounded-lg p-6">
-                <h3 class="font-semibold text-lg text-gray-800 mb-1">Bagian II — Kuesioner Pengetahuan</h3>
-                <p class="text-sm text-gray-500 mb-4">Berilah tanda pada kolom BENAR atau SALAH sesuai pengetahuan Adik.</p>
+    <p class="mt-5 rounded-2xl bg-brand-lilac p-4 text-sm text-brand-ink/75">{{ $peringatan }}</p>
 
-                <div class="space-y-4">
-                    @foreach ($pengetahuan as $soal)
-                        <div>
-                            <p class="text-gray-800">{{ $soal->urutan }}. {{ $soal->pertanyaan }}</p>
-                            <div class="flex gap-6 mt-1">
-                                @foreach (['B' => 'Benar', 'S' => 'Salah'] as $value => $label)
-                                    <label class="inline-flex items-center gap-1 text-sm text-gray-600">
-                                        <input type="radio" name="jawaban[{{ $soal->id }}]" value="{{ $value }}" required class="text-indigo-600 focus:ring-indigo-500">
-                                        {{ $label }}
-                                    </label>
-                                @endforeach
-                            </div>
-                            <x-input-error :messages="$errors->get('jawaban.' . $soal->id)" class="mt-1" />
+    <form method="POST" action="{{ $formAction }}" class="mt-5 space-y-5">
+        @csrf
+
+        <section class="rounded-3xl bg-brand-paper p-5 shadow-sm">
+            <h2 class="text-lg font-bold">Bagian 1 &middot; Pengetahuan</h2>
+            <p class="mt-1 text-sm text-brand-ink/55">Benar atau salah? Pilih yang menurutmu paling tepat.</p>
+
+            <div class="mt-4 space-y-3">
+                @foreach ($pengetahuan as $soal)
+                    <fieldset class="rounded-2xl bg-brand-cream p-4">
+                        <legend class="sr-only">Soal pengetahuan nomor {{ $soal->urutan }}</legend>
+                        <p class="font-medium">{{ $soal->urutan }}. {{ $soal->pertanyaan }}</p>
+
+                        <div class="mt-3 grid grid-cols-2 gap-3">
+                            @foreach (['B' => '👍 Benar', 'S' => '👎 Salah'] as $value => $label)
+                                <label class="block cursor-pointer">
+                                    <input type="radio" name="jawaban[{{ $soal->id }}]" value="{{ $value }}" required class="peer sr-only">
+                                    <span class="{{ $pill }}">{{ $label }}</span>
+                                </label>
+                            @endforeach
                         </div>
-                    @endforeach
-                </div>
+
+                        <x-input-error :messages="$errors->get('jawaban.' . $soal->id)" class="mt-2" />
+                    </fieldset>
+                @endforeach
             </div>
+        </section>
 
-            <div class="bg-white shadow-sm sm:rounded-lg p-6">
-                <h3 class="font-semibold text-lg text-gray-800 mb-1">Bagian III — Kuesioner Sikap</h3>
-                <p class="text-sm text-gray-500 mb-4">Tidak ada jawaban benar atau salah. Jawablah sesuai apa yang Adik rasakan.</p>
+        <section class="rounded-3xl bg-brand-paper p-5 shadow-sm">
+            <h2 class="text-lg font-bold">Bagian 2 &middot; Sikap</h2>
+            <p class="mt-1 text-sm text-brand-ink/55">Seberapa setuju kamu dengan pernyataan ini?</p>
 
-                <div class="space-y-4">
-                    @foreach ($sikap as $soal)
-                        <div>
-                            <p class="text-gray-800">{{ $soal->urutan }}. {{ $soal->pertanyaan }}</p>
-                            <div class="flex flex-wrap gap-6 mt-1">
-                                @foreach (['SS' => 'Sangat Setuju', 'S' => 'Setuju', 'TS' => 'Tidak Setuju', 'STS' => 'Sangat Tidak Setuju'] as $value => $label)
-                                    <label class="inline-flex items-center gap-1 text-sm text-gray-600">
-                                        <input type="radio" name="jawaban[{{ $soal->id }}]" value="{{ $value }}" required class="text-indigo-600 focus:ring-indigo-500">
-                                        {{ $label }}
-                                    </label>
-                                @endforeach
-                            </div>
-                            <x-input-error :messages="$errors->get('jawaban.' . $soal->id)" class="mt-1" />
+            <div class="mt-4 space-y-3">
+                @foreach ($sikap as $soal)
+                    <fieldset class="rounded-2xl bg-brand-cream p-4">
+                        <legend class="sr-only">Soal sikap nomor {{ $soal->urutan }}</legend>
+                        <p class="font-medium">{{ $soal->urutan }}. {{ $soal->pertanyaan }}</p>
+
+                        <div class="mt-3 grid grid-cols-2 gap-3">
+                            @foreach ($opsiSikap as $value => $label)
+                                <label class="block cursor-pointer">
+                                    <input type="radio" name="jawaban[{{ $soal->id }}]" value="{{ $value }}" required class="peer sr-only">
+                                    <span class="{{ $pill }}">{{ $label }}</span>
+                                </label>
+                            @endforeach
                         </div>
-                    @endforeach
-                </div>
-            </div>
 
-            <div class="flex justify-end">
-                <x-primary-button>{{ $tombolLabel }}</x-primary-button>
+                        <x-input-error :messages="$errors->get('jawaban.' . $soal->id)" class="mt-2" />
+                    </fieldset>
+                @endforeach
             </div>
-        </form>
-    </div>
+        </section>
+
+        <button type="submit" class="w-full rounded-full bg-brand-forest py-4 font-bold text-white">
+            {{ $tombolLabel }}
+        </button>
+    </form>
 </div>
