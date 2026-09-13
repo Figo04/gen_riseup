@@ -785,3 +785,40 @@ Sesi 34 — Restyle 6/6: Login, Register, Tracker Gizi, & komponen bersama ✅
   `actingAs($user->fresh())`. Ini artefak test, bukan bug aplikasi.
 - Restyle sisi siswa SELESAI. Yang tersisa: verifikasi visual manual di
   browser (360px/768px) dan preview ke klien.
+
+Sesi 35 — Task 21: Testing end-to-end (siswa & admin, semua alur) ✅ sebagian
+
+- `tests/Feature/AlurLengkapTest.php` (baru, 2 tes, 325 assertion) menjalankan
+  satu perjalanan utuh di atas data SEEDER ASLI (22+20 soal, 4 modul, semua
+  sub-bagian) — bukan fixture kecil seperti tes per-fitur. Yang diuji di sini
+  adalah SAMBUNGAN antar fase, bagian yang tidak terlihat kalau tiap fitur
+  cuma diuji sendiri-sendiri:
+  * Siswa: daftar → materi & kalender ditolak sebelum pre-test → pre-test
+    (skor 100/Baik, 42 baris detail) → submit kedua ditolak → post-test masih
+    tertutup → semua modul: baca, refleksi ditolak dulu, tandai selesai,
+    refleksi terbuka & sekali kirim → tracker gizi sekali isi → 3 entri
+    kalender haid → post-test terbuka lalu final → profil.
+  * Admin: halaman admin tertutup sebelum login; siswa ditolak di /admin dan
+    admin ditolak di halaman siswa; dashboard; CRUD soal penuh; materi &
+    kalender view-only; export CSV + varian Excel (BOM + delimiter ';').
+  * Di setiap halaman admin dan di kedua file export dicek string refleksi
+    milik siswa TIDAK pernah muncul (CLAUDE.md rule #9).
+- Temuan saat menulis tes: "Hapus soal" di admin ternyata soft-delete
+  (`is_aktif=false`), bukan hapus baris — memang disengaja supaya FK
+  `hasil_kuesioner_detail.soal_id` tidak putus. Asumsi awal saya salah,
+  tesnya yang disesuaikan, kodenya benar.
+- PRD §5 diperbaiki: `usia` tertulis 13–20 padahal CLAUDE.md dan validasi di
+  kode (register + profil) memakai 13–18. PRD disamakan jadi 13–18, termasuk
+  keterangan bar chart di §4.2. Kode tidak diubah.
+- `CHECKLIST_DEMO.md` (baru): daftar hal yang tes TIDAK bisa buktikan dan
+  harus dicek manusia — video YouTube benar-benar diputar, interaksi Alpine,
+  lebar 360/768px, file export dibuka di Excel, grafik admin terisi. Plus
+  urutan alur demo dan catatan jujur untuk pertanyaan klien.
+- BELUM SELESAI, dan ini yang penting: verifikasi terhadap MySQL ASLI belum
+  bisa dijalankan — `php artisan migrate:status` gagal connect ke
+  127.0.0.1:3306, MySQL/Laragon tidak menyala. Seluruh suite berjalan di
+  sqlite in-memory (lihat phpunit.xml), jadi 98 tes hijau TIDAK membuktikan
+  migrasi + seeder berjalan di MySQL. Ini harus dicek ulang begitu Laragon
+  hidup: `php artisan migrate:fresh --seed` lalu buka halamannya.
+- Catatan risiko demo: `video_youtube_id` untuk "Dua Pintu di Depanmu" masih
+  placeholder (`jNQXAC9IVRw`), belum video klien.

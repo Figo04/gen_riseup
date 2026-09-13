@@ -85,7 +85,7 @@ SehatEdukasi (developer's previous project).
 - **Dashboard**: stat cards (Total Respondents, Pre-Test Completed,
   Post-Test Completed, Pre+Post Complete), donut chart for Test
   Completion Status, donut chart for Material Completion, bar chart for
-  Gender Distribution, bar chart for Age Distribution (13–20), Recent
+  Gender Distribution, bar chart for Age Distribution (13–18), Recent
   Activity table, Export CSV & Export Excel buttons
 - **Respondents menu** — list of registered students
 - **Test Results menu** — pre/post-test results per student (already
@@ -163,7 +163,7 @@ Export CSV/Excel anytime directly from the dashboard
 | nama              | varchar         | name                   |
 | email             | varchar, unique |                        |
 | password          | varchar         | hashed                 |
-| usia              | tinyint         | age, 13–20             |
+| usia              | tinyint         | age, 13–18             |
 | jenis_kelamin     | enum('L','P')   | gender                 |
 | sekolah           | varchar         | school, nullable       |
 | kelas             | varchar         | class, nullable        |
