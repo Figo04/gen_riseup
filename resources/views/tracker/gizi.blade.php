@@ -29,10 +29,14 @@
             {{-- Tabel 7x4 diganti kartu per hari: di layar 390px tabel harus digeser
                  ke samping, sedangkan kartu tetap terbaca tanpa scroll horizontal. --}}
             @foreach ($hari as $h)
-                <fieldset class="rounded-2xl bg-brand-paper p-4 shadow-sm">
-                    <legend class="float-left mb-2 w-full font-bold">{{ $h }}</legend>
+                {{-- role="group" + aria-labelledby, bukan fieldset/legend: legend dirender
+                     browser di area border (labelnya jadi melayang di luar kartu), dan
+                     akal-akalan float untuk menariknya masuk bikin grid di bawahnya
+                     menyusut ke min-content lalu meluber keluar kartu. --}}
+                <div role="group" aria-labelledby="hari-{{ $h }}" class="rounded-2xl bg-brand-paper p-4 shadow-sm">
+                    <p id="hari-{{ $h }}" class="mb-2 font-bold">{{ $h }}</p>
 
-                    <div class="grid grid-cols-2 gap-2 pt-1">
+                    <div class="grid grid-cols-2 gap-2">
                         @foreach ($kebiasaan as $k)
                             <label class="block {{ $terkunci ? '' : 'cursor-pointer' }}">
                                 <input type="checkbox" name="data[{{ $h }}][{{ $k }}]" value="1"
@@ -47,7 +51,7 @@
                             </label>
                         @endforeach
                     </div>
-                </fieldset>
+                </div>
             @endforeach
 
             @unless ($terkunci)
