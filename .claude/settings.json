@@ -40,7 +40,13 @@
       "Bash(gh repo *)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" https://github.com/Figo04/gen_riseup)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" https://api.github.com/repos/Figo04/gen_riseup)",
-      "Bash(git reset *)"
+      "Bash(git reset *)",
+      "Bash(php -r ' *)",
+      "PowerShell(npm run build 2>&1)",
+      "PowerShell(php artisan test --filter=Dashboard 2>&1)",
+      "PowerShell(php artisan test 2>&1)",
+      "PowerShell(php artisan test --filter=HomeTest 2>&1)",
+      "Bash(git check-ignore *)"
     ],
     "additionalDirectories": [
       "\\tmp"

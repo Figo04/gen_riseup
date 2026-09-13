@@ -14,4 +14,15 @@ class Modul extends Model
     {
         return $this->hasMany(SubBagian::class)->orderBy('urutan');
     }
+
+    /** Tagline per modul dari mockup — hardcoded, tidak ada di DB. */
+    public function getSubtitleAttribute(): string
+    {
+        return [
+            'kejar-mimpi' => 'Kenali mimpimu, susun langkah kecilnya',
+            'investasi-gizi' => 'Makanmu hari ini, tenagamu nanti',
+            'berpikir-kritis' => 'Saring dulu, baru percaya',
+            'kenali-tubuhmu' => 'Tubuhmu berubah, kamu berhak paham',
+        ][$this->slug] ?? '';
+    }
 }

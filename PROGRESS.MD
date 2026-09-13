@@ -4,7 +4,7 @@ Tracking eksekusi Build Order (CLAUDE.md §3) per sesi Claude Code.Satu sesi = s
 
 Catatan urutan: Sesi 9 (task 7 — komponen visual) sengaja dikerjakansebelum sesi 10–13 (task 6 — seeder per modul), supaya konten tiapmodul langsung pakai komponen dan bisa dites end-to-end (vertical slice).Ini satu-satunya pergeseran urutan dari CLAUDE.md §3.
 
-## Phase 1 — Foundation 
+## Phase 1 — Foundation
 
 Sesi 1 — Task 1a: Set up project Laravel + Breeze + Tailwind, konfigurasi .env & koneksi DB ✅
 Sesi 2 — Task 1b: Migration 11 tabel sesuai schema (PRD §5 Database Structure) ✅
@@ -25,6 +25,7 @@ Sesi 9 — Task 7: Komponen visual reusable (tip box, highlight, checklist, dll.
 
 Catatan keputusan Sesi 9 (dari interview, lihat detail di DESIGN.md dan
 catatan deviasi PRD_GenResilUp.md §5):
+
 - `sub_bagian.konten` (longtext) diganti `konten_view` (path view Blade)
   — konten jadi file `.blade.php` asli per sub-bagian, bukan HTML mentah
   di DB. Migration rename sudah jalan; belum ada model/seeder yang pakai.
@@ -33,9 +34,10 @@ catatan deviasi PRD_GenResilUp.md §5):
 - `<x-highlight>` tetap 2 varian warna (mint/peach), tidak ditambah.
 - Ikon di komponen konten tetap emoji (bukan icon set); icon set (kalau
   ada) hanya untuk chrome app (nav/card), bukan isi materi.
-Sesi 10 — Task 6a: Seeder Modul 1 — Kejar Mimpi (sub-bagian + konten pakai komponen, testable) ✅
+  Sesi 10 — Task 6a: Seeder Modul 1 — Kejar Mimpi (sub-bagian + konten pakai komponen, testable) ✅
 
 Catatan Sesi 10:
+
 - Model baru: `Modul`, `SubBagian` (belum ada sebelumnya, dibutuhkan seeder).
 - Komponen ke-5 (tertunda dari Sesi 9) dibuat sekarang: `<x-mitos-fakta>` +
   `<x-mitos-fakta-item>` — dipakai di 4 modul (bukan cuma Modul 1), jadi
@@ -47,9 +49,10 @@ Catatan Sesi 10:
   untuk sementara (lihat CLAUDE.md Task 12).
 - Gambar dirujuk ke `public/images/modul-1/*.jpg` dengan nama deskriptif;
   file gambar aktual belum ditaruh (belum ada asset dari klien/desainer).
-Sesi 11 — Task 6b: Seeder Modul 2 — Investasi Gizi ✅
+  Sesi 11 — Task 6b: Seeder Modul 2 — Investasi Gizi ✅
 
 Catatan Sesi 11:
+
 - `ModulSeeder::run()` diringkas jadi helper privat `seedModul()` (dipakai
   Modul 1 & 2, tidak ubah hasil Modul 1) — supaya Modul 3-4 tinggal
   tambah 1 pemanggilan lagi.
@@ -61,9 +64,10 @@ Catatan Sesi 11:
   bukan input tersimpan ke DB (tracker asli = Task 10/Sesi 16).
 - Gambar dirujuk ke `public/images/modul-2/*.jpg` (nama deskriptif, file
   asli belum ada). Video masih null (belum ada link YouTube).
-Sesi 12 — Task 6c: Seeder Modul 3 — Berpikir Kritis (CRAAP Test, DESC) ✅
+  Sesi 12 — Task 6c: Seeder Modul 3 — Berpikir Kritis (CRAAP Test, DESC) ✅
 
 Catatan Sesi 12 (dari interview):
+
 - Modul 3 dipecah 7 sub-bagian, 1:1 per Bab (pola sama Sesi 10/11). Bab 6
   (Circle Pendukung & Kebersamaan) jauh lebih pendek dari bab lain tapi
   sengaja TETAP jadi sub-bagian sendiri, bukan digabung — konsisten
@@ -83,9 +87,10 @@ Catatan Sesi 12 (dari interview):
   terstruktur. Tidak ada komponen baru dibuat.
 - Video masih null (belum ada link YouTube dari klien, sama seperti
   Modul 1 & 2).
-Sesi 13 — Task 6d: Seeder Modul 4 — Kenali Tubuhmu ✅
+  Sesi 13 — Task 6d: Seeder Modul 4 — Kenali Tubuhmu ✅
 
 Catatan Sesi 13:
+
 - Modul 4 dipecah 9 sub-bagian, 1:1 per Bab (pola sama Sesi 10-12).
 - `<x-mitos-fakta>` + `<x-mitos-fakta-item>` (dibuat Sesi 10) akhirnya
   dipakai lagi di sini (Bab 3 — Body Image), bukan cuma di Modul 1.
@@ -100,9 +105,10 @@ Catatan Sesi 13:
 - Verifikasi: 9 view berhasil `render()` tanpa error, seeder dijalankan
   ulang lalu duplikat Modul 1-3 yang ikut ke-insert (seeder tidak
   idempotent) dibersihkan manual — hasil akhir 4 modul / 30 sub_bagian.
-Sesi 14 — Task 8: Progress tracking per sub-bagian (basis gating refleksi & post-test) ✅
+  Sesi 14 — Task 8: Progress tracking per sub-bagian (basis gating refleksi & post-test) ✅
 
 Catatan Sesi 14:
+
 - Model baru: `ProgressModul` (belongsTo User, SubBagian). Ditambah unique
   index (user_id, sub_bagian_id) via migration baru — tabel `progress_modul`
   sudah ada dari Sesi 2 tapi belum punya constraint ini.
@@ -130,6 +136,7 @@ Catatan Sesi 14:
 Sesi 15 — Task 9: Tab Refleksi (terkunci → submit sekali → read-only, backend enforced) ✅
 
 Catatan Sesi 15 (dari interview sebelum ngoding):
+
 - Refleksi generik berlaku untuk SEMUA 30 sub-bagian (bukan cuma 6 yang
   punya box "Yuk, Refleksi!" eksplisit di konten — box itu tetap tampil
   apa adanya di tab Materi, tidak dipakai jadi sumber prompt form).
@@ -139,7 +146,7 @@ Catatan Sesi 15 (dari interview sebelum ngoding):
 - Akses `/refleksi` sebelum `materi_selesai=true` → redirect ke tab
   Materi + flash message (pola sama `EnsurePretestSubmitted`).
 - Setelah submit, halaman refleksi tetap bisa dibuka: textarea disabled
-  + jawaban tersimpan tetap tampil (bukan hilang/redirect lain).
+    - jawaban tersimpan tetap tampil (bukan hilang/redirect lain).
 - Validasi cuma `required|string`, tanpa minimum karakter (gak ada dasar
   angka dari dokumen klien).
 - Model baru: `Refleksi` (belongsTo User, SubBagian) + `User::refleksi()`.
@@ -152,9 +159,10 @@ Catatan Sesi 15 (dari interview sebelum ngoding):
 - Test baru: `tests/Feature/RefleksiTest.php` (5 test, termasuk bukti
   submit kedua kali ditolak backend & tidak mengubah jawaban pertama).
   Full suite 43/43 pass.
-Sesi 16 — Task 10: Tracker gizi mingguan (one-time entry, kolom JSON, is_locked) ✅
+  Sesi 16 — Task 10: Tracker gizi mingguan (one-time entry, kolom JSON, is_locked) ✅
 
 Catatan Sesi 16 (dari interview sebelum & sesudah ngoding):
+
 - Struktur `data` json: 7 hari (Senin-Minggu) x 4 kebiasaan boolean
   (sayur_buah, protein, air_putih, camilan_sehat) — sama persis dengan
   tabel contoh statis yang sudah ada di sub-bagian "Rencana Aksi
@@ -190,9 +198,10 @@ Catatan Sesi 16 (dari interview sebelum & sesudah ngoding):
   redirect ke pretest, submit sukses + data ternormalisasi per hari,
   submit kedua kali ditolak & data tidak berubah). Full suite 46/46
   pass.
-Sesi 17 — Task 11: Kalender haid (CRUD berkelanjutan, riwayat penuh) ✅
+  Sesi 17 — Task 11: Kalender haid (CRUD berkelanjutan, riwayat penuh) ✅
 
 Catatan Sesi 17:
+
 - Migration TIDAK baru — tabel `kalender_haid` sudah ada dari Sesi 2
   dengan kolom persis sesuai PRD §5.
 - Model baru: `KalenderHaid` (belongsTo User) + `User::kalenderHaid()`
@@ -216,9 +225,10 @@ Catatan Sesi 17:
 - Test baru: `tests/Feature/KalenderHaidTest.php` (4 test: tambah &
   tampil di riwayat, update entri sendiri, hapus entri sendiri, 403
   kalau coba edit/update/hapus entri user lain). Full suite 50/50 pass.
-Sesi 18 — Task 12: Video YouTube popup player di tab Materials ✅
+  Sesi 18 — Task 12: Video YouTube popup player di tab Materials ✅
 
 Catatan Sesi 18:
+
 - Reuse `<x-modal>` Breeze (bukan komponen modal baru) — iframe YouTube
   `:src` di-bind ke state `show` milik modal, jadi video berhenti
   otomatis pas popup ditutup, bukan cuma disembunyikan.
@@ -241,6 +251,7 @@ Catatan Sesi 18:
 Sesi A1 — Audit Sesi 7-8 (pre-test, material-locking, skoring) ✅
 
 Hasil audit:
+
 - AMAN: skor pengetahuan (%, batas Baik ≥76 / Cukup ≥56 cocok kriteria
   Arikunto), kunci jawaban 22/22 cocok Lampiran B, reverse_scored sikap
   (peta 4-1 / 1-4 benar, 2U per domain cocok kisi-kisi), material-locking
@@ -270,6 +281,7 @@ auto-switch menu ke Post-test ✅
 Catatan Sesi 19-20 (urutan ditukar dari CLAUDE.md §3, dikonfirmasi via
 interview — Task 14 duluan karena menu switch di Task 13 butuh route
 post-test sudah ada supaya tidak jadi link mati/stub sementara):
+
 - Deviasi struktur folder DIPERBAIKI sekalian: `PretestController` +
   `resources/views/pretest/create.blade.php` (dari Sesi 7, tidak pernah
   dicatat sebagai deviasi resmi) di-rename jadi `KuesionerController` +
@@ -313,6 +325,7 @@ post-test sudah ada supaya tidak jadi link mati/stub sementara):
 Sesi 21 — Task 15: Layout admin (sidebar Data & Konten, gaya SehatEdukasi) + middleware guard admin ✅
 
 Catatan Sesi 21:
+
 - Guard admin TIDAK butuh middleware baru — `auth:admin`/`guest:admin` +
   `redirectGuestsTo` di `bootstrap/app.php` sudah cukup dari Sesi 4,
   sudah dites `AdminAuthenticationTest` yang sudah ada.
@@ -325,9 +338,10 @@ Catatan Sesi 21:
   karena rute/controller-nya belum ada sampai Sesi 22-26.
 - Test baru: `tests/Feature/Admin/AdminLayoutTest.php` (2 test). Full
   suite 65/65 pass.
-Sesi 22 — Task 16a: Dashboard — 4 stat cards + tabel Recent Activity ✅
+  Sesi 22 — Task 16a: Dashboard — 4 stat cards + tabel Recent Activity ✅
 
 Catatan Sesi 22 (dari interview sebelum ngoding):
+
 - Recent Activity = submit kuesioner saja (`hasil_kuesioner`), tidak
   digabung registrasi user atau progress modul; 10 baris terbaru
   (`orderBy submitted_at desc limit 10`), tanpa paginasi/link "lihat
@@ -345,9 +359,10 @@ Catatan Sesi 22 (dari interview sebelum ngoding):
 - Test baru: `tests/Feature/Admin/AdminDashboardTest.php` (2 test: angka
   stat card benar, recent activity 10 terbaru terurut desc). Full suite
   67/67 pass.
-Sesi 23 — Task 16b: Dashboard — 4 charts (donut status test, donut materi, bar gender, bar usia) ✅
+  Sesi 23 — Task 16b: Dashboard — 4 charts (donut status test, donut materi, bar gender, bar usia) ✅
 
 Catatan Sesi 23:
+
 - Chart.js via CDN (`chart.umd.min.js`) di `layouts/admin.blade.php`, bukan
   `npm install` — cuma 1 halaman admin, tidak perlu ikut bundle Vite sisi
   siswa.
@@ -356,8 +371,7 @@ Catatan Sesi 23:
   Sesi 22 (totalRespondents/preCompleted/prePostComplete) — tidak nambah
   query baru.
 - Donut Progress Materi = query baru: `whereHas('progressModul', ...,
-  '>=', $totalSubBagian)`, pola sama `User::materiSelesaiSemua()` (Sesi
-  14) versi agregat di level query builder.
+'>=', $totalSubBagian)`, pola sama `User::materiSelesaiSemua()` (Sesi 14) versi agregat di level query builder.
 - Bar Gender & Usia = `groupBy` langsung dari kolom `users.jenis_kelamin`
   / `users.usia`.
 - Data dikirim ke view sebagai array/collection PHP → `@json()` di
@@ -367,9 +381,10 @@ Catatan Sesi 23:
 - Test baru ditambah ke `AdminDashboardTest.php` (bukan file terpisah):
   3 user dengan kombinasi status test/materi/gender/usia berbeda,
   assert keempat aggregate benar. Full suite 68/68 pass.
-Sesi 24 — Task 17: Kelola Soal — full CRUD kuesioner_soal ✅
+  Sesi 24 — Task 17: Kelola Soal — full CRUD kuesioner_soal ✅
 
 Keputusan interview sebelum ngoding Sesi 24:
+
 - Hapus soal = soft delete via kolom baru `is_aktif` (boolean, default
   true), BUKAN `deleted_at`/SoftDeletes trait. Tombol Hapus di admin set
   `is_aktif=false`. FK `hasil_kuesioner_detail.soal_id` tidak pernah
@@ -393,6 +408,7 @@ Keputusan interview sebelum ngoding Sesi 24:
   Aktifkan; kalau salah hapus, perlu akses DB untuk balikin).
 
 Catatan implementasi Sesi 24:
+
 - Migration baru `add_is_aktif_to_kuesioner_soal_table` (boolean,
   default true, after `urutan`). Model `KuesionerSoal` update
   fillable+cast.
@@ -440,6 +456,7 @@ Fix + 2 regression test baru, full suite 76/76 pass, commit terpisah.
 Sesi 25 — Task 18: Kelola Materi (view-only) + Data Kalender Haid (view-only); refleksi & tracker tidak pernah di-query ✅
 
 Catatan Sesi 25:
+
 - Kelola Materi: 3 route GET-only (bukan `Route::resource`, supaya tidak ada
   route tulis sama sekali) — index (daftar 4 modul + jumlah sub-bagian) →
   show (daftar sub-bagian per modul) → sub-bagian (render `konten_view` yang
@@ -461,9 +478,10 @@ Catatan Sesi 25:
 - Gap dicatat (belum dikerjakan, bukan scope sesi ini): menu "Responden" &
   "Hasil Test" di sidebar admin (PRD §4.2) belum punya sesi build sama
   sekali di tracker ini — masih placeholder disabled.
-Sesi 26 — Task 19: Export CSV/Excel dari dashboard (pre vs post, exclude refleksi/tracker) ✅
+  Sesi 26 — Task 19: Export CSV/Excel dari dashboard (pre vs post, exclude refleksi/tracker) ✅
 
 Catatan Sesi 26:
+
 - 1 route GET `admin/export` → `Admin\ExportController` (invokable). Output
   1 baris = 1 siswa, 14 kolom: identitas (nama, email, usia, jenis_kelamin,
   sekolah, kelas) + 4 kolom skor pre + 4 kolom skor post sejajar di baris yang
@@ -499,6 +517,7 @@ Catatan Sesi 26:
 Sesi 27 — Task 20: Polish responsive mobile-first (sisi siswa) ✅
 
 Catatan Sesi 27:
+
 - Audit awal: sisi siswa sudah ~80% mobile-safe (semua tabel konten sudah
   `overflow-x-auto`, tidak ada `grid-cols-N` tanpa breakpoint, input sudah
   `block w-full`, modal video sudah responsive). Task ini jadi punch-list
@@ -538,5 +557,55 @@ Catatan Sesi 27:
   tersendiri. TIDAK dikerjakan (di luar scope "polish"): sisi admin tidak
   disentuh (PRD §7: boleh desktop-oriented). Verifikasi visual manual di
   devtools 360px/768px belum dilakukan (bagian Task 21).
-Sesi 28 — Task 21: Testing end-to-end manual — siswa & admin, semua alur
-Sesi 29+ — Task 22: Revisi preview klien (jumlah sesi terbuka, tergantung catatan klien)
+  Sesi 28 — Task 21: Testing end-to-end manual — siswa & admin, semua alur
+  Sesi 29+ — Task 22: Revisi preview klien (jumlah sesi terbuka, tergantung catatan klien)
+
+## Phase 8 — Restyle sesuai mockup klien (design/)
+
+Klien mengirim mockup lengkap sisi siswa (`design/student/**` + 2 ilustrasi
+karakter di `design/character/`). `design/admin/` kosong → admin TIDAK
+disentuh. Dikerjakan bertahap per layar, bukan sekaligus.
+
+Sesi 29 — Restyle 1/6: Fondasi (token + bottom nav + layout) & halaman Home ✅
+
+- Token warna di-sampling langsung dari PNG mockup (histogram warna
+  dominan via GD), bukan taksiran mata seperti DESIGN.md versi lama:
+  forest `#1F6B53`, cream `#F9F6EB`, paper `#FEFDFA`, mint-soft `#CFEDE0`,
+  pink `#FFE1E3` / pink-soft `#FFE9E6`, lilac `#ECE8FE`, amber `#EEB64F` /
+  amber-soft `#FEEDC9`, ink `#232E2B`, line `#E3E8DC`.
+  `DESIGN.md` ditulis ulang, `tailwind.config.js` diperbarui.
+- `brand-mint` (DEFAULT `#7FC79A`) dan `brand-peach` SENGAJA dipertahankan:
+  masih dipakai 30+ kali oleh komponen konten Materi (tip-box, highlight,
+  mitos-fakta). Dihapus nanti waktu layar Materi kena restyle. Token baru
+  yang pucat dinamai `brand-mint-soft` supaya tidak bentrok.
+- Navigasi berubah total: navbar atas Breeze → bottom tab bar 5 item
+  (Home · Materi · Tes · Haid · Profil), komponen baru
+  `resources/views/components/bottom-nav.blade.php`, ikon inline SVG
+  (tanpa library). `layouts/app.blade.php` dipakaikan bg cream + `pb-24`.
+  `layouts/navigation.blade.php` jadi tidak terpakai tapi TIDAK dihapus
+  (agent rule #1 — tunggu konfirmasi developer).
+- Konsekuensi: tombol Logout ikut hilang bersama navbar atas → dipindah
+  sementara ke bawah `profile/edit.blade.php`. Nanti diganti waktu layar
+  Profil kena restyle (mockup `profil-1.png`).
+- Home (`dashboard.blade.php`) ditulis ulang sesuai `home-1/2.png`: sapaan
+  menurut jam + nama siswa, ilustrasi `chara-2.png`, kartu hijau "Jejak
+  belajarmu" (timeline 4 modul + progress bar), 2 kartu pintasan
+  (Materi + Pre-test/Post-test menyesuaikan state), dan "Lanjut dari sini".
+  Route `/dashboard` sekarang mengirim data modul + progress (sebelumnya
+  closure kosong).
+- Tagline modul ("Kenali mimpimu, susun langkah kecilnya", dst.) diambil
+  dari mockup, ditaruh sebagai accessor `Modul::getSubtitleAttribute()` —
+  hardcoded per PRD (konten memang tidak lewat CMS), tanpa migrasi kolom.
+- Gembok pada timeline = penanda "belum selesai", BUKAN penguncian modul
+  berurutan. Caption mockup materi-1 ("Selesaikan modul sebelumnya...")
+  bertentangan dengan PRD §3.1 → PRD menang, sudah dikonfirmasi klien.
+- Ilustrasi disalin ke `public/images/chara-1.png` & `chara-2.png`.
+- Tes: `tests/Feature/HomeTest.php` (2 test) — state sebelum pre-test dan
+  state sebagian modul selesai. Full suite 91/91 hijau, `npm run build` ok.
+- TIDAK dikerjakan di sesi ini: layar Materi, Tes, Kalender Haid, Profil,
+  dan Login/Register masih tampilan lama (Breeze/indigo) — antre di sesi
+  restyle berikutnya. Verifikasi visual di browser belum dilakukan.
+
+Sesi 30+ — Restyle 2/6 dst.: Materi (index/show/materi/refleksi), Tes,
+Kalender Haid, Profil, lalu Login/Register (tanpa mockup, dirancang dari
+token yang sama)

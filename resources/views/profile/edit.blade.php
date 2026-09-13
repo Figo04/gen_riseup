@@ -24,6 +24,14 @@
                     @include('profile.partials.delete-user-form')
                 </div>
             </div>
+
+            {{-- Logout pindah ke sini karena navbar atas diganti bottom nav. --}}
+            <form method="POST" action="{{ route('logout') }}" class="px-4 sm:px-0">
+                @csrf
+                <button type="submit" class="w-full rounded-2xl border border-brand-line bg-brand-paper py-3 font-semibold text-brand-ink/70">
+                    Keluar
+                </button>
+            </form>
         </div>
     </div>
 </x-app-layout>

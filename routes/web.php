@@ -6,12 +6,20 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RefleksiController;
 use App\Http\Controllers\SubBagianController;
 use App\Http\Controllers\TrackerController;
+use App\Models\Modul;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn () => redirect()->route('login'));
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $user = Auth::user();
+
+    return view('dashboard', [
+        'modul' => Modul::with('subBagian')->orderBy('urutan')->get(),
+        'selesaiIds' => $user->progressModul()->where('materi_selesai', true)->pluck('sub_bagian_id'),
+        'sudahPretest' => $user->hasilKuesioner()->where('tipe_sesi', 'pre')->exists(),
+    ]);
 })->middleware('auth')->name('dashboard');
 
 Route::middleware('auth')->group(function () {
