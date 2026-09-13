@@ -31,9 +31,11 @@ Akun setelah seed:
 ## 1. Hal yang butuh mata (tidak bisa dites otomatis)
 
 - [ ] **Video YouTube benar-benar diputar** di popup, bukan pindah halaman.
-      Modul Kejar Mimpi → sub-bagian "Dua Pintu di Depanmu".
-      ⚠️ Video ID di seeder masih **placeholder** (`jNQXAC9IVRw`), bukan video
-      klien. Kalau ini akan tampil di presentasi, ganti dulu.
+      Satu-satunya yang punya video: `/modul/1/1` — Kejar Mimpi → "Dua Pintu
+      di Depanmu". Tombolnya sudah terbukti tampil di server asli.
+      ⚠️ Video ID-nya masih **placeholder** (`jNQXAC9IVRw` = "Me at the zoo"),
+      bukan video klien. Ganti dulu kalau akan tampil di presentasi:
+      `php artisan tinker` → `App\Models\SubBagian::find(1)->update(['video_youtube_id' => 'ID_BARU']);`
 - [ ] **Butuh internet.** Font (fonts.bunny.net) dan video YouTube diambil
       online. Kalau ruangan presentasinya tanpa wifi, halaman tetap jalan tapi
       font berubah dan video mati.

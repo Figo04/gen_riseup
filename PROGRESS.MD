@@ -822,3 +822,37 @@ Sesi 35 — Task 21: Testing end-to-end (siswa & admin, semua alur) ✅ sebagian
   hidup: `php artisan migrate:fresh --seed` lalu buka halamannya.
 - Catatan risiko demo: `video_youtube_id` untuk "Dua Pintu di Depanmu" masih
   placeholder (`jNQXAC9IVRw`), belum video klien.
+
+Catatan lanjutan Sesi 35 — verifikasi di MySQL asli (setelah Laragon dinyalakan):
+
+- 20 migrasi sudah Ran di `gen_riseup_db`. Isi: 4 modul, 30 sub-bagian,
+  42 soal (22 pengetahuan + 20 sikap, semua is_aktif), 1 admin. Tidak perlu
+  `migrate:fresh` — data sudah benar dan utuh.
+- Jalan-jalan sungguhan lewat HTTP (`php artisan serve` + curl dengan cookie
+  jar & CSRF, bukan test), di atas MySQL asli, semuanya sesuai:
+  register → dashboard 200 → /modul ditolak ke /pretest → pre-test diterima
+  (42 soal terender) → /modul, /kalender-haid, /profile 200 → /posttest masih
+  ditolak → sub-bagian 200 → refleksi ditolak sebelum "tandai selesai", 200
+  sesudahnya → entri kalender tersimpan & muncul di riwayat → admin login →
+  dashboard 200 (4 <canvas> grafik terender, nama siswa muncul) → /admin/soal,
+  /admin/materi, /admin/kalender-haid 200 → export CSV 3 baris dengan kolom
+  pre/post benar dan TANPA data refleksi/tracker → BOM efbbbf pada varian
+  Excel → silang-akses tertolak dua arah (admin di /dashboard, siswa di /admin).
+- BUG DITEMUKAN & DIPERBAIKI DI DATA: tidak ada satu pun sub_bagian yang punya
+  `video_youtube_id` di DB aktif (semua NULL), jadi fitur popup video TIDAK
+  MUNCUL SAMA SEKALI di aplikasi nyata — padahal ini item Definition of Done.
+  Penyebabnya DB di-seed sebelum field video ditambahkan (Task 12); seeder-nya
+  sendiri sudah benar. Diperbaiki dengan update satu baris
+  (`SubBagian::find(1)`, "Dua Pintu di Depanmu") agar cocok dengan seeder,
+  bukan `migrate:fresh` supaya data lain tidak hilang. Sesudahnya iframe
+  youtube-nocookie + tombol video terbukti terender di `/modul/1/1`.
+  CATATAN: video ID-nya masih placeholder `jNQXAC9IVRw`, bukan video klien.
+- Route model binding modul/sub-bagian memakai ID, bukan slug — URL-nya
+  `/modul/1/1`, bukan `/modul/kejar-mimpi/...`. Bukan bug, dicatat saja supaya
+  tidak salah sangka lagi saat menulis skrip/link manual.
+- Akun uji `e2e-cek@example.test` beserta seluruh datanya sudah DIHAPUS setelah
+  verifikasi, supaya dashboard admin bersih saat presentasi. DB kembali ke
+  users=1 (Test User dari seeder), semua tabel aktivitas kosong.
+- Sisa yang benar-benar butuh manusia ada di `CHECKLIST_DEMO.md`: interaksi
+  Alpine, lebar 360/768px, file Excel dibuka di Excel, dan video benar-benar
+  diputar.
