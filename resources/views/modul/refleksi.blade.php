@@ -106,7 +106,7 @@
                 <p class="font-semibold text-brand-ink">{{ $lembar['tautan']['judul'] }}</p>
                 <p class="mt-1 text-sm text-brand-ink/60">{{ $lembar['tautan']['teks'] }}</p>
                 <a href="{{ route($lembar['tautan']['route']) }}"
-                   class="mt-3 block rounded-full bg-brand-mint py-3 text-center font-semibold text-brand-ink">
+                   class="mt-3 block rounded-full bg-brand-mint-soft py-3 text-center font-semibold text-brand-forest-deep">
                     {{ $lembar['tautan']['label'] }}
                 </a>
             </div>

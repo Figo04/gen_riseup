@@ -5,7 +5,7 @@
     </p>
 
     <div class="text-center">
-        <a href="{{ route('tracker-gizi.show') }}" class="inline-block px-4 py-2 rounded-lg bg-brand-mint font-semibold text-brand-ink hover:opacity-90">
+        <a href="{{ route('tracker-gizi.show') }}" class="inline-block px-4 py-2 rounded-lg bg-brand-mint-soft font-semibold text-brand-forest-deep hover:opacity-90">
             📋 Isi Tracker Gizi Mingguanmu
         </a>
     </div>
