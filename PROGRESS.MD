@@ -682,3 +682,39 @@ Sesi 31 — Restyle 3/6: Layar Tes (pre-test & post-test) ✅
   build.
 - TIDAK dikerjakan: layar Kalender Haid, Profil, Login/Register masih
   tampilan lama. Verifikasi visual di browser belum dilakukan.
+
+Sesi 32 — Restyle 4/6: Kalender Haid ✅
+
+- `tracker/kalender-haid/index.blade.php` sesuai `kalender-1.png` &
+  `kalender-2.png`: grid kalender bulanan (Sen–Min) dengan navigasi ‹ ›,
+  tombol "Catat haid bulan ini", form tambah muncul inline (Alpine
+  `x-data`/`x-show`, `x-cloak` sudah ada di app.css), dan daftar Riwayat
+  dengan ikon bulat pink + tombol hapus.
+- `TrackerController@indexHaid` sekarang menerima `?bulan=YYYY-MM`.
+  Param dari URL divalidasi ketat lewat regex `^\d{4}-(0[1-9]|1[0-2])$`
+  SEBELUM masuk Carbon — kalau tidak, `?bulan=2026-13` / teks sembarang
+  bisa melempar exception atau overflow diam-diam ke tahun berikutnya.
+  Input tidak valid jatuh ke bulan berjalan.
+- Hari yang tercatat haid ditandai lingkaran pink di grid + ada legendanya.
+  Ini TAMBAHAN dari mockup (mockup cuma menunjukkan grid polos karena
+  entri contohnya beda bulan) — tapi tanpa ini grid-nya cuma hiasan.
+- Form tambah otomatis terbuka kalau ada error validasi (`$errors->any()`),
+  supaya pesan error tidak tersembunyi di balik panel yang tertutup.
+- Baris riwayat: teksnya link ke halaman edit (mockup cuma punya ikon
+  hapus, tapi route edit sudah ada dan tidak akan dibuang), tombol hapus
+  jadi ikon tong sampah + `confirm()`. `edit.blade.php` ikut direstyle
+  (pita pink + form cream).
+- Nama bulan Indonesia: array hardcoded untuk judul grid, dan
+  `->locale('id')->translatedFormat()` per pemanggilan untuk riwayat —
+  SENGAJA tidak mengubah `APP_LOCALE`, supaya tidak ada efek samping ke
+  pesan validasi dan bagian lain aplikasi.
+- Bug yang ketangkap tes: `CarbonPeriod::map()` tidak mengembalikan array,
+  jadi `flatMap` menghasilkan koleksi KOSONG — semua penanda hari haid
+  hilang tanpa error apa pun. Diperbaiki dengan `->toArray()` dulu.
+  Tanpa tes yang menghitung jumlah penanda (6 hari untuk 4–9 Agustus),
+  ini lolos begitu saja karena halaman tetap render normal.
+- Tes: `KalenderHaidTest` +1 — jumlah penanda tepat 6 di bulan yang benar,
+  0 di bulan lain, dan param bulan ngawur tetap 200. Full suite 94/94.
+- TIDAK dikerjakan: layar Profil dan Login/Register masih tampilan lama.
+  Tracker Gizi mingguan juga belum (tidak ada di mockup). Verifikasi visual
+  di browser belum dilakukan.

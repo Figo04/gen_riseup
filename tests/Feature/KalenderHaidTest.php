@@ -37,6 +37,31 @@ class KalenderHaidTest extends TestCase
         $index->assertSee('Kram ringan');
     }
 
+    public function test_grid_menandai_hari_haid_dan_mengikuti_param_bulan(): void
+    {
+        $user = $this->siswaSudahPretest();
+        KalenderHaid::create(['user_id' => $user->id, 'tanggal_mulai' => '2026-08-04', 'tanggal_selesai' => '2026-08-09']);
+
+        $agustus = $this->actingAs($user)->get(route('kalender-haid.index', ['bulan' => '2026-08']))
+            ->assertOk()
+            ->assertSee('Agustus 2026');
+
+        // 4-9 Agustus = 6 hari yang ditandai, tidak lebih.
+        $this->assertSame(6, substr_count($agustus->getContent(), 'bg-brand-pink font-semibold text-rose-700'));
+
+        // Bulan lain: tidak ada tanda sama sekali.
+        $september = $this->actingAs($user)->get(route('kalender-haid.index', ['bulan' => '2026-09']))->assertOk();
+        $this->assertSame(0, substr_count($september->getContent(), 'bg-brand-pink font-semibold text-rose-700'));
+
+        // Param ngawur tidak boleh bikin error — jatuh ke bulan berjalan.
+        $this->actingAs($user)->get(route('kalender-haid.index', ['bulan' => '2026-13']))
+            ->assertOk()
+            ->assertSee(now()->format('Y'));
+
+        $this->actingAs($user)->get(route('kalender-haid.index', ['bulan' => 'bukan-tanggal']))
+            ->assertOk();
+    }
+
     public function test_siswa_bisa_update_entri_sendiri(): void
     {
         $user = $this->siswaSudahPretest();

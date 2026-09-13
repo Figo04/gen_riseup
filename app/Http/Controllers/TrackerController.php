@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\KalenderHaid;
 use App\Models\TrackerGizi;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -51,11 +53,24 @@ class TrackerController extends Controller
             ->with('status', 'Tracker gizi berhasil dikirim.');
     }
 
-    public function indexHaid(): View
+    public function indexHaid(Request $request): View
     {
         $entri = Auth::user()->kalenderHaid()->orderByDesc('tanggal_mulai')->get();
 
-        return view('tracker.kalender-haid.index', compact('entri'));
+        // Bulan yang ditampilkan di grid. Param dari URL, jadi divalidasi ketat
+        // (bulan 01-12) sebelum masuk Carbon; apa pun selain itu jatuh ke bulan ini.
+        $bulanParam = (string) $request->query('bulan');
+        $bulan = preg_match('/^\d{4}-(0[1-9]|1[0-2])$/', $bulanParam)
+            ? Carbon::parse($bulanParam.'-01')
+            : Carbon::now()->startOfMonth();
+
+        // ->toArray() dulu: CarbonPeriod::map() tidak mengembalikan array, jadi flatMap tidak bisa meratakannya.
+        $hariHaid = $entri->flatMap(fn (KalenderHaid $e) => collect(CarbonPeriod::create(
+            $e->tanggal_mulai,
+            $e->tanggal_selesai ?? $e->tanggal_mulai,
+        )->toArray())->map(fn (Carbon $t) => $t->toDateString()))->all();
+
+        return view('tracker.kalender-haid.index', compact('entri', 'bulan', 'hariHaid'));
     }
 
     public function storeHaid(Request $request): RedirectResponse

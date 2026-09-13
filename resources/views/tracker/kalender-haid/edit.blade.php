@@ -1,37 +1,42 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Edit Entri Kalender Haid
-        </h2>
-    </x-slot>
+    <header class="rounded-b-3xl bg-brand-pink px-5 pb-7 pt-8">
+        <div class="mx-auto max-w-md">
+            <a href="{{ route('kalender-haid.index') }}" class="inline-flex items-center gap-1 py-1 text-sm text-brand-ink/60">
+                <span aria-hidden="true">&larr;</span> Kalender Haid
+            </a>
+            <h1 class="mt-2 text-2xl font-bold">Ubah catatan</h1>
+        </div>
+    </header>
 
-    <div class="py-12">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-white shadow-sm sm:rounded-lg p-6 space-y-4">
-                <form method="POST" action="{{ route('kalender-haid.update', $entri) }}" class="space-y-4">
-                    @csrf
-                    @method('PUT')
-                    <div>
-                        <x-input-label for="tanggal_mulai" value="Tanggal Mulai" />
-                        <x-text-input id="tanggal_mulai" name="tanggal_mulai" type="date" class="mt-1 block w-full" value="{{ old('tanggal_mulai', $entri->tanggal_mulai->format('Y-m-d')) }}" required />
-                        <x-input-error :messages="$errors->get('tanggal_mulai')" class="mt-1" />
-                    </div>
-                    <div>
-                        <x-input-label for="tanggal_selesai" value="Tanggal Selesai (opsional)" />
-                        <x-text-input id="tanggal_selesai" name="tanggal_selesai" type="date" class="mt-1 block w-full" value="{{ old('tanggal_selesai', $entri->tanggal_selesai?->format('Y-m-d')) }}" />
-                        <x-input-error :messages="$errors->get('tanggal_selesai')" class="mt-1" />
-                    </div>
-                    <div>
-                        <x-input-label for="catatan" value="Catatan (opsional)" />
-                        <textarea id="catatan" name="catatan" class="mt-1 block w-full rounded-lg border-gray-300" rows="3">{{ old('catatan', $entri->catatan) }}</textarea>
-                        <x-input-error :messages="$errors->get('catatan')" class="mt-1" />
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <x-primary-button type="submit">Simpan</x-primary-button>
-                        <a href="{{ route('kalender-haid.index') }}" class="text-sm text-gray-500 underline">Batal</a>
-                    </div>
-                </form>
-            </div>
+    <div class="mx-auto max-w-md px-5 pt-5">
+        <div class="rounded-3xl bg-brand-paper p-5 shadow-sm">
+            <form method="POST" action="{{ route('kalender-haid.update', $entri) }}" class="space-y-4">
+                @csrf
+                @method('PUT')
+                <div>
+                    <label for="tanggal_mulai" class="block text-sm font-semibold text-brand-ink/70">Tanggal mulai</label>
+                    <input id="tanggal_mulai" name="tanggal_mulai" type="date" required
+                           value="{{ old('tanggal_mulai', $entri->tanggal_mulai->format('Y-m-d')) }}"
+                           class="mt-1 block w-full rounded-2xl border-brand-line bg-brand-cream focus:border-brand-forest focus:ring-brand-forest">
+                    <x-input-error :messages="$errors->get('tanggal_mulai')" class="mt-1" />
+                </div>
+                <div>
+                    <label for="tanggal_selesai" class="block text-sm font-semibold text-brand-ink/70">Tanggal selesai (opsional)</label>
+                    <input id="tanggal_selesai" name="tanggal_selesai" type="date"
+                           value="{{ old('tanggal_selesai', $entri->tanggal_selesai?->format('Y-m-d')) }}"
+                           class="mt-1 block w-full rounded-2xl border-brand-line bg-brand-cream focus:border-brand-forest focus:ring-brand-forest">
+                    <x-input-error :messages="$errors->get('tanggal_selesai')" class="mt-1" />
+                </div>
+                <div>
+                    <label for="catatan" class="block text-sm font-semibold text-brand-ink/70">Catatan gejala (opsional)</label>
+                    <textarea id="catatan" name="catatan" rows="3" placeholder="Contoh: kram ringan, mudah lelah…"
+                              class="mt-1 block w-full rounded-2xl border-brand-line bg-brand-cream placeholder:text-brand-ink/35 focus:border-brand-forest focus:ring-brand-forest">{{ old('catatan', $entri->catatan) }}</textarea>
+                    <x-input-error :messages="$errors->get('catatan')" class="mt-1" />
+                </div>
+
+                <button type="submit" class="w-full rounded-full bg-brand-forest py-4 font-bold text-white">Simpan catatan</button>
+                <a href="{{ route('kalender-haid.index') }}" class="block py-2 text-center text-sm text-brand-ink/55">Batal</a>
+            </form>
         </div>
     </div>
 </x-app-layout>
