@@ -47,6 +47,23 @@ Berpikir Kritis → lilac, Kenali Tubuhmu → pink.
 - Screens that have a colored hero band (Tes, module detail) run it full-bleed
   behind the heading; Home and Profil use a soft blob instead.
 
+- Signed-out screens (login, register, password reset, admin login) use
+  `layouts/guest.blade.php`: same cream page, one `max-w-md` column, form in a
+  `rounded-3xl` paper card. No bottom nav.
+
+## Shared form components
+
+The Breeze components carry the palette so every remaining form follows without
+being rewritten: `primary-button` (forest pill), `secondary-button` (outlined
+pill), `danger-button` (rose pill), `text-input` and `input-label` (cream field,
+`rounded-2xl`, forest focus ring), `auth-session-status` (mint note).
+
+Choice inputs are rendered as pills, never as bare radios/checkboxes: the real
+`<input>` stays in the DOM with `class="peer sr-only"` (focusable and readable
+by screen readers, unlike `hidden`) and the visible `<span>` reacts via
+`peer-checked:` / `peer-focus-visible:`. Used by the questionnaire and the
+nutrition tracker.
+
 ## Shape & elevation
 
 - Screens under a module (detail, sub-bagian, refleksi) open with a colored

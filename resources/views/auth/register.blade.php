@@ -1,84 +1,72 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+    <h1 class="text-3xl font-bold">Bikin akun dulu</h1>
+    <p class="mt-2 text-brand-ink/60">Datanya dipakai untuk penelitian, jadi isi sejujurnya ya.</p>
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
+    <div class="mt-5 rounded-3xl bg-brand-paper p-6 shadow-sm">
+        <form method="POST" action="{{ route('register') }}" class="space-y-4">
+            @csrf
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+            <div>
+                <x-input-label for="name" value="Nama" />
+                <x-text-input id="name" class="mt-1 block w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+                <x-input-error :messages="$errors->get('name')" class="mt-1" />
+            </div>
 
-        <!-- Usia -->
-        <div class="mt-4">
-            <x-input-label for="usia" :value="__('Usia')" />
-            <x-text-input id="usia" class="block mt-1 w-full" type="number" name="usia" :value="old('usia')" min="13" max="18" required />
-            <x-input-error :messages="$errors->get('usia')" class="mt-2" />
-        </div>
+            <div>
+                <x-input-label for="email" value="Email" />
+                <x-text-input id="email" class="mt-1 block w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
+                <x-input-error :messages="$errors->get('email')" class="mt-1" />
+            </div>
 
-        <!-- Jenis Kelamin -->
-        <div class="mt-4">
-            <x-input-label for="jenis_kelamin" :value="__('Jenis Kelamin')" />
-            <select id="jenis_kelamin" name="jenis_kelamin" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
-                <option value="" disabled {{ old('jenis_kelamin') ? '' : 'selected' }}>{{ __('Pilih jenis kelamin') }}</option>
-                <option value="L" {{ old('jenis_kelamin') === 'L' ? 'selected' : '' }}>{{ __('Laki-laki') }}</option>
-                <option value="P" {{ old('jenis_kelamin') === 'P' ? 'selected' : '' }}>{{ __('Perempuan') }}</option>
-            </select>
-            <x-input-error :messages="$errors->get('jenis_kelamin')" class="mt-2" />
-        </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <x-input-label for="usia" value="Usia" />
+                    <x-text-input id="usia" class="mt-1 block w-full" type="number" name="usia" :value="old('usia')" min="13" max="18" required />
+                    <x-input-error :messages="$errors->get('usia')" class="mt-1" />
+                </div>
 
-        <!-- Sekolah -->
-        <div class="mt-4">
-            <x-input-label for="sekolah" :value="__('Sekolah')" />
-            <x-text-input id="sekolah" class="block mt-1 w-full" type="text" name="sekolah" :value="old('sekolah')" />
-            <x-input-error :messages="$errors->get('sekolah')" class="mt-2" />
-        </div>
+                <div>
+                    <x-input-label for="kelas" value="Kelas" />
+                    <x-text-input id="kelas" class="mt-1 block w-full" type="text" name="kelas" :value="old('kelas')" placeholder="9B" />
+                    <x-input-error :messages="$errors->get('kelas')" class="mt-1" />
+                </div>
+            </div>
 
-        <!-- Kelas -->
-        <div class="mt-4">
-            <x-input-label for="kelas" :value="__('Kelas')" />
-            <x-text-input id="kelas" class="block mt-1 w-full" type="text" name="kelas" :value="old('kelas')" />
-            <x-input-error :messages="$errors->get('kelas')" class="mt-2" />
-        </div>
+            <div>
+                <x-input-label for="jenis_kelamin" value="Jenis kelamin" />
+                <select id="jenis_kelamin" name="jenis_kelamin" required
+                        class="mt-1 block w-full rounded-2xl border-brand-line bg-brand-cream focus:border-brand-forest focus:ring-brand-forest">
+                    <option value="" disabled {{ old('jenis_kelamin') ? '' : 'selected' }}>Pilih jenis kelamin</option>
+                    <option value="L" {{ old('jenis_kelamin') === 'L' ? 'selected' : '' }}>Laki-laki</option>
+                    <option value="P" {{ old('jenis_kelamin') === 'P' ? 'selected' : '' }}>Perempuan</option>
+                </select>
+                <x-input-error :messages="$errors->get('jenis_kelamin')" class="mt-1" />
+            </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+            <div>
+                <x-input-label for="sekolah" value="Sekolah" />
+                <x-text-input id="sekolah" class="mt-1 block w-full" type="text" name="sekolah" :value="old('sekolah')" placeholder="SMPN 4 Bandung" />
+                <x-input-error :messages="$errors->get('sekolah')" class="mt-1" />
+            </div>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
+            <div>
+                <x-input-label for="password" value="Password" />
+                <x-text-input id="password" class="mt-1 block w-full" type="password" name="password" required autocomplete="new-password" />
+                <x-input-error :messages="$errors->get('password')" class="mt-1" />
+            </div>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+            <div>
+                <x-input-label for="password_confirmation" value="Ulangi password" />
+                <x-text-input id="password_confirmation" class="mt-1 block w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
+                <x-input-error :messages="$errors->get('password_confirmation')" class="mt-1" />
+            </div>
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+            <button type="submit" class="w-full rounded-full bg-brand-forest py-4 font-bold text-white">Daftar</button>
+        </form>
+    </div>
 
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
+    <p class="mt-5 text-center text-sm text-brand-ink/60">
+        Sudah punya akun?
+        <a href="{{ route('login') }}" class="font-semibold text-brand-forest underline">Masuk di sini</a>
+    </p>
 </x-guest-layout>

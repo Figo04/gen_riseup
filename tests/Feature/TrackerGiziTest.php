@@ -28,6 +28,28 @@ class TrackerGiziTest extends TestCase
         $response->assertRedirect(route('kuesioner.pretest.create'));
     }
 
+    public function test_form_merender_28_checkbox_dan_terkunci_setelah_dikirim(): void
+    {
+        $user = $this->siswaSudahPretest();
+
+        // 7 hari x 4 kebiasaan. Checkbox disembunyikan (peer sr-only), jadi
+        // name-nya gampang rusak tanpa ketahuan.
+        // Regex, bukan substr: class "peer-disabled:..." juga mengandung kata "disabled".
+        $inputTerkunci = '/<input type="checkbox" name="data\[[^\]]+\]\[[^\]]+\]"[^>]*\sdisabled/';
+
+        $sebelum = $this->actingAs($user)->get(route('tracker-gizi.show'))->assertOk();
+        $this->assertSame(28, substr_count($sebelum->getContent(), 'type="checkbox" name="data['));
+        $this->assertSame(0, preg_match_all($inputTerkunci, $sebelum->getContent()));
+
+        $this->actingAs($user)->post(route('tracker-gizi.store'), ['data' => ['Senin' => ['protein' => '1']]]);
+
+        // ->fresh(): actingAs memakai ulang instance User yang sama, dan relasi
+        // trackerGizi sudah ter-cache null dari GET pertama (artefak test, bukan bug app).
+        $sesudah = $this->actingAs($user->fresh())->get(route('tracker-gizi.show'))->assertOk();
+        $this->assertSame(28, substr_count($sesudah->getContent(), 'type="checkbox" name="data['));
+        $this->assertSame(28, preg_match_all($inputTerkunci, $sesudah->getContent()));
+    }
+
     public function test_submit_tracker_sukses_dan_data_ternormalisasi(): void
     {
         $user = $this->siswaSudahPretest();

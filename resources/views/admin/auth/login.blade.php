@@ -1,5 +1,10 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('admin.login') }}">
+    {{-- Judul ditambahkan supaya halaman ini tidak tertukar dengan login siswa:
+         keduanya memakai layout tamu yang sama dan sebelumnya sama-sama tanpa judul. --}}
+    <h1 class="text-2xl font-bold">Masuk Admin</h1>
+    <p class="mt-1 text-brand-ink/60">Halaman pengelola. Siswa masuk lewat halaman utama.</p>
+
+    <form method="POST" action="{{ route('admin.login') }}" class="mt-5 rounded-3xl bg-brand-paper p-6 shadow-sm">
         @csrf
 
         <!-- Email Address -->

@@ -750,3 +750,38 @@ Sesi 33 — Restyle 5/6: Profil ✅
 - TIDAK dikerjakan: Login/Register (tidak ada mockup — dirancang dari token
   yang sama di sesi berikutnya). Tracker Gizi mingguan masih tampilan lama.
   Verifikasi visual di browser belum dilakukan.
+
+Sesi 34 — Restyle 6/6: Login, Register, Tracker Gizi, & komponen bersama ✅
+
+- Login & Register TIDAK punya mockup — dirancang dari token yang sudah ada.
+  `layouts/guest.blade.php`: latar krem, satu kolom `max-w-md`, form dalam
+  kartu `rounded-3xl`, tanpa bottom nav. Login pakai ilustrasi `chara-1.png`
+  + salam "Selamat datang"; Register menjelaskan datanya untuk penelitian
+  dan memasangkan Usia+Kelas dalam 2 kolom supaya tidak jadi 8 baris panjang.
+  Keduanya sekarang saling menaut (sebelumnya tidak ada link ke Register
+  sama sekali dari halaman login).
+- Komponen Breeze bersama ikut dipalet ulang — ini yang membuat sisa halaman
+  auth (lupa password, reset, verifikasi, konfirmasi password) ikut rapi
+  tanpa ditulis ulang satu per satu: `primary-button` (pil forest),
+  `secondary-button`, `danger-button`, `text-input`, `input-label`,
+  `auth-session-status`.
+- EFEK KE ADMIN (disengaja, dicatat): `admin/auth/login.blade.php` memakai
+  `x-guest-layout` + komponen yang sama, jadi ikut berubah jadi krem/forest.
+  Halaman admin lainnya TIDAK tersentuh (mereka pakai class indigo mentah).
+  Sekalian ditambah judul "Masuk Admin" — sebelumnya halaman ini sama sekali
+  tanpa judul dan tidak bisa dibedakan dari login siswa.
+- `tracker/gizi.blade.php`: tabel 7x4 diganti kartu per hari berisi 4 pil
+  checkbox (grid 2 kolom). Alasannya bukan estetika — di 390px tabel 5 kolom
+  harus digeser horizontal, kartu tidak. Pola pil-nya sama dengan kuesioner
+  (`peer sr-only`), status terkunci tetap dari `@disabled`.
+- Tes: `TrackerGiziTest` +1 — 28 checkbox tetap ada dengan `name` yang benar,
+  0 yang disabled sebelum submit dan 28 sesudahnya. Full suite 96/96.
+- Dua jebakan yang ketemu saat menulis tes ini (dicatat supaya tidak
+  terulang): (1) `substr_count($html, 'disabled')` TIDAK bisa dipakai karena
+  class `peer-disabled:opacity-70` juga mengandung kata itu — harus regex ke
+  atribut `<input>`-nya; (2) `actingAs($user)` memakai ulang instance User
+  yang sama, sehingga relasi `trackerGizi` yang sudah ter-cache `null` dari
+  request pertama membuat halaman tampak tidak terkunci — perlu
+  `actingAs($user->fresh())`. Ini artefak test, bukan bug aplikasi.
+- Restyle sisi siswa SELESAI. Yang tersisa: verifikasi visual manual di
+  browser (360px/768px) dan preview ke klien.
