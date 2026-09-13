@@ -41,9 +41,17 @@ Berpikir Kritis → lilac, Kenali Tubuhmu → pink.
 
 - **Mobile-first, single column.** Content lives in `max-w-md mx-auto px-5`;
   the mockups are ~470px wide and the design does not widen on desktop.
+- **Desktop = the same column, framed.** Since the layout never widens,
+  `layouts/app.blade.php` centers it as an app panel on a `brand-line`
+  backdrop, with the shadow/ring only from `sm` up (`sm:shadow-xl
+  sm:ring-1`). On a phone the panel is the whole screen, so nothing changes
+  there. Pages need no desktop work of their own.
 - **Bottom tab bar**, 5 items, fixed: Home · Materi · Tes · Haid · Profil
   (`resources/views/components/bottom-nav.blade.php`). Active item = mint pill
   behind the icon + forest label. Page wrapper carries `pb-24` to clear it.
+  The bar's chrome sits on the inner `<ul>`, not the `<nav>`: full-width bar on
+  mobile, floating pill the width of the panel from `sm` up — never a
+  screen-wide bar with five icons huddled in the middle.
 - Screens that have a colored hero band (Tes, module detail) run it full-bleed
   behind the heading; Home and Profil use a soft blob instead.
 

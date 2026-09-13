@@ -14,8 +14,12 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased text-brand-ink">
-        <div class="min-h-screen bg-brand-cream pb-24">
+    <body class="bg-brand-line font-sans antialiased text-brand-ink">
+        {{-- Desain ini mobile-first dan tiap halaman mengunci dirinya di max-w-md.
+             Di layar lebar kolom itu dibingkai jadi panel aplikasi di tengah supaya
+             tidak tampak seperti pita nyasar; di HP panel = selebar layar, jadi
+             bayangan & garisnya baru muncul dari sm ke atas. --}}
+        <div class="mx-auto min-h-screen w-full max-w-md bg-brand-cream pb-24 sm:shadow-xl sm:ring-1 sm:ring-black/5">
             <!-- Page Heading -->
             @isset($header)
                 <header class="mx-auto max-w-md px-5 pt-8">

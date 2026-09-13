@@ -20,8 +20,12 @@
     ];
 @endphp
 
-<nav class="fixed inset-x-0 bottom-0 z-20 border-t border-brand-line bg-brand-paper">
-    <ul class="mx-auto flex max-w-md items-stretch justify-between px-2 pb-[env(safe-area-inset-bottom)]">
+{{-- Chrome-nya menempel di <ul>, bukan di <nav>: di HP bar selebar layar seperti
+     biasa, di desktop menyusut jadi pil mengambang selebar panel — bukan bar penuh
+     dengan lima ikon menggerombol di tengah layar. --}}
+<nav class="fixed inset-x-0 bottom-0 z-20 flex justify-center">
+    <ul class="flex w-full max-w-md items-stretch justify-between border-t border-brand-line bg-brand-paper px-2 pb-[env(safe-area-inset-bottom)]
+               sm:mb-4 sm:rounded-full sm:border sm:px-3 sm:shadow-lg sm:ring-1 sm:ring-black/5">
         @foreach ($items as $item)
             <li class="flex-1">
                 <a href="{{ $item['href'] }}"
