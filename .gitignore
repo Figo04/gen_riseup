@@ -25,3 +25,7 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Dokumen mentah dari klien (modul + kunci jawaban kuesioner).
+# Jangan pernah ikut ter-commit: repo ini publik.
+source-content/
