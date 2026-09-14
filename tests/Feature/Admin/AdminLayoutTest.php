@@ -28,12 +28,14 @@ class AdminLayoutTest extends TestCase
         $response->assertSeeText($admin->nama);
     }
 
-    public function test_sidebar_links_only_the_dashboard_menu_others_are_placeholders(): void
+    public function test_sidebar_links_every_menu(): void
     {
         $admin = Admin::factory()->create();
 
         $response = $this->actingAs($admin, 'admin')->get(route('admin.dashboard'));
 
-        $response->assertSee(route('admin.dashboard'), false);
+        foreach (['dashboard', 'responden.index', 'hasil-test.index', 'soal.index', 'materi.index', 'kalender-haid.index'] as $name) {
+            $response->assertSee(route('admin.'.$name), false);
+        }
     }
 }

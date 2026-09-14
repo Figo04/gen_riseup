@@ -34,7 +34,9 @@
                             <x-admin-nav-link :href="route('admin.responden.index')" :active="request()->routeIs('admin.responden.*')">
                                 Responden
                             </x-admin-nav-link>
-                            <x-admin-nav-link disabled>Hasil Test</x-admin-nav-link>
+                            <x-admin-nav-link :href="route('admin.hasil-test.index')" :active="request()->routeIs('admin.hasil-test.*')">
+                                Hasil Test
+                            </x-admin-nav-link>
                         </div>
                     </div>
 

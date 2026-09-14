@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ExportController;
+use App\Http\Controllers\Admin\HasilTestController;
 use App\Http\Controllers\Admin\KalenderHaidController;
 use App\Http\Controllers\Admin\MateriController;
 use App\Http\Controllers\Admin\RespondenController;
@@ -19,6 +20,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
         Route::get('responden', [RespondenController::class, 'index'])->name('responden.index');
+        Route::get('hasil-test', [HasilTestController::class, 'index'])->name('hasil-test.index');
 
         Route::resource('soal', SoalController::class)->except('show');
 
