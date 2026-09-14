@@ -31,7 +31,9 @@
                             <x-admin-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                                 Dashboard
                             </x-admin-nav-link>
-                            <x-admin-nav-link disabled>Responden</x-admin-nav-link>
+                            <x-admin-nav-link :href="route('admin.responden.index')" :active="request()->routeIs('admin.responden.*')">
+                                Responden
+                            </x-admin-nav-link>
                             <x-admin-nav-link disabled>Hasil Test</x-admin-nav-link>
                         </div>
                     </div>
