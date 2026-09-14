@@ -40,12 +40,12 @@ class AdminExportTest extends TestCase
     public function test_export_puts_pre_and_post_scores_on_one_row(): void
     {
         $user = User::factory()->create(['name' => 'Siti', 'email' => 'siti@example.com']);
-        HasilKuesioner::create([
+        HasilKuesioner::forceCreate([
             'user_id' => $user->id, 'tipe_sesi' => 'pre',
             'skor_pengetahuan' => 50, 'kategori_pengetahuan' => 'Kurang', 'skor_sikap' => 55,
             'submitted_at' => now(),
         ]);
-        HasilKuesioner::create([
+        HasilKuesioner::forceCreate([
             'user_id' => $user->id, 'tipe_sesi' => 'post',
             'skor_pengetahuan' => 90, 'kategori_pengetahuan' => 'Baik', 'skor_sikap' => 72,
             'submitted_at' => now(),
@@ -79,8 +79,8 @@ class AdminExportTest extends TestCase
             'modul_id' => Modul::create(['nama' => 'Investasi Gizi', 'slug' => 'investasi-gizi', 'urutan' => 1])->id,
             'judul' => 'Bab 1', 'konten_view' => 'modul.investasi-gizi.pendahuluan', 'urutan' => 1,
         ]);
-        Refleksi::create(['user_id' => $user->id, 'sub_bagian_id' => $subBagian->id, 'jawaban' => 'RAHASIA_REFLEKSI_XYZ']);
-        TrackerGizi::create(['user_id' => $user->id, 'data' => ['senin' => ['sayur_buah' => true]]]);
+        Refleksi::forceCreate(['user_id' => $user->id, 'sub_bagian_id' => $subBagian->id, 'jawaban' => 'RAHASIA_REFLEKSI_XYZ']);
+        TrackerGizi::forceCreate(['user_id' => $user->id, 'data' => ['senin' => ['sayur_buah' => true]]]);
 
         $csv = $this->csv();
 

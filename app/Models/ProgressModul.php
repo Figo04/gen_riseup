@@ -8,7 +8,8 @@ class ProgressModul extends Model
 {
     protected $table = 'progress_modul';
 
-    protected $fillable = ['user_id', 'sub_bagian_id', 'materi_selesai', 'materi_selesai_at'];
+    // Lihat catatan di Refleksi: kepemilikan hanya lewat relasi.
+    protected $fillable = ['sub_bagian_id', 'materi_selesai', 'materi_selesai_at'];
 
     protected function casts(): array
     {

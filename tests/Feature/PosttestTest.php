@@ -53,7 +53,7 @@ class PosttestTest extends TestCase
     {
         $subBagian = $this->seedSatuSubBagian();
 
-        ProgressModul::create(['user_id' => $user->id, 'sub_bagian_id' => $subBagian->id, 'materi_selesai' => true, 'materi_selesai_at' => now()]);
+        ProgressModul::forceCreate(['user_id' => $user->id, 'sub_bagian_id' => $subBagian->id, 'materi_selesai' => true, 'materi_selesai_at' => now()]);
     }
 
     public function test_posttest_terkunci_sebelum_semua_materi_selesai(): void

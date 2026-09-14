@@ -116,7 +116,7 @@ class AdminSoalTest extends TestCase
         $user = User::factory()->create();
         $soal = KuesionerSoal::create(['tipe' => 'pengetahuan', 'pertanyaan' => 'Soal', 'jawaban_benar' => 'B', 'urutan' => 1]);
 
-        $hasil = HasilKuesioner::create([
+        $hasil = HasilKuesioner::forceCreate([
             'user_id' => $user->id, 'tipe_sesi' => 'pre',
             'skor_pengetahuan' => 100, 'kategori_pengetahuan' => 'Baik', 'skor_sikap' => 0, 'submitted_at' => now(),
         ]);
@@ -138,7 +138,7 @@ class AdminSoalTest extends TestCase
         $user = User::factory()->create();
         $soal = KuesionerSoal::create(['tipe' => 'pengetahuan', 'pertanyaan' => 'Soal', 'jawaban_benar' => 'B', 'urutan' => 1]);
 
-        $hasil = HasilKuesioner::create([
+        $hasil = HasilKuesioner::forceCreate([
             'user_id' => $user->id, 'tipe_sesi' => 'pre',
             'skor_pengetahuan' => 100, 'kategori_pengetahuan' => 'Baik', 'skor_sikap' => 0, 'submitted_at' => now(),
         ]);

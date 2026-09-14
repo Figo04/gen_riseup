@@ -25,7 +25,7 @@ class ProgressModulTest extends TestCase
     public function test_menandai_materi_selesai_membuat_progress_dan_tampil_di_daftar_sub_bagian(): void
     {
         $user = User::factory()->create();
-        HasilKuesioner::create(['user_id' => $user->id, 'tipe_sesi' => 'pre', 'skor_pengetahuan' => 80, 'kategori_pengetahuan' => 'Baik', 'skor_sikap' => 50, 'submitted_at' => now()]);
+        HasilKuesioner::forceCreate(['user_id' => $user->id, 'tipe_sesi' => 'pre', 'skor_pengetahuan' => 80, 'kategori_pengetahuan' => 'Baik', 'skor_sikap' => 50, 'submitted_at' => now()]);
         $modul = Modul::create(['nama' => 'Kejar Mimpi', 'slug' => 'kejar-mimpi', 'urutan' => 1]);
         $sub = SubBagian::create(['modul_id' => $modul->id, 'judul' => 'Bab 1', 'konten_view' => 'modul.kejar-mimpi.ingat-lagi-mimpimu', 'urutan' => 1]);
 
@@ -60,7 +60,7 @@ class ProgressModulTest extends TestCase
     public function test_sub_bagian_yang_bukan_milik_modul_di_url_mengembalikan_404(): void
     {
         $user = User::factory()->create();
-        HasilKuesioner::create(['user_id' => $user->id, 'tipe_sesi' => 'pre', 'skor_pengetahuan' => 80, 'kategori_pengetahuan' => 'Baik', 'skor_sikap' => 50, 'submitted_at' => now()]);
+        HasilKuesioner::forceCreate(['user_id' => $user->id, 'tipe_sesi' => 'pre', 'skor_pengetahuan' => 80, 'kategori_pengetahuan' => 'Baik', 'skor_sikap' => 50, 'submitted_at' => now()]);
         $modulA = Modul::create(['nama' => 'A', 'slug' => 'a', 'urutan' => 1]);
         $modulB = Modul::create(['nama' => 'B', 'slug' => 'b', 'urutan' => 2]);
         $subB = SubBagian::create(['modul_id' => $modulB->id, 'judul' => 'B1', 'konten_view' => 'x', 'urutan' => 1]);

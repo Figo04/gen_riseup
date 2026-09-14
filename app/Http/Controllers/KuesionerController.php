@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\HasilKuesioner;
 use App\Models\HasilKuesionerDetail;
 use App\Models\KuesionerSoal;
 use Illuminate\Database\UniqueConstraintViolationException;
@@ -104,8 +103,7 @@ class KuesionerController extends Controller
 
         try {
             DB::transaction(function () use ($tipeSesi, $detail, $skorPengetahuan, $kategoriPengetahuan, $skorSikap, $now) {
-                $hasil = HasilKuesioner::create([
-                    'user_id' => Auth::id(),
+                $hasil = Auth::user()->hasilKuesioner()->create([
                     'tipe_sesi' => $tipeSesi,
                     'skor_pengetahuan' => $skorPengetahuan,
                     'kategori_pengetahuan' => $kategoriPengetahuan,

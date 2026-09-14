@@ -44,8 +44,8 @@ class HomeTest extends TestCase
     {
         [, $subA, $modulB] = $this->seedDuaModul();
         $user = User::factory()->create();
-        HasilKuesioner::create(['user_id' => $user->id, 'tipe_sesi' => 'pre', 'skor_pengetahuan' => 80, 'kategori_pengetahuan' => 'Baik', 'skor_sikap' => 50, 'submitted_at' => now()]);
-        ProgressModul::create(['user_id' => $user->id, 'sub_bagian_id' => $subA->id, 'materi_selesai' => true]);
+        HasilKuesioner::forceCreate(['user_id' => $user->id, 'tipe_sesi' => 'pre', 'skor_pengetahuan' => 80, 'kategori_pengetahuan' => 'Baik', 'skor_sikap' => 50, 'submitted_at' => now()]);
+        ProgressModul::forceCreate(['user_id' => $user->id, 'sub_bagian_id' => $subA->id, 'materi_selesai' => true]);
 
         $this->actingAs($user)->get(route('dashboard'))
             ->assertOk()

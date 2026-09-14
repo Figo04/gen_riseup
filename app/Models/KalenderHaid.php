@@ -8,7 +8,8 @@ class KalenderHaid extends Model
 {
     protected $table = 'kalender_haid';
 
-    protected $fillable = ['user_id', 'tanggal_mulai', 'tanggal_selesai', 'catatan'];
+    // Lihat catatan di Refleksi: kepemilikan hanya lewat relasi.
+    protected $fillable = ['tanggal_mulai', 'tanggal_selesai', 'catatan'];
 
     protected function casts(): array
     {

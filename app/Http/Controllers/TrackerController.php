@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\KalenderHaid;
-use App\Models\TrackerGizi;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\RedirectResponse;
@@ -42,8 +41,7 @@ class TrackerController extends Controller
             }
         }
 
-        TrackerGizi::create([
-            'user_id' => Auth::id(),
+        Auth::user()->trackerGizi()->create([
             'data' => $data,
             'is_locked' => true,
             'submitted_at' => now(),

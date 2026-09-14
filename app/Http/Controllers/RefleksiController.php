@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Modul;
-use App\Models\Refleksi;
 use App\Models\SubBagian;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -48,8 +47,7 @@ class RefleksiController extends Controller
             'tabel.*.*' => 'nullable|string|max:255',
         ]);
 
-        Refleksi::create([
-            'user_id' => Auth::id(),
+        Auth::user()->refleksi()->create([
             'sub_bagian_id' => $subBagian->id,
             'jawaban' => [
                 'pertanyaan' => $request->input('pertanyaan'),

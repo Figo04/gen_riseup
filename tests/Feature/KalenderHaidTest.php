@@ -15,7 +15,7 @@ class KalenderHaidTest extends TestCase
     private function siswaSudahPretest(): User
     {
         $user = User::factory()->create();
-        HasilKuesioner::create(['user_id' => $user->id, 'tipe_sesi' => 'pre', 'skor_pengetahuan' => 80, 'kategori_pengetahuan' => 'Baik', 'skor_sikap' => 50, 'submitted_at' => now()]);
+        HasilKuesioner::forceCreate(['user_id' => $user->id, 'tipe_sesi' => 'pre', 'skor_pengetahuan' => 80, 'kategori_pengetahuan' => 'Baik', 'skor_sikap' => 50, 'submitted_at' => now()]);
 
         return $user;
     }
@@ -40,7 +40,7 @@ class KalenderHaidTest extends TestCase
     public function test_grid_menandai_hari_haid_dan_mengikuti_param_bulan(): void
     {
         $user = $this->siswaSudahPretest();
-        KalenderHaid::create(['user_id' => $user->id, 'tanggal_mulai' => '2026-08-04', 'tanggal_selesai' => '2026-08-09']);
+        KalenderHaid::forceCreate(['user_id' => $user->id, 'tanggal_mulai' => '2026-08-04', 'tanggal_selesai' => '2026-08-09']);
 
         $agustus = $this->actingAs($user)->get(route('kalender-haid.index', ['bulan' => '2026-08']))
             ->assertOk()
@@ -65,7 +65,7 @@ class KalenderHaidTest extends TestCase
     public function test_siswa_bisa_update_entri_sendiri(): void
     {
         $user = $this->siswaSudahPretest();
-        $entri = KalenderHaid::create(['user_id' => $user->id, 'tanggal_mulai' => '2026-09-01']);
+        $entri = KalenderHaid::forceCreate(['user_id' => $user->id, 'tanggal_mulai' => '2026-09-01']);
 
         $response = $this->actingAs($user)->put(route('kalender-haid.update', $entri), [
             'tanggal_mulai' => '2026-09-02',
@@ -79,7 +79,7 @@ class KalenderHaidTest extends TestCase
     public function test_siswa_bisa_hapus_entri_sendiri(): void
     {
         $user = $this->siswaSudahPretest();
-        $entri = KalenderHaid::create(['user_id' => $user->id, 'tanggal_mulai' => '2026-09-01']);
+        $entri = KalenderHaid::forceCreate(['user_id' => $user->id, 'tanggal_mulai' => '2026-09-01']);
 
         $this->actingAs($user)->delete(route('kalender-haid.destroy', $entri));
 
@@ -90,7 +90,7 @@ class KalenderHaidTest extends TestCase
     {
         $pemilik = $this->siswaSudahPretest();
         $penyerang = $this->siswaSudahPretest();
-        $entri = KalenderHaid::create(['user_id' => $pemilik->id, 'tanggal_mulai' => '2026-09-01']);
+        $entri = KalenderHaid::forceCreate(['user_id' => $pemilik->id, 'tanggal_mulai' => '2026-09-01']);
 
         $this->actingAs($penyerang)->get(route('kalender-haid.edit', $entri))->assertForbidden();
         $this->actingAs($penyerang)->put(route('kalender-haid.update', $entri), ['tanggal_mulai' => '2026-09-03'])->assertForbidden();

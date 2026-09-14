@@ -24,15 +24,15 @@ class AdminDashboardTest extends TestCase
         $preOnlyUser = User::factory()->create();
         User::factory()->create(); // registered, no kuesioner yet
 
-        HasilKuesioner::create([
+        HasilKuesioner::forceCreate([
             'user_id' => $prePostUser->id, 'tipe_sesi' => 'pre',
             'skor_pengetahuan' => 80, 'kategori_pengetahuan' => 'Baik', 'skor_sikap' => 50, 'submitted_at' => now(),
         ]);
-        HasilKuesioner::create([
+        HasilKuesioner::forceCreate([
             'user_id' => $prePostUser->id, 'tipe_sesi' => 'post',
             'skor_pengetahuan' => 90, 'kategori_pengetahuan' => 'Baik', 'skor_sikap' => 55, 'submitted_at' => now(),
         ]);
-        HasilKuesioner::create([
+        HasilKuesioner::forceCreate([
             'user_id' => $preOnlyUser->id, 'tipe_sesi' => 'pre',
             'skor_pengetahuan' => 60, 'kategori_pengetahuan' => 'Cukup', 'skor_sikap' => 40, 'submitted_at' => now(),
         ]);
@@ -52,7 +52,7 @@ class AdminDashboardTest extends TestCase
         $users = User::factory()->count(12)->create();
 
         foreach ($users as $i => $user) {
-            HasilKuesioner::create([
+            HasilKuesioner::forceCreate([
                 'user_id' => $user->id, 'tipe_sesi' => 'pre',
                 'skor_pengetahuan' => 70, 'kategori_pengetahuan' => 'Cukup', 'skor_sikap' => 45,
                 'submitted_at' => now()->subMinutes(12 - $i),
@@ -77,15 +77,15 @@ class AdminDashboardTest extends TestCase
 
         // User A: pre+post selesai, materi lengkap.
         $userA = User::factory()->create(['jenis_kelamin' => 'L', 'usia' => 15]);
-        HasilKuesioner::create(['user_id' => $userA->id, 'tipe_sesi' => 'pre', 'skor_pengetahuan' => 80, 'kategori_pengetahuan' => 'Baik', 'skor_sikap' => 50, 'submitted_at' => now()]);
-        HasilKuesioner::create(['user_id' => $userA->id, 'tipe_sesi' => 'post', 'skor_pengetahuan' => 90, 'kategori_pengetahuan' => 'Baik', 'skor_sikap' => 55, 'submitted_at' => now()]);
-        ProgressModul::create(['user_id' => $userA->id, 'sub_bagian_id' => $subBagian1->id, 'materi_selesai' => true]);
-        ProgressModul::create(['user_id' => $userA->id, 'sub_bagian_id' => $subBagian2->id, 'materi_selesai' => true]);
+        HasilKuesioner::forceCreate(['user_id' => $userA->id, 'tipe_sesi' => 'pre', 'skor_pengetahuan' => 80, 'kategori_pengetahuan' => 'Baik', 'skor_sikap' => 50, 'submitted_at' => now()]);
+        HasilKuesioner::forceCreate(['user_id' => $userA->id, 'tipe_sesi' => 'post', 'skor_pengetahuan' => 90, 'kategori_pengetahuan' => 'Baik', 'skor_sikap' => 55, 'submitted_at' => now()]);
+        ProgressModul::forceCreate(['user_id' => $userA->id, 'sub_bagian_id' => $subBagian1->id, 'materi_selesai' => true]);
+        ProgressModul::forceCreate(['user_id' => $userA->id, 'sub_bagian_id' => $subBagian2->id, 'materi_selesai' => true]);
 
         // User B: pretest saja, materi belum lengkap.
         $userB = User::factory()->create(['jenis_kelamin' => 'P', 'usia' => 15]);
-        HasilKuesioner::create(['user_id' => $userB->id, 'tipe_sesi' => 'pre', 'skor_pengetahuan' => 60, 'kategori_pengetahuan' => 'Cukup', 'skor_sikap' => 40, 'submitted_at' => now()]);
-        ProgressModul::create(['user_id' => $userB->id, 'sub_bagian_id' => $subBagian1->id, 'materi_selesai' => true]);
+        HasilKuesioner::forceCreate(['user_id' => $userB->id, 'tipe_sesi' => 'pre', 'skor_pengetahuan' => 60, 'kategori_pengetahuan' => 'Cukup', 'skor_sikap' => 40, 'submitted_at' => now()]);
+        ProgressModul::forceCreate(['user_id' => $userB->id, 'sub_bagian_id' => $subBagian1->id, 'materi_selesai' => true]);
 
         // User C: belum pretest sama sekali.
         $userC = User::factory()->create(['jenis_kelamin' => 'P', 'usia' => 17]);

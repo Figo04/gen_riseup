@@ -118,10 +118,10 @@ class PretestTest extends TestCase
     {
         $user = User::factory()->create();
         $baris = ['user_id' => $user->id, 'tipe_sesi' => 'pre', 'skor_pengetahuan' => 80, 'kategori_pengetahuan' => 'Baik', 'skor_sikap' => 50, 'submitted_at' => now()];
-        \App\Models\HasilKuesioner::create($baris);
+        \App\Models\HasilKuesioner::forceCreate($baris);
 
         $this->expectException(\Illuminate\Database\UniqueConstraintViolationException::class);
-        \App\Models\HasilKuesioner::create($baris);
+        \App\Models\HasilKuesioner::forceCreate($baris);
     }
 
     public function test_jawaban_tidak_lengkap_ditolak_validasi(): void

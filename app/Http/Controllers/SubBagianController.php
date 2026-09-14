@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Modul;
-use App\Models\ProgressModul;
 use App\Models\SubBagian;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -27,8 +26,8 @@ class SubBagianController extends Controller
     {
         abort_if($subBagian->modul_id !== $modul->id, 404);
 
-        ProgressModul::updateOrCreate(
-            ['user_id' => Auth::id(), 'sub_bagian_id' => $subBagian->id],
+        Auth::user()->progressModul()->updateOrCreate(
+            ['sub_bagian_id' => $subBagian->id],
             ['materi_selesai' => true, 'materi_selesai_at' => now()],
         );
 

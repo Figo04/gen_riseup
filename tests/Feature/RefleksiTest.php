@@ -32,7 +32,7 @@ class RefleksiTest extends TestCase
     private function siswaSiapMateri(): array
     {
         $user = User::factory()->create();
-        HasilKuesioner::create(['user_id' => $user->id, 'tipe_sesi' => 'pre', 'skor_pengetahuan' => 80, 'kategori_pengetahuan' => 'Baik', 'skor_sikap' => 50, 'submitted_at' => now()]);
+        HasilKuesioner::forceCreate(['user_id' => $user->id, 'tipe_sesi' => 'pre', 'skor_pengetahuan' => 80, 'kategori_pengetahuan' => 'Baik', 'skor_sikap' => 50, 'submitted_at' => now()]);
         $modul = Modul::create(['nama' => 'Kejar Mimpi', 'slug' => 'kejar-mimpi', 'urutan' => 1]);
         $sub = SubBagian::create(['modul_id' => $modul->id, 'judul' => 'Bab 1', 'konten_view' => 'modul.kejar-mimpi.ingat-lagi-mimpimu', 'urutan' => 1]);
 
@@ -41,7 +41,7 @@ class RefleksiTest extends TestCase
 
     private function tandaiSelesai(User $user, SubBagian $sub): void
     {
-        ProgressModul::create(['user_id' => $user->id, 'sub_bagian_id' => $sub->id, 'materi_selesai' => true, 'materi_selesai_at' => now()]);
+        ProgressModul::forceCreate(['user_id' => $user->id, 'sub_bagian_id' => $sub->id, 'materi_selesai' => true, 'materi_selesai_at' => now()]);
     }
 
     public function test_refleksi_redirect_ke_materi_kalau_materi_belum_selesai(): void

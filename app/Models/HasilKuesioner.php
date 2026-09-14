@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable(['user_id', 'tipe_sesi', 'skor_pengetahuan', 'kategori_pengetahuan', 'skor_sikap', 'submitted_at'])]
+// user_id sengaja tidak fillable — lihat catatan di Refleksi.
+#[Fillable(['tipe_sesi', 'skor_pengetahuan', 'kategori_pengetahuan', 'skor_sikap', 'submitted_at'])]
 class HasilKuesioner extends Model
 {
     protected $table = 'hasil_kuesioner';

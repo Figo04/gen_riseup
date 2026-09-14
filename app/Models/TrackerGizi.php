@@ -8,7 +8,8 @@ class TrackerGizi extends Model
 {
     protected $table = 'tracker_gizi';
 
-    protected $fillable = ['user_id', 'data', 'is_locked', 'submitted_at'];
+    // Lihat catatan di Refleksi: kepemilikan hanya lewat relasi.
+    protected $fillable = ['data', 'is_locked', 'submitted_at'];
 
     protected function casts(): array
     {

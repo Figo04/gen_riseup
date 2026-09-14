@@ -24,7 +24,7 @@ class AdminKalenderHaidTest extends TestCase
     {
         $admin = Admin::factory()->create();
         $user = User::factory()->create(['name' => 'Siti']);
-        KalenderHaid::create([
+        KalenderHaid::forceCreate([
             'user_id' => $user->id,
             'tanggal_mulai' => '2026-01-01',
             'tanggal_selesai' => '2026-01-05',
@@ -46,8 +46,8 @@ class AdminKalenderHaidTest extends TestCase
             'modul_id' => \App\Models\Modul::create(['nama' => 'Kenali Tubuhmu', 'slug' => 'kenali-tubuhmu', 'urutan' => 1])->id,
             'judul' => 'Bab 1', 'konten_view' => 'modul.kenali-tubuhmu.pendahuluan', 'urutan' => 1,
         ]);
-        Refleksi::create(['user_id' => $user->id, 'sub_bagian_id' => $subBagian->id, 'jawaban' => 'RAHASIA_REFLEKSI_XYZ']);
-        TrackerGizi::create(['user_id' => $user->id, 'data' => ['senin' => ['sayur_buah' => true]]]);
+        Refleksi::forceCreate(['user_id' => $user->id, 'sub_bagian_id' => $subBagian->id, 'jawaban' => 'RAHASIA_REFLEKSI_XYZ']);
+        TrackerGizi::forceCreate(['user_id' => $user->id, 'data' => ['senin' => ['sayur_buah' => true]]]);
 
         $response = $this->actingAs($admin, 'admin')->get(route('admin.kalender-haid.index'));
 
