@@ -26,6 +26,11 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
+        // Kedua guard memakai session yang sama tapi key berbeda, jadi tanpa ini
+        // satu browser bisa memegang sesi siswa dan admin sekaligus lalu bebas
+        // bolak-balik antar area. Login sebagai salah satu peran mengakhiri peran lain.
+        Auth::guard('admin')->logout();
+
         $request->session()->regenerate();
 
         return redirect()->intended(route('dashboard', absolute: false));

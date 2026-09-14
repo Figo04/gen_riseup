@@ -26,6 +26,10 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
+        // Lihat catatan di AuthenticatedSessionController siswa: satu browser
+        // tidak boleh memegang sesi siswa dan admin sekaligus.
+        Auth::guard('web')->logout();
+
         $request->session()->regenerate();
 
         return redirect()->intended(route('admin.dashboard', absolute: false));
