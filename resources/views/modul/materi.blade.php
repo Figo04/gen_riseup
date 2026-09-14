@@ -15,7 +15,7 @@
         @include('modul._tabs', ['aktif' => 'materi'])
 
         <div class="space-y-4">
-            @include($subBagian->konten_view)
+            @include($subBagian->viewKonten())
         </div>
 
         @if ($subBagian->video_youtube_id)

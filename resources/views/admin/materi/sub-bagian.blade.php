@@ -8,6 +8,6 @@
     @endif
 
     <div class="bg-white rounded-lg border border-gray-200 p-6 mt-4">
-        @include($subBagian->konten_view)
+        @include($subBagian->viewKonten())
     </div>
 </x-admin-layout>
