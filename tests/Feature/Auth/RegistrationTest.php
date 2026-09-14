@@ -38,6 +38,41 @@ class RegistrationTest extends TestCase
         ]);
     }
 
+    public function test_satu_kelas_bisa_mendaftar_berbarengan_dari_ip_yang_sama(): void
+    {
+        // Alasan utama throttle registrasi dipasang longgar. Kalau angkanya
+        // pernah diturunkan, test ini yang jatuh duluan — bukan siswa di lab.
+        for ($i = 1; $i <= 40; $i++) {
+            $this->post('/register', [
+                'name' => "Siswa $i",
+                'email' => "siswa$i@example.com",
+                'password' => 'password',
+                'password_confirmation' => 'password',
+                'usia' => 15,
+                'jenis_kelamin' => 'P',
+            ])->assertRedirect(route('dashboard', absolute: false));
+
+            // flushSession() saja tidak cukup: guard web masih memegang user
+            // di memori lintas request, jadi pendaftar berikutnya akan kena
+            // middleware `guest` dan di-redirect tanpa pernah tersimpan.
+            $this->post('/logout');
+        }
+
+        $this->assertDatabaseCount('users', 40);
+    }
+
+    public function test_registrasi_ditolak_saat_dibanjiri_dari_satu_ip(): void
+    {
+        // Payload sengaja kosong: request tetap menyentuh throttle tapi gagal
+        // validasi, jadi tidak ada user yang login dan middleware `guest`
+        // tidak ikut me-redirect request berikutnya.
+        for ($i = 0; $i < 60; $i++) {
+            $this->post('/register', [])->assertStatus(302);
+        }
+
+        $this->post('/register', [])->assertStatus(429);
+    }
+
     public function test_registration_requires_usia_and_jenis_kelamin(): void
     {
         $response = $this->post('/register', [

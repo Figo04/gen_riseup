@@ -15,7 +15,13 @@ Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
         ->name('register');
 
-    Route::post('register', [RegisteredUserController::class, 'store']);
+    // Batasnya longgar dengan sengaja: satu kelas mendaftar berbarengan dari
+    // WiFi sekolah, jadi puluhan request sah bisa datang dari satu IP dalam
+    // semenit. Ini untuk menahan skrip yang membanjiri data penelitian dengan
+    // responden palsu, bukan untuk mengatur laju siswa. Naikkan kalau satu
+    // angkatan didaftarkan serentak dari satu jaringan.
+    Route::post('register', [RegisteredUserController::class, 'store'])
+        ->middleware('throttle:60,1');
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
