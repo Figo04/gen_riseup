@@ -9,6 +9,7 @@ use App\Models\ProgressModul;
 use App\Models\SubBagian;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class AdminRespondenTest extends TestCase
