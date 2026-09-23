@@ -23,7 +23,7 @@ class ModulSeeder extends Seeder
         ]);
 
         $this->seedModul('Investasi Gizi', 'investasi-gizi', 2, 'images/modul-2/cover.jpg', [
-            ['judul' => 'Gizi Itu Investasi, Bukan Sekadar Makan', 'slug' => 'gizi-itu-investasi-bukan-sekadar-makan'],
+            ['judul' => 'Gizi Itu Investasi, Bukan Sekadar Makan', 'slug' => 'gizi-itu-investasi-bukan-sekadar-makan', 'video' => 'Mz-7U4SAln0'], // "nutrition investment"
             ['judul' => 'Fakta & Data: Remaja Indonesia dan Gizi', 'slug' => 'fakta-dan-data-remaja-indonesia-dan-gizi'],
             ['judul' => 'Zat Gizi Kunci yang Wajib Kamu Penuhi', 'slug' => 'zat-gizi-kunci-yang-wajib-kamu-penuhi'],
             ['judul' => 'Apa yang Terjadi Kalau Gizimu Kurang?', 'slug' => 'apa-yang-terjadi-kalau-gizimu-kurang'],
@@ -34,7 +34,7 @@ class ModulSeeder extends Seeder
         ]);
 
         $this->seedModul('Berpikir Kritis', 'berpikir-kritis', 3, 'images/modul-3/cover.jpg', [
-            ['judul' => 'Mengenali Suara-Suara Negatif', 'slug' => 'mengenali-suara-suara-negatif'],
+            ['judul' => 'Mengenali Suara-Suara Negatif', 'slug' => 'mengenali-suara-suara-negatif', 'video' => 'FUBBkGTUuck'], // "THINK CRITICALLY, LIVE EMPOWERED"
             ['judul' => 'Kekuatan Berkata "Tidak"', 'slug' => 'kekuatan-berkata-tidak'],
             ['judul' => 'Cerdas di Dunia Digital: Menyaring Informasi', 'slug' => 'cerdas-di-dunia-digital-menyaring-informasi'],
             ['judul' => 'Menyusun "Future-Self Blueprint"', 'slug' => 'menyusun-future-self-blueprint'],
@@ -44,7 +44,7 @@ class ModulSeeder extends Seeder
         ]);
 
         $this->seedModul('Kenali Tubuhmu', 'kenali-tubuhmu', 4, 'images/modul-4/cover.jpg', [
-            ['judul' => 'Setiap Perubahan Ada Maknanya', 'slug' => 'setiap-perubahan-ada-maknanya'],
+            ['judul' => 'Setiap Perubahan Ada Maknanya', 'slug' => 'setiap-perubahan-ada-maknanya', 'video' => 'DYaOoAoFigs'], // "Get to Know Your Body"
             ['judul' => 'Normalisasi Istilah Medis', 'slug' => 'normalisasi-istilah-medis'],
             ['judul' => 'Body Image: Mitos vs Realita Medis', 'slug' => 'body-image-mitos-vs-realita-medis'],
             ['judul' => 'Kenali Siklus Haidmu', 'slug' => 'kenali-siklus-haidmu'],
