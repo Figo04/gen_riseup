@@ -30,8 +30,4 @@
         </table>
     </div>
 
-    <figure>
-        <img src="{{ asset('images/modul-2/makan-besar-seimbang.jpg') }}" alt="Makan besar seimbang" class="rounded-2xl w-full">
-        <figcaption class="text-sm text-brand-ink/60 italic mt-2">Makan besar tetap penting — kombinasikan nasi/karbohidrat, lauk protein, dan sayur dalam satu porsi.</figcaption>
-    </figure>
 </div>

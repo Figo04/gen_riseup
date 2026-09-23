@@ -41,11 +41,6 @@
     </p>
 
     <figure>
-        <img src="{{ asset('images/modul-4/perubahan-tubuh-bermakna.jpg') }}" alt="Setiap hal ada maknanya" class="rounded-2xl w-full">
-        <figcaption class="text-sm text-brand-ink/60 italic mt-2">Setiap hal ada maknanya — perubahan tubuh saat pubertas adalah proses biologis yang alami.</figcaption>
-    </figure>
-
-    <figure>
         <img src="{{ asset('images/modul-4/pertumbuhan-payudara-normal.jpg') }}" alt="Pertumbuhan payudara adalah tanda pubertas normal" class="rounded-2xl w-full">
         <figcaption class="text-sm text-brand-ink/60 italic mt-2">Pertumbuhan payudara adalah salah satu tanda pubertas normal, dan kecepatannya berbeda-beda setiap orang.</figcaption>
     </figure>
@@ -55,8 +50,4 @@
         <p>Kamu berkembang dengan kecepatanmu sendiri — tidak perlu membandingkan dengan orang lain.</p>
     </x-highlight>
 
-    <figure>
-        <img src="{{ asset('images/modul-4/tubuh-punya-waktu-sendiri.jpg') }}" alt="Setiap tubuh punya waktunya masing-masing" class="rounded-2xl w-full">
-        <figcaption class="text-sm text-brand-ink/60 italic mt-2">Setiap tubuh punya waktunya masing-masing untuk berkembang.</figcaption>
-    </figure>
 </div>

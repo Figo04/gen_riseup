@@ -51,11 +51,6 @@
         <li>Cari 1-2 orang yang bisa jadi "reality check" saat kamu ragu pada diri sendiri.</li>
     </ul>
 
-    <figure>
-        <img src="{{ asset('images/modul-3/pikiran-diprogram.jpg') }}" alt="Pikiran bisa diprogram oleh yang sering didengar" class="rounded-2xl w-full">
-        <figcaption class="text-sm text-brand-ink/60 italic mt-2">Berpikir kritis dimulai dari menyadari bahwa pikiranmu sendiri bisa "diprogram" oleh apa yang sering kamu dengar.</figcaption>
-    </figure>
-
     <x-tip-box title="Yuk, Refleksi!" icon="🌟">
         <p>Coba ingat, kapan terakhir kali kamu mendengar komentar negatif tentang mimpi/rencanamu?</p>
         <p>Apakah komentar itu FAKTA atau OPINI orang tersebut? Coba tuliskan bedanya.</p>

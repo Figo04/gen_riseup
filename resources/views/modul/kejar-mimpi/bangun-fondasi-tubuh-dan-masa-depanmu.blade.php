@@ -12,11 +12,6 @@
 
     <h3 class="font-semibold text-brand-ink text-lg">Panduan Gizi Seimbang untuk Remaja</h3>
 
-    <figure>
-        <img src="{{ asset('images/modul-1/isi-piringku.jpg') }}" alt="Isi Piringku" class="rounded-2xl w-full">
-        <figcaption class="text-sm text-brand-ink/60 italic mt-2">Contoh "Isi Piringku": separuh piring sayur &amp; buah, seperempat lauk-pauk, seperempat makanan pokok, plus minum air putih 8–12 gelas per hari.</figcaption>
-    </figure>
-
     <x-checklist>
         <x-checklist-item>Isi setengah piring dengan sayur dan buah warna-warni.</x-checklist-item>
         <x-checklist-item>Seperempat piring untuk lauk-pauk (protein hewani/nabati).</x-checklist-item>

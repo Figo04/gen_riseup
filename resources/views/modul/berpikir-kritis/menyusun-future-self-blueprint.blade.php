@@ -10,11 +10,6 @@
         pribadi.
     </p>
 
-    <figure>
-        <img src="{{ asset('images/modul-3/menulis-surat-komitmen.jpg') }}" alt="Menulis surat untuk diri sendiri" class="rounded-2xl w-full">
-        <figcaption class="text-sm text-brand-ink/60 italic mt-2">Menulis surat untuk diri sendiri sebagai pengingat komitmen &amp; tanggung jawab.</figcaption>
-    </figure>
-
     <p class="font-semibold text-brand-ink">Template Surat untuk Diri Sendiri</p>
     <blockquote class="rounded-2xl border border-brand-line bg-brand-mint-soft p-5 text-sm text-brand-ink/80 italic space-y-2">
         <p>Halo [namamu di masa depan],</p>

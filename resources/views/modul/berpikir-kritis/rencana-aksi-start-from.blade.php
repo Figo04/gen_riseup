@@ -27,11 +27,6 @@
         didengarkan, dan berani mengambil kendali atas hidupmu sendiri.
     </p>
 
-    <figure>
-        <img src="{{ asset('images/modul-3/kendali-penuh-ceritamu.jpg') }}" alt="Kamu punya kendali penuh atas ceritamu" class="rounded-2xl w-full">
-        <figcaption class="text-sm text-brand-ink/60 italic mt-2">Semangat, Girls! Kamu punya kendali penuh atas ceritamu sendiri.</figcaption>
-    </figure>
-
     <x-tip-box title="Butuh Teman Cerita?" icon="🤝">
         <p>Guru BK (Bimbingan Konseling) di sekolahmu.</p>
         <p>Orang tua, wali, atau orang dewasa terpercaya lainnya.</p>

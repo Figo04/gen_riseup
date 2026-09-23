@@ -1,9 +1,4 @@
 <div class="space-y-6">
-    <figure>
-        <img src="{{ asset('images/modul-4/strategi-praktis-kenali-tubuh.jpg') }}" alt="Strategi praktis sehari-hari" class="rounded-2xl w-full">
-        <figcaption class="text-sm text-brand-ink/60 italic mt-2">Beberapa strategi praktis untuk kamu terapkan sehari-hari.</figcaption>
-    </figure>
-
     <ol class="list-decimal pl-5 space-y-1">
         <li>Kenali tubuhmu sendiri — catat perubahan dan siklus haidmu supaya kamu makin paham pola tubuhmu.</li>
         <li>Gunakan istilah medis yang benar saat bicara soal tubuh, terutama ke tenaga kesehatan.</li>
@@ -19,11 +14,6 @@
         perjalanan yang unik — tidak perlu dibandingkan dengan siapa pun. Semakin kamu mengenal
         dan menghargai tubuhmu sendiri, semakin percaya diri kamu menjalani masa remaja.
     </p>
-
-    <figure>
-        <img src="{{ asset('images/modul-4/cintai-dirimu-sendiri.jpg') }}" alt="Cintai dirimu sendiri" class="rounded-2xl w-full">
-        <figcaption class="text-sm text-brand-ink/60 italic mt-2">Cintai dirimu sendiri, apa adanya — itu adalah fondasi dari rasa percaya diri yang sesungguhnya.</figcaption>
-    </figure>
 
     <x-tip-box title="Butuh Teman Cerita?" icon="🤝">
         <p>Orang tua, wali, atau keluarga yang kamu percaya.</p>

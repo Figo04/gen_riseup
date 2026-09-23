@@ -19,11 +19,6 @@
         <p>"Kemampuan memfilter &amp; memilih informasi menjadi tameng dalam jangka panjang."</p>
     </x-highlight>
 
-    <figure>
-        <img src="{{ asset('images/modul-3/skill-bertahan-hidup-digital.jpg') }}" alt="Skill bertahan hidup di era digital" class="rounded-2xl w-full">
-        <figcaption class="text-sm text-brand-ink/60 italic mt-2">Kemampuan menyaring informasi adalah salah satu skill bertahan hidup di era digital.</figcaption>
-    </figure>
-
     <p class="font-semibold text-brand-ink">Cara Mengecek Kebenaran Informasi: Metode CRAAP Test</p>
     <p>
         CRAAP Test adalah metode yang umum digunakan oleh pustakawan dan pendidik untuk menilai

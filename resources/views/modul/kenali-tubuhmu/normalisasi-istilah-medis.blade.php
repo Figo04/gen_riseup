@@ -5,11 +5,6 @@
         bisa berkomunikasi dengan jelas — misalnya saat konsultasi ke tenaga medis.
     </p>
 
-    <figure>
-        <img src="{{ asset('images/modul-4/normalisasi-istilah-medis.jpg') }}" alt="Normalisasi istilah medis" class="rounded-2xl w-full">
-        <figcaption class="text-sm text-brand-ink/60 italic mt-2">Normalisasi beberapa istilah medis — nggak perlu malu menyebutnya dengan benar.</figcaption>
-    </figure>
-
     <ul class="list-disc pl-5 space-y-1">
         <li>Gunakan istilah anatomi yang benar (bukan sekadar julukan/eufemisme) saat berbicara dengan tenaga medis atau orang tua.</li>
         <li>Semakin terbiasa membicarakan tubuh secara ilmiah, semakin mudah kamu mengenali kondisi yang tidak normal (butuh pemeriksaan lebih lanjut).</li>

@@ -15,11 +15,6 @@
         <figcaption class="text-sm text-brand-ink/60 italic mt-2">Mengejar mimpi memang butuh kerja keras dan konsistensi — tapi hasilnya akan sepadan.</figcaption>
     </figure>
 
-    <figure>
-        <img src="{{ asset('images/modul-1/level-tantangan.jpg') }}" alt="Tantangan sebagai level yang bisa dilewati" class="rounded-2xl w-full">
-        <figcaption class="text-sm text-brand-ink/60 italic mt-2">Anggap tantangan (tekanan sosial, mitos, rasa ragu) sebagai "level" yang bisa kamu lewati satu per satu, sampai ke tahap yang kamu impikan.</figcaption>
-    </figure>
-
     <x-tip-box title="Yuk, Refleksi!" icon="🌟">
         <p>Tulis 3 cita-cita atau hal yang ingin kamu capai sebelum usia 25 tahun.</p>
         <p>Untuk masing-masing cita-cita itu, tulis 1 langkah kecil yang bisa kamu mulai MINGGU INI.</p>

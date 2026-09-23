@@ -28,11 +28,6 @@
     </figure>
 
     <figure>
-        <img src="{{ asset('images/modul-2/zat-besi-zinc-omega3-otak.jpg') }}" alt="Zat besi, zinc, dan omega-3 untuk otak" class="rounded-2xl w-full">
-        <figcaption class="text-sm text-brand-ink/60 italic mt-2">Zat gizi seperti zat besi, zinc, dan omega-3 berperan penting bagi perkembangan otak dan konsentrasi.</figcaption>
-    </figure>
-
-    <figure>
         <img src="{{ asset('images/modul-2/lelah-sulit-fokus.jpg') }}" alt="Lelah dan sulit fokus tanda kurang gizi" class="rounded-2xl w-full">
         <figcaption class="text-sm text-brand-ink/60 italic mt-2">Sering merasa lelah, lesu, dan sulit fokus? Bisa jadi tubuhmu memberi sinyal kekurangan gizi tertentu, seperti zat besi.</figcaption>
     </figure>
