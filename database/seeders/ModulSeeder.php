@@ -14,7 +14,7 @@ class ModulSeeder extends Seeder
     public function run(): void
     {
         $this->seedModul('Kejar Mimpi', 'kejar-mimpi', 1, 'images/modul-1/cover.jpg', [
-            ['judul' => 'Dua Pintu di Depanmu', 'slug' => 'dua-pintu-di-depanmu', 'video' => 'jNQXAC9IVRw'], // placeholder testing Task 12, ganti pas klien kasih video asli
+            ['judul' => 'Dua Pintu di Depanmu', 'slug' => 'dua-pintu-di-depanmu', 'video' => 'K-jKVzyaIWQ'], // "Fixed chasing dream vs wedding dream"
             ['judul' => 'Mitos vs Fakta Pernikahan Dini', 'slug' => 'mitos-vs-fakta-pernikahan-dini'],
             ['judul' => 'Circle Sehat vs Circle Mandek', 'slug' => 'circle-sehat-vs-circle-mandek'],
             ['judul' => 'Bangun Fondasi Tubuh & Masa Depanmu', 'slug' => 'bangun-fondasi-tubuh-dan-masa-depanmu'],
